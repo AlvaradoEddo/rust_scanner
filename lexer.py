@@ -1,5 +1,7 @@
 import ply.lex as lex
 
+
+#APORTE EDDO
 reserved = {
     'let': 'LET',
     'mut': 'MUT',
@@ -17,13 +19,11 @@ reserved = {
     'loop': 'LOOP',
     'pub': 'PUB',
     'static': 'STATIC',
-    'type': 'TYPE',
     'async': 'ASYNC',
     'break': 'BREAK',
     'enum': 'ENUM',
     'match': 'MATCH',
     'ref': 'REF',
-    'struct': 'STRUCT',
     'unsafe': 'UNSAFE',
     'await': 'AWAIT',
     'const': 'CONST',
@@ -42,5 +42,14 @@ reserved = {
     'where': 'WHERE',
     'crate': 'CRATE',
     'Hashset': 'HASHSET',
+    'insert':'INSERT_HASH',
+    'union':'UNION_HASH',
+    'vec':'VECTOR',
+    'push': 'PUSH_VEC',
+    'pop':'POP_VEC',
+    'contains':'CONTAINS_SLICE',
+    'get':'GET_SLICE',
     'println': 'PRINT',
 }
+
+
