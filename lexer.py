@@ -83,6 +83,16 @@ tokens = (
     'NUMDATATYPES',
     'U8',
     'ASIGNATION_TYPE',
+    'ARROW',
+    'COMMA',
+    'CURLYL',
+    'CURLYR',
+    'BRACKETR',
+    'BRACKETL',
+    'DOLLAR',
+    'DOT',
+    'DOTDOTDOT',
+    'ERRORPROP',
     'ENDLINE'
 ) + tuple(reserved.values())
 
@@ -106,12 +116,22 @@ t_RPAREN = r'\)'
 t_STRING = r'\"[a-zA-Z0-9_]*\"'
 t_U8 = r'(0?[0-9]?[0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5])'
 t_ENDLINE = r';'
-t_ASIGNATION_TYPE= r':'
-
+t_ASIGNATION_TYPE = r':'
+t_ARROW = r'->'
 '''
 Joangie's contribution 
-Tests and rules for the lexer
+Tests and rules for the lexer and adding special characters
 '''
+t_CURLYL = r'\{'
+t_CURLYR = r'\}'
+t_BRACKETR = r'\]'
+t_BRACKETL = r'\['
+t_DOLLAR = r'\$'
+t_DOT = r'\.'
+t_DOTDOTDOT = r'\.\.\.'
+t_COMMA = r','
+t_ERRORPROP = r'\?'
+
 
 # These are not tokens but they need to be ignored by the lexer
 
@@ -133,10 +153,6 @@ def t_WHITESPACE(t):
 # Included on symbols and special characters this might change later jajaja -Joangie
 
 
-def t_ARROW(t):
-    r'->'
-    return t
-
 # define a rule so we can track line numbers
 
 
@@ -156,16 +172,14 @@ def t_VARIABLE(t):
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
-   # Error handling rule
 
-
+# Error handling rule
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
 
 
 lexer = lex.lex()
-
 
 
 def menu():
@@ -176,19 +190,26 @@ def menu():
 3. Salir
 """)
 
+
 def opciones(opc):
-    if(opc==1):
-        data='''
+    if(opc == 1):
+        data = '''
  
 let mut x = 10;
 let mut y = 20;
 let mut z: u8 = x + y;
 _x2 = x + y; 
+
+//Hola
+fn add(x: u8, y: u8) -> u8 {
+        return x + y;
+    }
+
 '''
-    if opc==2:
+    if opc == 2:
         data = input("Ingrese su codigo:")
 
-    if opc==3:
+    if opc == 3:
         return
 
     # Give the lexer some input
@@ -203,32 +224,10 @@ _x2 = x + y;
 
 
 if __name__ == '__main__':
-    opc=0
-    while(opc!=3):
+
+    opc = 0
+    while(opc != 3):
         menu()
-        opc=int(input("Seleccione su opcion: "))
+        opc = int(input("Seleccione su opcion: "))
         opciones(opc)
         print("")
-
-
-'''
-
-algorithm1 = '''
-    fn add(x: u8, y: u8) -> u8 {
-        return x + y;
-    }
-
-<<<<<<< HEAD
-'''
-
-# Give the lexer some input
-lexer.input(algorithm1)
-
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break      # No more input
-    print(tok)
-=======
->>>>>>> 068320b8b51a9b487964417d9dafd748a7b07ae3
