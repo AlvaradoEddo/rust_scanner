@@ -1,4 +1,5 @@
 import ply.lex as lex
+from colorama import Fore, Style
 
 
 # APORTE EDDO
@@ -93,6 +94,10 @@ tokens = (
     'DOT',
     'DOTDOTDOT',
     'ERRORPROP',
+    'PATHSEP',
+    'MINUSEQ',
+    'STAREQ',
+    'SLASHEQ',
     'ENDLINE'
 ) + tuple(reserved.values())
 
@@ -118,6 +123,12 @@ t_U8 = r'(0?[0-9]?[0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5])'
 t_ENDLINE = r';'
 t_ASIGNATION_TYPE = r':'
 t_ARROW = r'->'
+
+t_PATHSEP = r'::'
+t_MINUSEQ = r'-='
+t_STAREQ = r'\*='
+t_SLASHEQ = r'\/='
+
 '''
 Joangie's contribution 
 Tests and rules for the lexer and adding special characters
@@ -131,6 +142,7 @@ t_DOT = r'\.'
 t_DOTDOTDOT = r'\.\.\.'
 t_COMMA = r','
 t_ERRORPROP = r'\?'
+
 
 
 # These are not tokens but they need to be ignored by the lexer
@@ -184,7 +196,7 @@ lexer = lex.lex()
 
 def menu():
 
-    print("""   Bienvenido al analizador lexico    
+ print(Fore.CYAN + """   Bienvenido al analizador lexico    
 1. Pruebas por defecto 
 2. Prueba manual    
 3. Salir
@@ -204,6 +216,10 @@ _x2 = x + y;
 fn add(x: u8, y: u8) -> u8 {
         return x + y;
     }
+
+
+
+
 
 '''
     if opc == 2:
