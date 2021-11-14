@@ -172,10 +172,17 @@ let mut y = 20;
 let mut z: u8 = x + y;
 _x2 = x + y;
 
+'''
+
+algorithm1 = '''
+    fn add(x: u8, y: u8) -> u8 {
+        return x + y;
+    }
 
 '''
+
 # Give the lexer some input
-lexer.input(data)
+lexer.input(algorithm1)
 
 # Tokenize
 while True:
