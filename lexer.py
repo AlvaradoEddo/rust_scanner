@@ -82,6 +82,7 @@ tokens = (
     'STRING',
     'NUMDATATYPES',
     'U8',
+    'ASIGNATION_TYPE',
     'ENDLINE'
 ) + tuple(reserved.values())
 
@@ -105,6 +106,7 @@ t_RPAREN = r'\)'
 t_STRING = r'\"[a-zA-Z0-9_]*\"'
 t_U8 = r'(0?[0-9]?[0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5])'
 t_ENDLINE = r';'
+t_ASIGNATION_TYPE= r':'
 
 '''
 Joangie's contribution 
@@ -164,13 +166,50 @@ def t_error(t):
 
 lexer = lex.lex()
 
-# Test it out
-data = '''
+
+
+def menu():
+
+    print("""   Bienvenido al analizador lexico    
+1. Pruebas por defecto 
+2. Prueba manual    
+3. Salir
+""")
+
+def opciones(opc):
+    if(opc==1):
+        data='''
  
 let mut x = 10;
 let mut y = 20;
 let mut z: u8 = x + y;
-_x2 = x + y;
+_x2 = x + y; 
+'''
+    if opc==2:
+        data = input("Ingrese su codigo:")
+
+    if opc==3:
+        return
+
+    # Give the lexer some input
+    lexer.input(data)
+
+    # Tokenize
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        print(tok)
+
+
+if __name__ == '__main__':
+    opc=0
+    while(opc!=3):
+        menu()
+        opc=int(input("Seleccione su opcion: "))
+        opciones(opc)
+        print("")
+
 
 '''
 
@@ -179,6 +218,7 @@ algorithm1 = '''
         return x + y;
     }
 
+<<<<<<< HEAD
 '''
 
 # Give the lexer some input
@@ -190,3 +230,5 @@ while True:
     if not tok:
         break      # No more input
     print(tok)
+=======
+>>>>>>> 068320b8b51a9b487964417d9dafd748a7b07ae3
