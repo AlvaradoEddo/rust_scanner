@@ -15,10 +15,12 @@ This project was made for the class Programming Languages at ESPOL (SOFG1009)
 </table>
 </div>
 
-
 ## Rust lexer
-🚧 Still in process
+
 ### What is a lexer?
+
 Lexers are the ones that turn normal strings (something a human can read) into tokens (something more computer-friendly)
 
-## Screenshots of our program 
+## Screenshots of our program
+
+![prueba-lexer](https://user-images.githubusercontent.com/59121896/141684590-3ff86fc0-5d37-4f66-9c10-eb18eabc297e.gif)
