@@ -2,7 +2,7 @@
 
 Rust syntax and lexical analyzer implemented in Python. <img align="right" src="/images/rust-scanner.png" width="250" height="250"/>
 
-This project was made for the class Programming Languages at ESPOL (SOFG1009)
+This project was made for the Programming Languages class at ESPOL (SOFG1009).
 
 <h3> Members </h3>
 
