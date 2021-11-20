@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE CURLYL CURLYR DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NOT NUMBER NUMDATATYPES OR PATHSEP PLUSEQ POP_VEC PRINT PRINTS PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    rust : asignacion\n         | prints\n    \n    asignacion : declarador ASIGNAR expresion ENDLINE\n                | other_operators ENDLINE\n    \n    other_operators : VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    \n    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE\n    \n    print_expresion : STRING\n                    | STRING COMMA print_args\n    \n    print_args : print_datos COMMA print_args \n                | print_datos\n    \n    print_datos : expresion\n    '
+_lr_signature = 'AND ANDAND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE CURLYL CURLYR DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NEWFUNC NOT NUMBER NUMDATATYPES OR OROR PATHSEP PLUSEQ POP_VEC PRINT PRINTS PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    rust : asignacion\n         | prints\n         | hashset\n         | hashfunc\n    \n    asignacion : declarador ASIGNAR expresion ENDLINE\n                | other_operators ENDLINE\n    \n    other_operators : VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    \n    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE\n    \n    print_expresion : STRING\n                    | STRING COMMA print_args\n    \n    print_args : print_datos COMMA print_args \n                | print_datos\n    \n    print_datos : expresion\n    \n    hashset : LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE\n    \n    hashfunc : hashset_insert\n            | hashset_union\n    \n    hashset_insert : VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE\n    \n    hashset_union : VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE\n    '
     
-_lr_action_items = {'PRINTS':([0,],[6,]),'VARIABLE':([0,9,20,],[7,21,21,]),'LET':([0,],[9,]),'$end':([1,2,3,11,30,36,],[0,-1,-2,-4,-3,-21,]),'ASIGNAR':([4,7,8,19,21,28,33,34,35,],[10,14,-7,-8,-10,-9,-11,-12,-13,]),'ENDLINE':([5,22,23,24,27,31,],[11,30,-19,-20,-5,36,]),'LPAREN':([6,],[12,]),'PLUSEQ':([7,],[15,]),'MINUSEQ':([7,],[16,]),'STAREQ':([7,],[17,]),'SLASHEQ':([7,],[18,]),'MUT':([9,],[20,]),'STRING':([10,12,13,14,15,16,17,18,32,40,],[23,26,23,-14,-15,-16,-17,-18,23,23,]),'U8':([10,13,14,15,16,17,18,32,40,],[24,24,-14,-15,-16,-17,-18,24,24,]),'ASIGNATION_TYPE':([21,],[29,]),'COMMA':([23,24,26,38,39,],[-19,-20,32,40,-26,]),'RPAREN':([23,24,25,26,37,38,39,41,],[-19,-20,31,-22,-23,-25,-26,-24,]),'DATATYPES':([29,],[34,]),'NUMDATATYPES':([29,],[35,]),}
+_lr_action_items = {'PRINTS':([0,],[8,]),'LET':([0,],[9,]),'VARIABLE':([0,9,17,53,],[10,18,32,57,]),'$end':([1,2,3,4,5,11,12,15,38,47,60,62,63,],[0,-1,-2,-3,-4,-30,-31,-6,-5,-23,-32,-29,-33,]),'ASIGNAR':([6,10,13,18,19,32,33,42,43,44,],[14,22,-9,-12,-10,41,-11,-13,-14,-15,]),'ENDLINE':([7,27,28,29,35,39,56,59,61,],[15,38,-21,-22,-7,47,60,62,63,]),'LPAREN':([8,36,37,],[16,45,46,]),'MUT':([9,],[17,]),'DOT':([10,],[21,]),'PLUSEQ':([10,],[23,]),'MINUSEQ':([10,],[24,]),'STAREQ':([10,],[25,]),'SLASHEQ':([10,],[26,]),'STRING':([14,16,20,22,23,24,25,26,40,45,54,],[28,31,28,-16,-17,-18,-19,-20,28,28,28,]),'U8':([14,20,22,23,24,25,26,40,45,54,],[29,29,-16,-17,-18,-19,-20,29,29,29,]),'ASIGNATION_TYPE':([18,32,],[34,34,]),'INSERT_HASH':([21,],[36,]),'UNION_HASH':([21,],[37,]),'COMMA':([28,29,31,49,50,],[-21,-22,40,54,-28,]),'RPAREN':([28,29,30,31,48,49,50,52,57,58,],[-21,-22,39,-24,-25,-27,-28,56,61,-26,]),'DATATYPES':([34,],[43,]),'NUMDATATYPES':([34,],[44,]),'HASHSET':([41,],[51,]),'AND':([46,],[53,]),'PATHSEP':([51,],[55,]),'NEWFUNC':([55,],[59,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'rust':([0,],[1,]),'asignacion':([0,],[2,]),'prints':([0,],[3,]),'declarador':([0,],[4,]),'other_operators':([0,],[5,]),'let_asig':([0,],[8,]),'oper_asig':([7,],[13,]),'var_tipo':([9,20,],[19,28,]),'expresion':([10,13,32,40,],[22,27,39,39,]),'print_expresion':([12,],[25,]),'tipos':([29,],[33,]),'print_args':([32,40,],[37,41,]),'print_datos':([32,40,],[38,38,]),}
+_lr_goto_items = {'rust':([0,],[1,]),'asignacion':([0,],[2,]),'prints':([0,],[3,]),'hashset':([0,],[4,]),'hashfunc':([0,],[5,]),'declarador':([0,],[6,]),'other_operators':([0,],[7,]),'hashset_insert':([0,],[11,]),'hashset_union':([0,],[12,]),'let_asig':([0,],[13,]),'var_tipo':([9,17,],[19,33,]),'oper_asig':([10,],[20,]),'expresion':([14,20,40,45,54,],[27,35,50,52,50,]),'print_expresion':([16,],[30,]),'tipos':([34,],[42,]),'print_args':([40,54,],[48,58,]),'print_datos':([40,54,],[49,49,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,30 +27,37 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> rust","S'",1,None,None,None),
-  ('rust -> asignacion','rust',1,'p_rust','sintactico.py',13),
-  ('rust -> prints','rust',1,'p_rust','sintactico.py',14),
-  ('asignacion -> declarador ASIGNAR expresion ENDLINE','asignacion',4,'p_asignacion','sintactico.py',19),
-  ('asignacion -> other_operators ENDLINE','asignacion',2,'p_asignacion','sintactico.py',20),
-  ('other_operators -> VARIABLE oper_asig expresion','other_operators',3,'p_other_operators','sintactico.py',25),
-  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',30),
-  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',31),
-  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',36),
-  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',37),
-  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',42),
-  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',43),
-  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',48),
-  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',49),
-  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',54),
-  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',55),
-  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',56),
-  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',57),
-  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',58),
-  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',63),
-  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',64),
-  ('prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE','prints',5,'p_prints','sintactico.py',69),
-  ('print_expresion -> STRING','print_expresion',1,'p_print_expresion','sintactico.py',76),
-  ('print_expresion -> STRING COMMA print_args','print_expresion',3,'p_print_expresion','sintactico.py',77),
-  ('print_args -> print_datos COMMA print_args','print_args',3,'p_print_args','sintactico.py',82),
-  ('print_args -> print_datos','print_args',1,'p_print_args','sintactico.py',83),
-  ('print_datos -> expresion','print_datos',1,'p_print_datos','sintactico.py',88),
+  ('rust -> asignacion','rust',1,'p_rust','sintactico.py',14),
+  ('rust -> prints','rust',1,'p_rust','sintactico.py',15),
+  ('rust -> hashset','rust',1,'p_rust','sintactico.py',16),
+  ('rust -> hashfunc','rust',1,'p_rust','sintactico.py',17),
+  ('asignacion -> declarador ASIGNAR expresion ENDLINE','asignacion',4,'p_asignacion','sintactico.py',22),
+  ('asignacion -> other_operators ENDLINE','asignacion',2,'p_asignacion','sintactico.py',23),
+  ('other_operators -> VARIABLE oper_asig expresion','other_operators',3,'p_other_operators','sintactico.py',28),
+  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',33),
+  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',34),
+  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',39),
+  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',40),
+  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',45),
+  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',46),
+  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',51),
+  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',52),
+  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',57),
+  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',58),
+  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',59),
+  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',60),
+  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',61),
+  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',66),
+  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',67),
+  ('prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE','prints',5,'p_prints','sintactico.py',72),
+  ('print_expresion -> STRING','print_expresion',1,'p_print_expresion','sintactico.py',77),
+  ('print_expresion -> STRING COMMA print_args','print_expresion',3,'p_print_expresion','sintactico.py',78),
+  ('print_args -> print_datos COMMA print_args','print_args',3,'p_print_args','sintactico.py',83),
+  ('print_args -> print_datos','print_args',1,'p_print_args','sintactico.py',84),
+  ('print_datos -> expresion','print_datos',1,'p_print_datos','sintactico.py',89),
+  ('hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE','hashset',8,'p_hashset','sintactico.py',94),
+  ('hashfunc -> hashset_insert','hashfunc',1,'p_hashfunc','sintactico.py',98),
+  ('hashfunc -> hashset_union','hashfunc',1,'p_hashfunc','sintactico.py',99),
+  ('hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE','hashset_insert',7,'p_hashset_insert','sintactico.py',104),
+  ('hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE','hashset_union',8,'p_hashset_union','sintactico.py',109),
 ]

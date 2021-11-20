@@ -42,7 +42,6 @@ reserved = {
     'trait': 'TRAIT',
     'where': 'WHERE',
     'crate': 'CRATE',
-    'Hashset': 'HASHSET',
     'insert': 'INSERT_HASH',
     'union': 'UNION_HASH',
     'vec': 'VECTOR',
@@ -66,6 +65,8 @@ tokens = (
     'MODULO',
     'OR',
     'AND',
+    'ANDAND',
+    'OROR',
     'NOT',
     'LESST',
     'GREATER',
@@ -100,7 +101,9 @@ tokens = (
     'STAREQ',
     'SLASHEQ',
     'ENDLINE',
-    'PRINTS'
+    'PRINTS',
+    'NEWFUNC',
+    'HASHSET'
 ) + tuple(reserved.values())
 
 t_MAS = r'\+'
@@ -108,9 +111,11 @@ t_MENOS = r'-'
 t_MULT = r'\*'
 t_DIVISION = r'/'
 t_MODULO = r'%'
-t_OR = r'\|\|'
-t_AND = r'&&'
-#t_NOT = r'!'
+t_OR = r'\|'
+t_AND = r'&'
+t_ANDAND = r'&&'
+t_OROR = r'\|\|'
+t_NOT = r'!'
 t_LESST = r'<'
 t_GREATER = r'>'
 t_LESSEQ = r'<='
@@ -131,6 +136,7 @@ t_PLUSEQ = r'\+='
 t_MINUSEQ = r'-='
 t_STAREQ = r'\*='
 t_SLASHEQ = r'\/='
+t_HASHSET = r'HashSet'
 '''
 Joangie's contribution 
 Tests and rules for the lexer and adding special characters
@@ -186,6 +192,10 @@ def t_DATATYPES(t):
 
 def t_PRINTS(t):
     r'format! | print! | println! | eprint! | eprintln!'
+    return t
+
+def t_NEWFUNC(t):
+    r'new\(\)'
     return t
 
 def t_VARIABLE(t):
