@@ -1,5 +1,5 @@
 import ply.lex as lex
-from colorama import Fore, Style
+#from colorama import Fore, Style
 
 
 # APORTE EDDO

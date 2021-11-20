@@ -17,6 +17,7 @@ def p_rust(p):
          | hashfunc
          | conditional
          | conditional_asigned
+         | for_loop
 
     '''
 
@@ -137,9 +138,34 @@ def p_validations(p):
                 | comparison OROR validations
     '''
 
+
+#Aporte Eddo
+
 def p_comparison(p):
     '''
-    comparison : VARIABLE GREATER VARIABLE
+    comparison : VARIABLE signo_comp VARIABLE
+                | VARIABLE signo_comp U8
+                | U8 signo_comp VARIABLE
+    '''
+
+def p_signoComparaion(p):
+    '''
+    signo_comp : GREATER
+                | LESST
+                | GREATEQ
+                | EQUAL
+                | DIFFERENT
+    '''
+
+def p_condicionFor(p):
+    '''
+    f_comparacion : U8 DOT DOT U8
+                    | VARIABLE
+    '''
+
+def p_for(p):
+    '''
+    for_loop : FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
     '''
 
 parser = yacc.yacc()

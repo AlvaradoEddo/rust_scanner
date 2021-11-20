@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ANDAND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LLAVEDER LLAVEIZ LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NEWFUNC NOT NUMBER NUMDATATYPES OR OROR PATHSEP PLUSEQ POP_VEC PRINT PRINTS PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    rust : asignacion\n         | prints\n         | hashset\n         | hashfunc\n         | conditional\n         | conditional_asigned\n\n    \n    asignacion : declarador ASIGNAR expresion ENDLINE\n                | other_operators ENDLINE\n    \n    other_operators : VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    \n    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE\n    \n    print_expresion : STRING\n                    | STRING COMMA print_args\n    \n    print_args : print_datos COMMA print_args \n                | print_datos\n    \n    print_datos : expresion\n    \n    hashset : LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE\n    \n    hashfunc : hashset_insert\n            | hashset_union\n    \n    hashset_insert : VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE\n    \n    hashset_union : VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE\n    \n    conditional_asigned : declarador ASIGNAR conditional ENDLINE\n    \n    conditional : if_type validations LLAVEIZ rust LLAVEDER\n    \n    if_type : IF\n            | ELSE IF\n            | ELSE\n    \n    validations : comparison\n                | comparison ANDAND validations\n                | comparison OROR validations\n    \n    comparison : VARIABLE GREATER VARIABLE\n    '
+_lr_signature = 'AND ANDAND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LLAVEDER LLAVEIZ LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NEWFUNC NOT NUMBER NUMDATATYPES OR OROR PATHSEP PLUSEQ POP_VEC PRINT PRINTS PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    rust : asignacion\n         | prints\n         | hashset\n         | hashfunc\n         | conditional\n         | conditional_asigned\n         | for_loop\n\n    \n    asignacion : declarador ASIGNAR expresion ENDLINE\n                | other_operators ENDLINE\n    \n    other_operators : VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    \n    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE\n    \n    print_expresion : STRING\n                    | STRING COMMA print_args\n    \n    print_args : print_datos COMMA print_args \n                | print_datos\n    \n    print_datos : expresion\n    \n    hashset : LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE\n    \n    hashfunc : hashset_insert\n            | hashset_union\n    \n    hashset_insert : VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE\n    \n    hashset_union : VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE\n    \n    conditional_asigned : declarador ASIGNAR conditional ENDLINE\n    \n    conditional : if_type validations LLAVEIZ rust LLAVEDER\n    \n    if_type : IF\n            | ELSE IF\n            | ELSE\n    \n    validations : comparison\n                | comparison ANDAND validations\n                | comparison OROR validations\n    \n    comparison : VARIABLE signo_comp VARIABLE\n                | VARIABLE signo_comp U8\n                | U8 signo_comp VARIABLE\n    \n    signo_comp : GREATER\n                | LESST\n                | GREATEQ\n                | EQUAL\n                | DIFFERENT\n    \n    f_comparacion : U8 DOT DOT U8\n                    | VARIABLE\n    \n    for_loop : FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER\n    '
     
-_lr_action_items = {'PRINTS':([0,48,],[10,10,]),'LET':([0,48,],[11,11,]),'VARIABLE':([0,11,15,17,18,22,35,48,49,50,51,72,],[12,23,34,-38,-40,42,-39,12,34,34,65,77,]),'IF':([0,18,19,48,],[17,35,17,17,]),'ELSE':([0,19,48,],[18,18,18,]),'$end':([1,2,3,4,5,6,7,13,14,20,52,53,66,73,80,82,83,],[0,-1,-2,-3,-4,-5,-6,-32,-33,-8,-7,-36,-25,-37,-34,-31,-35,]),'LLAVEDER':([2,3,4,5,6,7,13,14,20,52,53,62,66,73,80,82,83,],[-1,-2,-3,-4,-5,-6,-32,-33,-8,-7,-36,73,-25,-37,-34,-31,-35,]),'ASIGNAR':([8,12,16,23,24,42,43,57,58,59,],[19,27,-11,-14,-12,56,-13,-15,-16,-17,]),'ENDLINE':([9,36,37,38,39,45,54,73,76,79,81,],[20,52,53,-23,-24,-9,66,-37,80,82,83,]),'LPAREN':([10,46,47,],[21,60,61,]),'MUT':([11,],[22,]),'DOT':([12,],[26,]),'PLUSEQ':([12,],[28,]),'MINUSEQ':([12,],[29,]),'STAREQ':([12,],[30,]),'SLASHEQ':([12,],[31,]),'STRING':([19,21,25,27,28,29,30,31,55,60,74,],[38,41,38,-18,-19,-20,-21,-22,38,38,38,]),'U8':([19,25,27,28,29,30,31,55,60,74,],[39,39,-18,-19,-20,-21,-22,39,39,39,]),'ASIGNATION_TYPE':([23,42,],[44,44,]),'INSERT_HASH':([26,],[46,]),'UNION_HASH':([26,],[47,]),'LLAVEIZ':([32,33,63,64,65,],[48,-41,-42,-43,-44,]),'ANDAND':([33,65,],[49,-44,]),'OROR':([33,65,],[50,-44,]),'GREATER':([34,],[51,]),'COMMA':([38,39,41,68,69,],[-23,-24,55,74,-30,]),'RPAREN':([38,39,40,41,67,68,69,71,77,78,],[-23,-24,54,-26,-27,-29,-30,76,81,-28,]),'DATATYPES':([44,],[58,]),'NUMDATATYPES':([44,],[59,]),'HASHSET':([56,],[70,]),'AND':([61,],[72,]),'PATHSEP':([70,],[75,]),'NEWFUNC':([75,],[79,]),}
+_lr_action_items = {'PRINTS':([0,52,90,],[11,11,11,]),'LET':([0,52,90,],[12,12,12,]),'FOR':([0,52,90,],[17,17,17,]),'VARIABLE':([0,12,16,17,19,20,24,39,52,53,54,55,56,57,58,59,60,61,62,88,90,],[13,25,36,38,-39,-41,46,-40,13,36,36,76,-48,-49,-50,-51,-52,78,79,95,13,]),'IF':([0,20,21,52,90,],[19,39,19,19,19,]),'ELSE':([0,21,52,90,],[20,20,20,20,]),'$end':([1,2,3,4,5,6,7,8,14,15,22,63,64,82,89,100,102,104,105,],[0,-1,-2,-3,-4,-5,-6,-7,-33,-34,-9,-8,-37,-26,-38,-35,-55,-32,-36,]),'LLAVEDER':([2,3,4,5,6,7,8,14,15,22,63,64,73,82,89,96,100,102,104,105,],[-1,-2,-3,-4,-5,-6,-7,-33,-34,-9,-8,-37,89,-26,-38,102,-35,-55,-32,-36,]),'ASIGNAR':([9,13,18,25,26,46,47,68,69,70,],[21,29,-12,-15,-13,67,-14,-16,-17,-18,]),'ENDLINE':([10,40,41,42,43,49,65,89,94,99,101,],[22,63,64,-24,-25,-10,82,-38,100,104,105,]),'LPAREN':([11,50,51,],[23,71,72,]),'MUT':([12,],[24,]),'DOT':([13,81,91,],[28,91,97,]),'PLUSEQ':([13,],[30,]),'MINUSEQ':([13,],[31,]),'STAREQ':([13,],[32,]),'SLASHEQ':([13,],[33,]),'U8':([16,19,20,21,27,29,30,31,32,33,39,53,54,55,56,57,58,59,60,62,66,71,92,97,],[37,-39,-41,43,43,-19,-20,-21,-22,-23,-40,37,37,77,-48,-49,-50,-51,-52,81,43,43,43,103,]),'STRING':([21,23,27,29,30,31,32,33,66,71,92,],[42,45,42,-19,-20,-21,-22,-23,42,42,42,]),'ASIGNATION_TYPE':([25,46,],[48,48,]),'INSERT_HASH':([28,],[50,]),'UNION_HASH':([28,],[51,]),'LLAVEIZ':([34,35,74,75,76,77,78,79,80,103,],[52,-42,-43,-44,-45,-46,-47,-54,90,-53,]),'ANDAND':([35,76,77,78,],[53,-45,-46,-47,]),'OROR':([35,76,77,78,],[54,-45,-46,-47,]),'GREATER':([36,37,],[56,56,]),'LESST':([36,37,],[57,57,]),'GREATEQ':([36,37,],[58,58,]),'EQUAL':([36,37,],[59,59,]),'DIFFERENT':([36,37,],[60,60,]),'IN':([38,],[62,]),'COMMA':([42,43,45,84,85,],[-24,-25,66,92,-31,]),'RPAREN':([42,43,44,45,83,84,85,87,95,98,],[-24,-25,65,-27,-28,-30,-31,94,101,-29,]),'DATATYPES':([48,],[69,]),'NUMDATATYPES':([48,],[70,]),'HASHSET':([67,],[86,]),'AND':([72,],[88,]),'PATHSEP':([86,],[93,]),'NEWFUNC':([93,],[99,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'rust':([0,48,],[1,62,]),'asignacion':([0,48,],[2,2,]),'prints':([0,48,],[3,3,]),'hashset':([0,48,],[4,4,]),'hashfunc':([0,48,],[5,5,]),'conditional':([0,19,48,],[6,37,6,]),'conditional_asigned':([0,48,],[7,7,]),'declarador':([0,48,],[8,8,]),'other_operators':([0,48,],[9,9,]),'hashset_insert':([0,48,],[13,13,]),'hashset_union':([0,48,],[14,14,]),'if_type':([0,19,48,],[15,15,15,]),'let_asig':([0,48,],[16,16,]),'var_tipo':([11,22,],[24,43,]),'oper_asig':([12,],[25,]),'validations':([15,49,50,],[32,63,64,]),'comparison':([15,49,50,],[33,33,33,]),'expresion':([19,25,55,60,74,],[36,45,69,71,69,]),'print_expresion':([21,],[40,]),'tipos':([44,],[57,]),'print_args':([55,74,],[67,78,]),'print_datos':([55,74,],[68,68,]),}
+_lr_goto_items = {'rust':([0,52,90,],[1,73,96,]),'asignacion':([0,52,90,],[2,2,2,]),'prints':([0,52,90,],[3,3,3,]),'hashset':([0,52,90,],[4,4,4,]),'hashfunc':([0,52,90,],[5,5,5,]),'conditional':([0,21,52,90,],[6,41,6,6,]),'conditional_asigned':([0,52,90,],[7,7,7,]),'for_loop':([0,52,90,],[8,8,8,]),'declarador':([0,52,90,],[9,9,9,]),'other_operators':([0,52,90,],[10,10,10,]),'hashset_insert':([0,52,90,],[14,14,14,]),'hashset_union':([0,52,90,],[15,15,15,]),'if_type':([0,21,52,90,],[16,16,16,16,]),'let_asig':([0,52,90,],[18,18,18,]),'var_tipo':([12,24,],[26,47,]),'oper_asig':([13,],[27,]),'validations':([16,53,54,],[34,74,75,]),'comparison':([16,53,54,],[35,35,35,]),'expresion':([21,27,66,71,92,],[40,49,85,87,85,]),'print_expresion':([23,],[44,]),'signo_comp':([36,37,],[55,61,]),'tipos':([48,],[68,]),'f_comparacion':([62,],[80,]),'print_args':([66,92,],[83,98,]),'print_datos':([66,92,],[84,84,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -33,42 +33,53 @@ _lr_productions = [
   ('rust -> hashfunc','rust',1,'p_rust','sintactico.py',17),
   ('rust -> conditional','rust',1,'p_rust','sintactico.py',18),
   ('rust -> conditional_asigned','rust',1,'p_rust','sintactico.py',19),
-  ('asignacion -> declarador ASIGNAR expresion ENDLINE','asignacion',4,'p_asignacion','sintactico.py',25),
-  ('asignacion -> other_operators ENDLINE','asignacion',2,'p_asignacion','sintactico.py',26),
-  ('other_operators -> VARIABLE oper_asig expresion','other_operators',3,'p_other_operators','sintactico.py',31),
-  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',36),
-  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',37),
-  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',42),
-  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',43),
-  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',48),
-  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',49),
-  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',54),
-  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',55),
-  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',60),
-  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',61),
-  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',62),
-  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',63),
-  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',64),
-  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',69),
-  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',70),
-  ('prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE','prints',5,'p_prints','sintactico.py',75),
-  ('print_expresion -> STRING','print_expresion',1,'p_print_expresion','sintactico.py',80),
-  ('print_expresion -> STRING COMMA print_args','print_expresion',3,'p_print_expresion','sintactico.py',81),
-  ('print_args -> print_datos COMMA print_args','print_args',3,'p_print_args','sintactico.py',86),
-  ('print_args -> print_datos','print_args',1,'p_print_args','sintactico.py',87),
-  ('print_datos -> expresion','print_datos',1,'p_print_datos','sintactico.py',92),
-  ('hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE','hashset',8,'p_hashset','sintactico.py',97),
-  ('hashfunc -> hashset_insert','hashfunc',1,'p_hashfunc','sintactico.py',101),
-  ('hashfunc -> hashset_union','hashfunc',1,'p_hashfunc','sintactico.py',102),
-  ('hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE','hashset_insert',7,'p_hashset_insert','sintactico.py',107),
-  ('hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE','hashset_union',8,'p_hashset_union','sintactico.py',112),
-  ('conditional_asigned -> declarador ASIGNAR conditional ENDLINE','conditional_asigned',4,'p_conditional_asigned','sintactico.py',118),
-  ('conditional -> if_type validations LLAVEIZ rust LLAVEDER','conditional',5,'p_conditional','sintactico.py',123),
-  ('if_type -> IF','if_type',1,'p_if_type','sintactico.py',128),
-  ('if_type -> ELSE IF','if_type',2,'p_if_type','sintactico.py',129),
-  ('if_type -> ELSE','if_type',1,'p_if_type','sintactico.py',130),
-  ('validations -> comparison','validations',1,'p_validations','sintactico.py',135),
-  ('validations -> comparison ANDAND validations','validations',3,'p_validations','sintactico.py',136),
-  ('validations -> comparison OROR validations','validations',3,'p_validations','sintactico.py',137),
-  ('comparison -> VARIABLE GREATER VARIABLE','comparison',3,'p_comparison','sintactico.py',142),
+  ('rust -> for_loop','rust',1,'p_rust','sintactico.py',20),
+  ('asignacion -> declarador ASIGNAR expresion ENDLINE','asignacion',4,'p_asignacion','sintactico.py',26),
+  ('asignacion -> other_operators ENDLINE','asignacion',2,'p_asignacion','sintactico.py',27),
+  ('other_operators -> VARIABLE oper_asig expresion','other_operators',3,'p_other_operators','sintactico.py',32),
+  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',37),
+  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',38),
+  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',43),
+  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',44),
+  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',49),
+  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',50),
+  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',55),
+  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',56),
+  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',61),
+  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',62),
+  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',63),
+  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',64),
+  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',65),
+  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',70),
+  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',71),
+  ('prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE','prints',5,'p_prints','sintactico.py',76),
+  ('print_expresion -> STRING','print_expresion',1,'p_print_expresion','sintactico.py',81),
+  ('print_expresion -> STRING COMMA print_args','print_expresion',3,'p_print_expresion','sintactico.py',82),
+  ('print_args -> print_datos COMMA print_args','print_args',3,'p_print_args','sintactico.py',87),
+  ('print_args -> print_datos','print_args',1,'p_print_args','sintactico.py',88),
+  ('print_datos -> expresion','print_datos',1,'p_print_datos','sintactico.py',93),
+  ('hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE','hashset',8,'p_hashset','sintactico.py',98),
+  ('hashfunc -> hashset_insert','hashfunc',1,'p_hashfunc','sintactico.py',102),
+  ('hashfunc -> hashset_union','hashfunc',1,'p_hashfunc','sintactico.py',103),
+  ('hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE','hashset_insert',7,'p_hashset_insert','sintactico.py',108),
+  ('hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE','hashset_union',8,'p_hashset_union','sintactico.py',113),
+  ('conditional_asigned -> declarador ASIGNAR conditional ENDLINE','conditional_asigned',4,'p_conditional_asigned','sintactico.py',119),
+  ('conditional -> if_type validations LLAVEIZ rust LLAVEDER','conditional',5,'p_conditional','sintactico.py',124),
+  ('if_type -> IF','if_type',1,'p_if_type','sintactico.py',129),
+  ('if_type -> ELSE IF','if_type',2,'p_if_type','sintactico.py',130),
+  ('if_type -> ELSE','if_type',1,'p_if_type','sintactico.py',131),
+  ('validations -> comparison','validations',1,'p_validations','sintactico.py',136),
+  ('validations -> comparison ANDAND validations','validations',3,'p_validations','sintactico.py',137),
+  ('validations -> comparison OROR validations','validations',3,'p_validations','sintactico.py',138),
+  ('comparison -> VARIABLE signo_comp VARIABLE','comparison',3,'p_comparison','sintactico.py',143),
+  ('comparison -> VARIABLE signo_comp U8','comparison',3,'p_comparison','sintactico.py',144),
+  ('comparison -> U8 signo_comp VARIABLE','comparison',3,'p_comparison','sintactico.py',145),
+  ('signo_comp -> GREATER','signo_comp',1,'p_signoComparaion','sintactico.py',152),
+  ('signo_comp -> LESST','signo_comp',1,'p_signoComparaion','sintactico.py',153),
+  ('signo_comp -> GREATEQ','signo_comp',1,'p_signoComparaion','sintactico.py',154),
+  ('signo_comp -> EQUAL','signo_comp',1,'p_signoComparaion','sintactico.py',155),
+  ('signo_comp -> DIFFERENT','signo_comp',1,'p_signoComparaion','sintactico.py',156),
+  ('f_comparacion -> U8 DOT DOT U8','f_comparacion',4,'p_condicionFor','sintactico.py',161),
+  ('f_comparacion -> VARIABLE','f_comparacion',1,'p_condicionFor','sintactico.py',162),
+  ('for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER','for_loop',7,'p_for','sintactico.py',167),
 ]
