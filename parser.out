@@ -2,7 +2,6 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    ANDAND
     ARROW
     AS
     ASYNC
@@ -16,14 +15,11 @@ Unused terminals:
     CONTAINS_SLICE
     CONTIN
     CRATE
-    CURLYL
-    CURLYR
     DIFFERENT
     DIVISION
     DOLLAR
     DOTDOTDOT
     DYN
-    ELSE
     ENUM
     EQUAL
     ERRORPROP
@@ -32,8 +28,6 @@ Unused terminals:
     FUNCTION
     GET_SLICE
     GREATEQ
-    GREATER
-    IF
     IMPL
     IN
     LESSEQ
@@ -51,7 +45,6 @@ Unused terminals:
     NOT
     NUMBER
     OR
-    OROR
     POP_VEC
     PRINT
     PUB
@@ -78,44 +71,55 @@ Rule 1     rust -> asignacion
 Rule 2     rust -> prints
 Rule 3     rust -> hashset
 Rule 4     rust -> hashfunc
-Rule 5     asignacion -> declarador ASIGNAR expresion ENDLINE
-Rule 6     asignacion -> other_operators ENDLINE
-Rule 7     other_operators -> VARIABLE oper_asig expresion
-Rule 8     declarador -> VARIABLE
-Rule 9     declarador -> let_asig
-Rule 10    let_asig -> LET var_tipo
-Rule 11    let_asig -> LET MUT var_tipo
-Rule 12    var_tipo -> VARIABLE
-Rule 13    var_tipo -> VARIABLE ASIGNATION_TYPE tipos
-Rule 14    tipos -> DATATYPES
-Rule 15    tipos -> NUMDATATYPES
-Rule 16    oper_asig -> ASIGNAR
-Rule 17    oper_asig -> PLUSEQ
-Rule 18    oper_asig -> MINUSEQ
-Rule 19    oper_asig -> STAREQ
-Rule 20    oper_asig -> SLASHEQ
-Rule 21    expresion -> STRING
-Rule 22    expresion -> U8
-Rule 23    prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE
-Rule 24    print_expresion -> STRING
-Rule 25    print_expresion -> STRING COMMA print_args
-Rule 26    print_args -> print_datos COMMA print_args
-Rule 27    print_args -> print_datos
-Rule 28    print_datos -> expresion
-Rule 29    hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-Rule 30    hashfunc -> hashset_insert
-Rule 31    hashfunc -> hashset_union
-Rule 32    hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-Rule 33    hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+Rule 5     rust -> conditional
+Rule 6     rust -> conditional_asigned
+Rule 7     asignacion -> declarador ASIGNAR expresion ENDLINE
+Rule 8     asignacion -> other_operators ENDLINE
+Rule 9     other_operators -> VARIABLE oper_asig expresion
+Rule 10    declarador -> VARIABLE
+Rule 11    declarador -> let_asig
+Rule 12    let_asig -> LET var_tipo
+Rule 13    let_asig -> LET MUT var_tipo
+Rule 14    var_tipo -> VARIABLE
+Rule 15    var_tipo -> VARIABLE ASIGNATION_TYPE tipos
+Rule 16    tipos -> DATATYPES
+Rule 17    tipos -> NUMDATATYPES
+Rule 18    oper_asig -> ASIGNAR
+Rule 19    oper_asig -> PLUSEQ
+Rule 20    oper_asig -> MINUSEQ
+Rule 21    oper_asig -> STAREQ
+Rule 22    oper_asig -> SLASHEQ
+Rule 23    expresion -> STRING
+Rule 24    expresion -> U8
+Rule 25    prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE
+Rule 26    print_expresion -> STRING
+Rule 27    print_expresion -> STRING COMMA print_args
+Rule 28    print_args -> print_datos COMMA print_args
+Rule 29    print_args -> print_datos
+Rule 30    print_datos -> expresion
+Rule 31    hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+Rule 32    hashfunc -> hashset_insert
+Rule 33    hashfunc -> hashset_union
+Rule 34    hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+Rule 35    hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+Rule 36    conditional_asigned -> declarador ASIGNAR conditional ENDLINE
+Rule 37    conditional -> if_type validations LLAVEIZ rust LLAVEDER
+Rule 38    if_type -> IF
+Rule 39    if_type -> ELSE IF
+Rule 40    if_type -> ELSE
+Rule 41    validations -> comparison
+Rule 42    validations -> comparison ANDAND validations
+Rule 43    validations -> comparison OROR validations
+Rule 44    comparison -> VARIABLE GREATER VARIABLE
 
 Terminals, with rules where they appear
 
-AND                  : 33
-ANDAND               : 
+AND                  : 35
+ANDAND               : 42
 ARROW                : 
 AS                   : 
-ASIGNAR              : 5 16 29
-ASIGNATION_TYPE      : 13
+ASIGNAR              : 7 18 31 36
+ASIGNATION_TYPE      : 15
 ASYNC                : 
 AWAIT                : 
 BRACKETL             : 
@@ -123,22 +127,20 @@ BRACKETR             :
 BREAK                : 
 B_FALSE              : 
 B_TRUE               : 
-COMMA                : 25 26
+COMMA                : 27 28
 CONST                : 
 CONTAINS_SLICE       : 
 CONTIN               : 
 CRATE                : 
-CURLYL               : 
-CURLYR               : 
-DATATYPES            : 14
+DATATYPES            : 16
 DIFFERENT            : 
 DIVISION             : 
 DOLLAR               : 
-DOT                  : 32 33
+DOT                  : 34 35
 DOTDOTDOT            : 
 DYN                  : 
-ELSE                 : 
-ENDLINE              : 5 6 23 29 32 33
+ELSE                 : 39 40
+ENDLINE              : 7 8 25 31 34 35 36
 ENUM                 : 
 EQUAL                : 
 ERRORPROP            : 
@@ -147,59 +149,61 @@ FOR                  :
 FUNCTION             : 
 GET_SLICE            : 
 GREATEQ              : 
-GREATER              : 
-HASHSET              : 29
-IF                   : 
+GREATER              : 44
+HASHSET              : 31
+IF                   : 38 39
 IMPL                 : 
 IN                   : 
-INSERT_HASH          : 32
+INSERT_HASH          : 34
 LESSEQ               : 
 LESST                : 
-LET                  : 10 11 29
+LET                  : 12 13 31
+LLAVEDER             : 37
+LLAVEIZ              : 37
 LOOP                 : 
-LPAREN               : 23 32 33
+LPAREN               : 25 34 35
 MAS                  : 
 MATCH                : 
 MAYOR                : 
 MAYORIGUAL           : 
 MENOS                : 
-MINUSEQ              : 18
+MINUSEQ              : 20
 MOD                  : 
 MODULO               : 
 MOVE                 : 
 MULT                 : 
-MUT                  : 11 29
-NEWFUNC              : 29
+MUT                  : 13 31
+NEWFUNC              : 31
 NOT                  : 
 NUMBER               : 
-NUMDATATYPES         : 15
+NUMDATATYPES         : 17
 OR                   : 
-OROR                 : 
-PATHSEP              : 29
-PLUSEQ               : 17
+OROR                 : 43
+PATHSEP              : 31
+PLUSEQ               : 19
 POP_VEC              : 
 PRINT                : 
-PRINTS               : 23
+PRINTS               : 25
 PUB                  : 
 PUSH_VEC             : 
 REF                  : 
 RETURN               : 
-RPAREN               : 23 32 33
+RPAREN               : 25 34 35
 SELF                 : 
 SELFLOWERCASE        : 
-SLASHEQ              : 20
-STAREQ               : 19
+SLASHEQ              : 22
+STAREQ               : 21
 STATIC               : 
-STRING               : 21 24 25
+STRING               : 23 26 27
 STRUCT               : 
 SUPER                : 
 TRAIT                : 
 TYPE                 : 
-U8                   : 22
-UNION_HASH           : 33
+U8                   : 24
+UNION_HASH           : 35
 UNSAFE               : 
 USE                  : 
-VARIABLE             : 7 8 12 13 29 32 33 33
+VARIABLE             : 9 10 14 15 31 34 35 35 44 44
 VECTOR               : 
 WHERE                : 
 WHILE                : 
@@ -208,22 +212,27 @@ error                :
 Nonterminals, with rules where they appear
 
 asignacion           : 1
-declarador           : 5
-expresion            : 5 7 28 32
+comparison           : 41 42 43
+conditional          : 5 36
+conditional_asigned  : 6
+declarador           : 7 36
+expresion            : 7 9 30 34
 hashfunc             : 4
 hashset              : 3
-hashset_insert       : 30
-hashset_union        : 31
-let_asig             : 9
-oper_asig            : 7
-other_operators      : 6
-print_args           : 25 26
-print_datos          : 26 27
-print_expresion      : 23
+hashset_insert       : 32
+hashset_union        : 33
+if_type              : 37
+let_asig             : 11
+oper_asig            : 9
+other_operators      : 8
+print_args           : 27 28
+print_datos          : 28 29
+print_expresion      : 25
 prints               : 2
-rust                 : 0
-tipos                : 13
-var_tipo             : 10 11
+rust                 : 37 0
+tipos                : 15
+validations          : 37 42 43
+var_tipo             : 12 13
 
 Parsing method: LALR
 
@@ -234,34 +243,46 @@ state 0
     (2) rust -> . prints
     (3) rust -> . hashset
     (4) rust -> . hashfunc
-    (5) asignacion -> . declarador ASIGNAR expresion ENDLINE
-    (6) asignacion -> . other_operators ENDLINE
-    (23) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
-    (29) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (30) hashfunc -> . hashset_insert
-    (31) hashfunc -> . hashset_union
-    (8) declarador -> . VARIABLE
-    (9) declarador -> . let_asig
-    (7) other_operators -> . VARIABLE oper_asig expresion
-    (32) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (33) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (10) let_asig -> . LET var_tipo
-    (11) let_asig -> . LET MUT var_tipo
+    (5) rust -> . conditional
+    (6) rust -> . conditional_asigned
+    (7) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (8) asignacion -> . other_operators ENDLINE
+    (25) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (31) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (32) hashfunc -> . hashset_insert
+    (33) hashfunc -> . hashset_union
+    (37) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (36) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (10) declarador -> . VARIABLE
+    (11) declarador -> . let_asig
+    (9) other_operators -> . VARIABLE oper_asig expresion
+    (34) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (35) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (38) if_type -> . IF
+    (39) if_type -> . ELSE IF
+    (40) if_type -> . ELSE
+    (12) let_asig -> . LET var_tipo
+    (13) let_asig -> . LET MUT var_tipo
 
-    PRINTS          shift and go to state 8
-    LET             shift and go to state 9
-    VARIABLE        shift and go to state 10
+    PRINTS          shift and go to state 10
+    LET             shift and go to state 11
+    VARIABLE        shift and go to state 12
+    IF              shift and go to state 17
+    ELSE            shift and go to state 18
 
     rust                           shift and go to state 1
     asignacion                     shift and go to state 2
     prints                         shift and go to state 3
     hashset                        shift and go to state 4
     hashfunc                       shift and go to state 5
-    declarador                     shift and go to state 6
-    other_operators                shift and go to state 7
-    hashset_insert                 shift and go to state 11
-    hashset_union                  shift and go to state 12
-    let_asig                       shift and go to state 13
+    conditional                    shift and go to state 6
+    conditional_asigned            shift and go to state 7
+    declarador                     shift and go to state 8
+    other_operators                shift and go to state 9
+    hashset_insert                 shift and go to state 13
+    hashset_union                  shift and go to state 14
+    if_type                        shift and go to state 15
+    let_asig                       shift and go to state 16
 
 state 1
 
@@ -274,6 +295,7 @@ state 2
     (1) rust -> asignacion .
 
     $end            reduce using rule 1 (rust -> asignacion .)
+    LLAVEDER        reduce using rule 1 (rust -> asignacion .)
 
 
 state 3
@@ -281,6 +303,7 @@ state 3
     (2) rust -> prints .
 
     $end            reduce using rule 2 (rust -> prints .)
+    LLAVEDER        reduce using rule 2 (rust -> prints .)
 
 
 state 4
@@ -288,6 +311,7 @@ state 4
     (3) rust -> hashset .
 
     $end            reduce using rule 3 (rust -> hashset .)
+    LLAVEDER        reduce using rule 3 (rust -> hashset .)
 
 
 state 5
@@ -295,503 +319,734 @@ state 5
     (4) rust -> hashfunc .
 
     $end            reduce using rule 4 (rust -> hashfunc .)
+    LLAVEDER        reduce using rule 4 (rust -> hashfunc .)
 
 
 state 6
 
-    (5) asignacion -> declarador . ASIGNAR expresion ENDLINE
+    (5) rust -> conditional .
 
-    ASIGNAR         shift and go to state 14
+    $end            reduce using rule 5 (rust -> conditional .)
+    LLAVEDER        reduce using rule 5 (rust -> conditional .)
 
 
 state 7
 
-    (6) asignacion -> other_operators . ENDLINE
+    (6) rust -> conditional_asigned .
 
-    ENDLINE         shift and go to state 15
+    $end            reduce using rule 6 (rust -> conditional_asigned .)
+    LLAVEDER        reduce using rule 6 (rust -> conditional_asigned .)
 
 
 state 8
 
-    (23) prints -> PRINTS . LPAREN print_expresion RPAREN ENDLINE
+    (7) asignacion -> declarador . ASIGNAR expresion ENDLINE
+    (36) conditional_asigned -> declarador . ASIGNAR conditional ENDLINE
 
-    LPAREN          shift and go to state 16
+    ASIGNAR         shift and go to state 19
 
 
 state 9
 
-    (29) hashset -> LET . MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (10) let_asig -> LET . var_tipo
-    (11) let_asig -> LET . MUT var_tipo
-    (12) var_tipo -> . VARIABLE
-    (13) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+    (8) asignacion -> other_operators . ENDLINE
 
-    MUT             shift and go to state 17
-    VARIABLE        shift and go to state 18
+    ENDLINE         shift and go to state 20
 
-    var_tipo                       shift and go to state 19
 
 state 10
 
-    (8) declarador -> VARIABLE .
-    (7) other_operators -> VARIABLE . oper_asig expresion
-    (32) hashset_insert -> VARIABLE . DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (33) hashset_union -> VARIABLE . DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (16) oper_asig -> . ASIGNAR
-    (17) oper_asig -> . PLUSEQ
-    (18) oper_asig -> . MINUSEQ
-    (19) oper_asig -> . STAREQ
-    (20) oper_asig -> . SLASHEQ
+    (25) prints -> PRINTS . LPAREN print_expresion RPAREN ENDLINE
 
-  ! shift/reduce conflict for ASIGNAR resolved as shift
-    DOT             shift and go to state 21
-    ASIGNAR         shift and go to state 22
-    PLUSEQ          shift and go to state 23
-    MINUSEQ         shift and go to state 24
-    STAREQ          shift and go to state 25
-    SLASHEQ         shift and go to state 26
+    LPAREN          shift and go to state 21
 
-  ! ASIGNAR         [ reduce using rule 8 (declarador -> VARIABLE .) ]
-
-    oper_asig                      shift and go to state 20
 
 state 11
 
-    (30) hashfunc -> hashset_insert .
+    (31) hashset -> LET . MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (12) let_asig -> LET . var_tipo
+    (13) let_asig -> LET . MUT var_tipo
+    (14) var_tipo -> . VARIABLE
+    (15) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
 
-    $end            reduce using rule 30 (hashfunc -> hashset_insert .)
+    MUT             shift and go to state 22
+    VARIABLE        shift and go to state 23
 
+    var_tipo                       shift and go to state 24
 
 state 12
 
-    (31) hashfunc -> hashset_union .
+    (10) declarador -> VARIABLE .
+    (9) other_operators -> VARIABLE . oper_asig expresion
+    (34) hashset_insert -> VARIABLE . DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (35) hashset_union -> VARIABLE . DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (18) oper_asig -> . ASIGNAR
+    (19) oper_asig -> . PLUSEQ
+    (20) oper_asig -> . MINUSEQ
+    (21) oper_asig -> . STAREQ
+    (22) oper_asig -> . SLASHEQ
 
-    $end            reduce using rule 31 (hashfunc -> hashset_union .)
+  ! shift/reduce conflict for ASIGNAR resolved as shift
+    DOT             shift and go to state 26
+    ASIGNAR         shift and go to state 27
+    PLUSEQ          shift and go to state 28
+    MINUSEQ         shift and go to state 29
+    STAREQ          shift and go to state 30
+    SLASHEQ         shift and go to state 31
 
+  ! ASIGNAR         [ reduce using rule 10 (declarador -> VARIABLE .) ]
+
+    oper_asig                      shift and go to state 25
 
 state 13
 
-    (9) declarador -> let_asig .
+    (32) hashfunc -> hashset_insert .
 
-    ASIGNAR         reduce using rule 9 (declarador -> let_asig .)
+    $end            reduce using rule 32 (hashfunc -> hashset_insert .)
+    LLAVEDER        reduce using rule 32 (hashfunc -> hashset_insert .)
 
 
 state 14
 
-    (5) asignacion -> declarador ASIGNAR . expresion ENDLINE
-    (21) expresion -> . STRING
-    (22) expresion -> . U8
+    (33) hashfunc -> hashset_union .
 
-    STRING          shift and go to state 28
-    U8              shift and go to state 29
+    $end            reduce using rule 33 (hashfunc -> hashset_union .)
+    LLAVEDER        reduce using rule 33 (hashfunc -> hashset_union .)
 
-    expresion                      shift and go to state 27
 
 state 15
 
-    (6) asignacion -> other_operators ENDLINE .
+    (37) conditional -> if_type . validations LLAVEIZ rust LLAVEDER
+    (41) validations -> . comparison
+    (42) validations -> . comparison ANDAND validations
+    (43) validations -> . comparison OROR validations
+    (44) comparison -> . VARIABLE GREATER VARIABLE
 
-    $end            reduce using rule 6 (asignacion -> other_operators ENDLINE .)
+    VARIABLE        shift and go to state 34
 
+    validations                    shift and go to state 32
+    comparison                     shift and go to state 33
 
 state 16
 
-    (23) prints -> PRINTS LPAREN . print_expresion RPAREN ENDLINE
-    (24) print_expresion -> . STRING
-    (25) print_expresion -> . STRING COMMA print_args
+    (11) declarador -> let_asig .
 
-    STRING          shift and go to state 31
+    ASIGNAR         reduce using rule 11 (declarador -> let_asig .)
 
-    print_expresion                shift and go to state 30
 
 state 17
 
-    (29) hashset -> LET MUT . VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (11) let_asig -> LET MUT . var_tipo
-    (12) var_tipo -> . VARIABLE
-    (13) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+    (38) if_type -> IF .
 
-    VARIABLE        shift and go to state 32
+    VARIABLE        reduce using rule 38 (if_type -> IF .)
 
-    var_tipo                       shift and go to state 33
 
 state 18
 
-    (12) var_tipo -> VARIABLE .
-    (13) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
+    (39) if_type -> ELSE . IF
+    (40) if_type -> ELSE .
 
-    ASIGNAR         reduce using rule 12 (var_tipo -> VARIABLE .)
-    ASIGNATION_TYPE shift and go to state 34
+    IF              shift and go to state 35
+    VARIABLE        reduce using rule 40 (if_type -> ELSE .)
 
 
 state 19
 
-    (10) let_asig -> LET var_tipo .
+    (7) asignacion -> declarador ASIGNAR . expresion ENDLINE
+    (36) conditional_asigned -> declarador ASIGNAR . conditional ENDLINE
+    (23) expresion -> . STRING
+    (24) expresion -> . U8
+    (37) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (38) if_type -> . IF
+    (39) if_type -> . ELSE IF
+    (40) if_type -> . ELSE
 
-    ASIGNAR         reduce using rule 10 (let_asig -> LET var_tipo .)
+    STRING          shift and go to state 38
+    U8              shift and go to state 39
+    IF              shift and go to state 17
+    ELSE            shift and go to state 18
 
+    expresion                      shift and go to state 36
+    conditional                    shift and go to state 37
+    if_type                        shift and go to state 15
 
 state 20
 
-    (7) other_operators -> VARIABLE oper_asig . expresion
-    (21) expresion -> . STRING
-    (22) expresion -> . U8
+    (8) asignacion -> other_operators ENDLINE .
 
-    STRING          shift and go to state 28
-    U8              shift and go to state 29
+    $end            reduce using rule 8 (asignacion -> other_operators ENDLINE .)
+    LLAVEDER        reduce using rule 8 (asignacion -> other_operators ENDLINE .)
 
-    expresion                      shift and go to state 35
 
 state 21
 
-    (32) hashset_insert -> VARIABLE DOT . INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (33) hashset_union -> VARIABLE DOT . UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (25) prints -> PRINTS LPAREN . print_expresion RPAREN ENDLINE
+    (26) print_expresion -> . STRING
+    (27) print_expresion -> . STRING COMMA print_args
 
-    INSERT_HASH     shift and go to state 36
-    UNION_HASH      shift and go to state 37
+    STRING          shift and go to state 41
 
+    print_expresion                shift and go to state 40
 
 state 22
 
-    (16) oper_asig -> ASIGNAR .
+    (31) hashset -> LET MUT . VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (13) let_asig -> LET MUT . var_tipo
+    (14) var_tipo -> . VARIABLE
+    (15) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
 
-    STRING          reduce using rule 16 (oper_asig -> ASIGNAR .)
-    U8              reduce using rule 16 (oper_asig -> ASIGNAR .)
+    VARIABLE        shift and go to state 42
 
+    var_tipo                       shift and go to state 43
 
 state 23
 
-    (17) oper_asig -> PLUSEQ .
+    (14) var_tipo -> VARIABLE .
+    (15) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
 
-    STRING          reduce using rule 17 (oper_asig -> PLUSEQ .)
-    U8              reduce using rule 17 (oper_asig -> PLUSEQ .)
+    ASIGNAR         reduce using rule 14 (var_tipo -> VARIABLE .)
+    ASIGNATION_TYPE shift and go to state 44
 
 
 state 24
 
-    (18) oper_asig -> MINUSEQ .
+    (12) let_asig -> LET var_tipo .
 
-    STRING          reduce using rule 18 (oper_asig -> MINUSEQ .)
-    U8              reduce using rule 18 (oper_asig -> MINUSEQ .)
+    ASIGNAR         reduce using rule 12 (let_asig -> LET var_tipo .)
 
 
 state 25
 
-    (19) oper_asig -> STAREQ .
+    (9) other_operators -> VARIABLE oper_asig . expresion
+    (23) expresion -> . STRING
+    (24) expresion -> . U8
 
-    STRING          reduce using rule 19 (oper_asig -> STAREQ .)
-    U8              reduce using rule 19 (oper_asig -> STAREQ .)
+    STRING          shift and go to state 38
+    U8              shift and go to state 39
 
+    expresion                      shift and go to state 45
 
 state 26
 
-    (20) oper_asig -> SLASHEQ .
+    (34) hashset_insert -> VARIABLE DOT . INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (35) hashset_union -> VARIABLE DOT . UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
 
-    STRING          reduce using rule 20 (oper_asig -> SLASHEQ .)
-    U8              reduce using rule 20 (oper_asig -> SLASHEQ .)
+    INSERT_HASH     shift and go to state 46
+    UNION_HASH      shift and go to state 47
 
 
 state 27
 
-    (5) asignacion -> declarador ASIGNAR expresion . ENDLINE
+    (18) oper_asig -> ASIGNAR .
 
-    ENDLINE         shift and go to state 38
+    STRING          reduce using rule 18 (oper_asig -> ASIGNAR .)
+    U8              reduce using rule 18 (oper_asig -> ASIGNAR .)
 
 
 state 28
 
-    (21) expresion -> STRING .
+    (19) oper_asig -> PLUSEQ .
 
-    ENDLINE         reduce using rule 21 (expresion -> STRING .)
-    COMMA           reduce using rule 21 (expresion -> STRING .)
-    RPAREN          reduce using rule 21 (expresion -> STRING .)
+    STRING          reduce using rule 19 (oper_asig -> PLUSEQ .)
+    U8              reduce using rule 19 (oper_asig -> PLUSEQ .)
 
 
 state 29
 
-    (22) expresion -> U8 .
+    (20) oper_asig -> MINUSEQ .
 
-    ENDLINE         reduce using rule 22 (expresion -> U8 .)
-    COMMA           reduce using rule 22 (expresion -> U8 .)
-    RPAREN          reduce using rule 22 (expresion -> U8 .)
+    STRING          reduce using rule 20 (oper_asig -> MINUSEQ .)
+    U8              reduce using rule 20 (oper_asig -> MINUSEQ .)
 
 
 state 30
 
-    (23) prints -> PRINTS LPAREN print_expresion . RPAREN ENDLINE
+    (21) oper_asig -> STAREQ .
 
-    RPAREN          shift and go to state 39
+    STRING          reduce using rule 21 (oper_asig -> STAREQ .)
+    U8              reduce using rule 21 (oper_asig -> STAREQ .)
 
 
 state 31
 
-    (24) print_expresion -> STRING .
-    (25) print_expresion -> STRING . COMMA print_args
+    (22) oper_asig -> SLASHEQ .
 
-    RPAREN          reduce using rule 24 (print_expresion -> STRING .)
-    COMMA           shift and go to state 40
+    STRING          reduce using rule 22 (oper_asig -> SLASHEQ .)
+    U8              reduce using rule 22 (oper_asig -> SLASHEQ .)
 
 
 state 32
 
-    (29) hashset -> LET MUT VARIABLE . ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (12) var_tipo -> VARIABLE .
-    (13) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
+    (37) conditional -> if_type validations . LLAVEIZ rust LLAVEDER
 
-  ! shift/reduce conflict for ASIGNAR resolved as shift
-    ASIGNAR         shift and go to state 41
-    ASIGNATION_TYPE shift and go to state 34
-
-  ! ASIGNAR         [ reduce using rule 12 (var_tipo -> VARIABLE .) ]
+    LLAVEIZ         shift and go to state 48
 
 
 state 33
 
-    (11) let_asig -> LET MUT var_tipo .
+    (41) validations -> comparison .
+    (42) validations -> comparison . ANDAND validations
+    (43) validations -> comparison . OROR validations
 
-    ASIGNAR         reduce using rule 11 (let_asig -> LET MUT var_tipo .)
+    LLAVEIZ         reduce using rule 41 (validations -> comparison .)
+    ANDAND          shift and go to state 49
+    OROR            shift and go to state 50
 
 
 state 34
 
-    (13) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
-    (14) tipos -> . DATATYPES
-    (15) tipos -> . NUMDATATYPES
+    (44) comparison -> VARIABLE . GREATER VARIABLE
 
-    DATATYPES       shift and go to state 43
-    NUMDATATYPES    shift and go to state 44
+    GREATER         shift and go to state 51
 
-    tipos                          shift and go to state 42
 
 state 35
 
-    (7) other_operators -> VARIABLE oper_asig expresion .
+    (39) if_type -> ELSE IF .
 
-    ENDLINE         reduce using rule 7 (other_operators -> VARIABLE oper_asig expresion .)
+    VARIABLE        reduce using rule 39 (if_type -> ELSE IF .)
 
 
 state 36
 
-    (32) hashset_insert -> VARIABLE DOT INSERT_HASH . LPAREN expresion RPAREN ENDLINE
+    (7) asignacion -> declarador ASIGNAR expresion . ENDLINE
 
-    LPAREN          shift and go to state 45
+    ENDLINE         shift and go to state 52
 
 
 state 37
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH . LPAREN AND VARIABLE RPAREN ENDLINE
+    (36) conditional_asigned -> declarador ASIGNAR conditional . ENDLINE
 
-    LPAREN          shift and go to state 46
+    ENDLINE         shift and go to state 53
 
 
 state 38
 
-    (5) asignacion -> declarador ASIGNAR expresion ENDLINE .
+    (23) expresion -> STRING .
 
-    $end            reduce using rule 5 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
+    ENDLINE         reduce using rule 23 (expresion -> STRING .)
+    COMMA           reduce using rule 23 (expresion -> STRING .)
+    RPAREN          reduce using rule 23 (expresion -> STRING .)
 
 
 state 39
 
-    (23) prints -> PRINTS LPAREN print_expresion RPAREN . ENDLINE
+    (24) expresion -> U8 .
 
-    ENDLINE         shift and go to state 47
+    ENDLINE         reduce using rule 24 (expresion -> U8 .)
+    COMMA           reduce using rule 24 (expresion -> U8 .)
+    RPAREN          reduce using rule 24 (expresion -> U8 .)
 
 
 state 40
 
-    (25) print_expresion -> STRING COMMA . print_args
-    (26) print_args -> . print_datos COMMA print_args
-    (27) print_args -> . print_datos
-    (28) print_datos -> . expresion
-    (21) expresion -> . STRING
-    (22) expresion -> . U8
+    (25) prints -> PRINTS LPAREN print_expresion . RPAREN ENDLINE
 
-    STRING          shift and go to state 28
-    U8              shift and go to state 29
+    RPAREN          shift and go to state 54
 
-    print_args                     shift and go to state 48
-    print_datos                    shift and go to state 49
-    expresion                      shift and go to state 50
 
 state 41
 
-    (29) hashset -> LET MUT VARIABLE ASIGNAR . HASHSET PATHSEP NEWFUNC ENDLINE
+    (26) print_expresion -> STRING .
+    (27) print_expresion -> STRING . COMMA print_args
 
-    HASHSET         shift and go to state 51
+    RPAREN          reduce using rule 26 (print_expresion -> STRING .)
+    COMMA           shift and go to state 55
 
 
 state 42
 
-    (13) var_tipo -> VARIABLE ASIGNATION_TYPE tipos .
+    (31) hashset -> LET MUT VARIABLE . ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (14) var_tipo -> VARIABLE .
+    (15) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
 
-    ASIGNAR         reduce using rule 13 (var_tipo -> VARIABLE ASIGNATION_TYPE tipos .)
+  ! shift/reduce conflict for ASIGNAR resolved as shift
+    ASIGNAR         shift and go to state 56
+    ASIGNATION_TYPE shift and go to state 44
+
+  ! ASIGNAR         [ reduce using rule 14 (var_tipo -> VARIABLE .) ]
 
 
 state 43
 
-    (14) tipos -> DATATYPES .
+    (13) let_asig -> LET MUT var_tipo .
 
-    ASIGNAR         reduce using rule 14 (tipos -> DATATYPES .)
+    ASIGNAR         reduce using rule 13 (let_asig -> LET MUT var_tipo .)
 
 
 state 44
 
-    (15) tipos -> NUMDATATYPES .
+    (15) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
+    (16) tipos -> . DATATYPES
+    (17) tipos -> . NUMDATATYPES
 
-    ASIGNAR         reduce using rule 15 (tipos -> NUMDATATYPES .)
+    DATATYPES       shift and go to state 58
+    NUMDATATYPES    shift and go to state 59
 
+    tipos                          shift and go to state 57
 
 state 45
 
-    (32) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN . expresion RPAREN ENDLINE
-    (21) expresion -> . STRING
-    (22) expresion -> . U8
+    (9) other_operators -> VARIABLE oper_asig expresion .
 
-    STRING          shift and go to state 28
-    U8              shift and go to state 29
+    ENDLINE         reduce using rule 9 (other_operators -> VARIABLE oper_asig expresion .)
 
-    expresion                      shift and go to state 52
 
 state 46
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH LPAREN . AND VARIABLE RPAREN ENDLINE
+    (34) hashset_insert -> VARIABLE DOT INSERT_HASH . LPAREN expresion RPAREN ENDLINE
 
-    AND             shift and go to state 53
+    LPAREN          shift and go to state 60
 
 
 state 47
 
-    (23) prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .
+    (35) hashset_union -> VARIABLE DOT UNION_HASH . LPAREN AND VARIABLE RPAREN ENDLINE
 
-    $end            reduce using rule 23 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
+    LPAREN          shift and go to state 61
 
 
 state 48
 
-    (25) print_expresion -> STRING COMMA print_args .
+    (37) conditional -> if_type validations LLAVEIZ . rust LLAVEDER
+    (1) rust -> . asignacion
+    (2) rust -> . prints
+    (3) rust -> . hashset
+    (4) rust -> . hashfunc
+    (5) rust -> . conditional
+    (6) rust -> . conditional_asigned
+    (7) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (8) asignacion -> . other_operators ENDLINE
+    (25) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (31) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (32) hashfunc -> . hashset_insert
+    (33) hashfunc -> . hashset_union
+    (37) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (36) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (10) declarador -> . VARIABLE
+    (11) declarador -> . let_asig
+    (9) other_operators -> . VARIABLE oper_asig expresion
+    (34) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (35) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (38) if_type -> . IF
+    (39) if_type -> . ELSE IF
+    (40) if_type -> . ELSE
+    (12) let_asig -> . LET var_tipo
+    (13) let_asig -> . LET MUT var_tipo
 
-    RPAREN          reduce using rule 25 (print_expresion -> STRING COMMA print_args .)
+    PRINTS          shift and go to state 10
+    LET             shift and go to state 11
+    VARIABLE        shift and go to state 12
+    IF              shift and go to state 17
+    ELSE            shift and go to state 18
 
+    if_type                        shift and go to state 15
+    rust                           shift and go to state 62
+    asignacion                     shift and go to state 2
+    prints                         shift and go to state 3
+    hashset                        shift and go to state 4
+    hashfunc                       shift and go to state 5
+    conditional                    shift and go to state 6
+    conditional_asigned            shift and go to state 7
+    declarador                     shift and go to state 8
+    other_operators                shift and go to state 9
+    hashset_insert                 shift and go to state 13
+    hashset_union                  shift and go to state 14
+    let_asig                       shift and go to state 16
 
 state 49
 
-    (26) print_args -> print_datos . COMMA print_args
-    (27) print_args -> print_datos .
+    (42) validations -> comparison ANDAND . validations
+    (41) validations -> . comparison
+    (42) validations -> . comparison ANDAND validations
+    (43) validations -> . comparison OROR validations
+    (44) comparison -> . VARIABLE GREATER VARIABLE
 
-    COMMA           shift and go to state 54
-    RPAREN          reduce using rule 27 (print_args -> print_datos .)
+    VARIABLE        shift and go to state 34
 
+    comparison                     shift and go to state 33
+    validations                    shift and go to state 63
 
 state 50
 
-    (28) print_datos -> expresion .
+    (43) validations -> comparison OROR . validations
+    (41) validations -> . comparison
+    (42) validations -> . comparison ANDAND validations
+    (43) validations -> . comparison OROR validations
+    (44) comparison -> . VARIABLE GREATER VARIABLE
 
-    COMMA           reduce using rule 28 (print_datos -> expresion .)
-    RPAREN          reduce using rule 28 (print_datos -> expresion .)
+    VARIABLE        shift and go to state 34
 
+    comparison                     shift and go to state 33
+    validations                    shift and go to state 64
 
 state 51
 
-    (29) hashset -> LET MUT VARIABLE ASIGNAR HASHSET . PATHSEP NEWFUNC ENDLINE
+    (44) comparison -> VARIABLE GREATER . VARIABLE
 
-    PATHSEP         shift and go to state 55
+    VARIABLE        shift and go to state 65
 
 
 state 52
 
-    (32) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion . RPAREN ENDLINE
+    (7) asignacion -> declarador ASIGNAR expresion ENDLINE .
 
-    RPAREN          shift and go to state 56
+    $end            reduce using rule 7 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
+    LLAVEDER        reduce using rule 7 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
 
 
 state 53
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND . VARIABLE RPAREN ENDLINE
+    (36) conditional_asigned -> declarador ASIGNAR conditional ENDLINE .
 
-    VARIABLE        shift and go to state 57
+    $end            reduce using rule 36 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
+    LLAVEDER        reduce using rule 36 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
 
 
 state 54
 
-    (26) print_args -> print_datos COMMA . print_args
-    (26) print_args -> . print_datos COMMA print_args
-    (27) print_args -> . print_datos
-    (28) print_datos -> . expresion
-    (21) expresion -> . STRING
-    (22) expresion -> . U8
+    (25) prints -> PRINTS LPAREN print_expresion RPAREN . ENDLINE
 
-    STRING          shift and go to state 28
-    U8              shift and go to state 29
+    ENDLINE         shift and go to state 66
 
-    print_datos                    shift and go to state 49
-    print_args                     shift and go to state 58
-    expresion                      shift and go to state 50
 
 state 55
 
-    (29) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP . NEWFUNC ENDLINE
+    (27) print_expresion -> STRING COMMA . print_args
+    (28) print_args -> . print_datos COMMA print_args
+    (29) print_args -> . print_datos
+    (30) print_datos -> . expresion
+    (23) expresion -> . STRING
+    (24) expresion -> . U8
 
-    NEWFUNC         shift and go to state 59
+    STRING          shift and go to state 38
+    U8              shift and go to state 39
 
+    print_args                     shift and go to state 67
+    print_datos                    shift and go to state 68
+    expresion                      shift and go to state 69
 
 state 56
 
-    (32) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN . ENDLINE
+    (31) hashset -> LET MUT VARIABLE ASIGNAR . HASHSET PATHSEP NEWFUNC ENDLINE
 
-    ENDLINE         shift and go to state 60
+    HASHSET         shift and go to state 70
 
 
 state 57
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE . RPAREN ENDLINE
+    (15) var_tipo -> VARIABLE ASIGNATION_TYPE tipos .
 
-    RPAREN          shift and go to state 61
+    ASIGNAR         reduce using rule 15 (var_tipo -> VARIABLE ASIGNATION_TYPE tipos .)
 
 
 state 58
 
-    (26) print_args -> print_datos COMMA print_args .
+    (16) tipos -> DATATYPES .
 
-    RPAREN          reduce using rule 26 (print_args -> print_datos COMMA print_args .)
+    ASIGNAR         reduce using rule 16 (tipos -> DATATYPES .)
 
 
 state 59
 
-    (29) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC . ENDLINE
+    (17) tipos -> NUMDATATYPES .
 
-    ENDLINE         shift and go to state 62
+    ASIGNAR         reduce using rule 17 (tipos -> NUMDATATYPES .)
 
 
 state 60
 
-    (32) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .
+    (34) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN . expresion RPAREN ENDLINE
+    (23) expresion -> . STRING
+    (24) expresion -> . U8
 
-    $end            reduce using rule 32 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+    STRING          shift and go to state 38
+    U8              shift and go to state 39
 
+    expresion                      shift and go to state 71
 
 state 61
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN . ENDLINE
+    (35) hashset_union -> VARIABLE DOT UNION_HASH LPAREN . AND VARIABLE RPAREN ENDLINE
 
-    ENDLINE         shift and go to state 63
+    AND             shift and go to state 72
 
 
 state 62
 
-    (29) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .
+    (37) conditional -> if_type validations LLAVEIZ rust . LLAVEDER
 
-    $end            reduce using rule 29 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+    LLAVEDER        shift and go to state 73
 
 
 state 63
 
-    (33) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .
+    (42) validations -> comparison ANDAND validations .
 
-    $end            reduce using rule 33 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
+    LLAVEIZ         reduce using rule 42 (validations -> comparison ANDAND validations .)
+
+
+state 64
+
+    (43) validations -> comparison OROR validations .
+
+    LLAVEIZ         reduce using rule 43 (validations -> comparison OROR validations .)
+
+
+state 65
+
+    (44) comparison -> VARIABLE GREATER VARIABLE .
+
+    ANDAND          reduce using rule 44 (comparison -> VARIABLE GREATER VARIABLE .)
+    OROR            reduce using rule 44 (comparison -> VARIABLE GREATER VARIABLE .)
+    LLAVEIZ         reduce using rule 44 (comparison -> VARIABLE GREATER VARIABLE .)
+
+
+state 66
+
+    (25) prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .
+
+    $end            reduce using rule 25 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 25 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
+
+
+state 67
+
+    (27) print_expresion -> STRING COMMA print_args .
+
+    RPAREN          reduce using rule 27 (print_expresion -> STRING COMMA print_args .)
+
+
+state 68
+
+    (28) print_args -> print_datos . COMMA print_args
+    (29) print_args -> print_datos .
+
+    COMMA           shift and go to state 74
+    RPAREN          reduce using rule 29 (print_args -> print_datos .)
+
+
+state 69
+
+    (30) print_datos -> expresion .
+
+    COMMA           reduce using rule 30 (print_datos -> expresion .)
+    RPAREN          reduce using rule 30 (print_datos -> expresion .)
+
+
+state 70
+
+    (31) hashset -> LET MUT VARIABLE ASIGNAR HASHSET . PATHSEP NEWFUNC ENDLINE
+
+    PATHSEP         shift and go to state 75
+
+
+state 71
+
+    (34) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 76
+
+
+state 72
+
+    (35) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND . VARIABLE RPAREN ENDLINE
+
+    VARIABLE        shift and go to state 77
+
+
+state 73
+
+    (37) conditional -> if_type validations LLAVEIZ rust LLAVEDER .
+
+    $end            reduce using rule 37 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
+    ENDLINE         reduce using rule 37 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
+    LLAVEDER        reduce using rule 37 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
+
+
+state 74
+
+    (28) print_args -> print_datos COMMA . print_args
+    (28) print_args -> . print_datos COMMA print_args
+    (29) print_args -> . print_datos
+    (30) print_datos -> . expresion
+    (23) expresion -> . STRING
+    (24) expresion -> . U8
+
+    STRING          shift and go to state 38
+    U8              shift and go to state 39
+
+    print_datos                    shift and go to state 68
+    print_args                     shift and go to state 78
+    expresion                      shift and go to state 69
+
+state 75
+
+    (31) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP . NEWFUNC ENDLINE
+
+    NEWFUNC         shift and go to state 79
+
+
+state 76
+
+    (34) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 80
+
+
+state 77
+
+    (35) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 81
+
+
+state 78
+
+    (28) print_args -> print_datos COMMA print_args .
+
+    RPAREN          reduce using rule 28 (print_args -> print_datos COMMA print_args .)
+
+
+state 79
+
+    (31) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC . ENDLINE
+
+    ENDLINE         shift and go to state 82
+
+
+state 80
+
+    (34) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .
+
+    $end            reduce using rule 34 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 34 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+
+
+state 81
+
+    (35) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 83
+
+
+state 82
+
+    (31) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .
+
+    $end            reduce using rule 31 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+    LLAVEDER        reduce using rule 31 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+
+
+state 83
+
+    (35) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .
+
+    $end            reduce using rule 35 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 35 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ASIGNAR in state 10 resolved as shift
-WARNING: shift/reduce conflict for ASIGNAR in state 32 resolved as shift
+WARNING: shift/reduce conflict for ASIGNAR in state 12 resolved as shift
+WARNING: shift/reduce conflict for ASIGNAR in state 42 resolved as shift

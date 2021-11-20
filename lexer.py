@@ -87,8 +87,8 @@ tokens = (
     'ASIGNATION_TYPE',
     'ARROW',
     'COMMA',
-    'CURLYL',
-    'CURLYR',
+    'LLAVEIZ',
+    'LLAVEDER',
     'BRACKETR',
     'BRACKETL',
     'DOLLAR',
@@ -141,8 +141,8 @@ t_HASHSET = r'HashSet'
 Joangie's contribution 
 Tests and rules for the lexer and adding special characters
 '''
-t_CURLYL = r'\{'
-t_CURLYR = r'\}'
+t_LLAVEIZ = r'\{'
+t_LLAVEDER = r'\}'
 t_BRACKETR = r'\]'
 t_BRACKETL = r'\['
 t_DOLLAR = r'\$'
