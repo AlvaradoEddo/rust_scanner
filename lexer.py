@@ -119,7 +119,7 @@ t_ASIGNAR = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_STRING = r'\"[a-zA-Z0-9_]*\"'
-t_U8 = r'(0?[0-9]?[0-9])|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-5])'
+t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]?[0-9]'
 t_ENDLINE = r';'
 t_ASIGNATION_TYPE = r':'
 t_ARROW = r'->'
@@ -179,7 +179,7 @@ def t_NUMDATATYPES(t):
 
 
 def t_VARIABLE(t):
-    r'([a-z]+[A-Z]*)|(_[a-z]+[A-Z]*[0-9]*[a-zA-Z]*)'
+    r'[a-z][a-zA-Z_$0-9]*'
     print(t.value)
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
