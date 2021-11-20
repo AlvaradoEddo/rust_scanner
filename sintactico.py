@@ -2,11 +2,29 @@ from lexer import tokens
 import ply.yacc as yacc
 
 
+
+'''
+Jaime's Contribution
+Asignations
+3 printing prints
+'''
+def p_rust(p):
+    '''
+    rust : asignacion
+         | prints
+    '''
+
 def p_asignacion(p):
     '''
-    asignacion : declarador ASIGNAR expresion
-                | VARIABLE oper_asig expresion
+    asignacion : declarador ASIGNAR expresion ENDLINE
+                | other_operators ENDLINE
     '''
+
+def p_other_operators(p):
+    '''
+    other_operators : VARIABLE oper_asig expresion
+    '''
+
 def p_declarador(p):
     '''
     declarador : VARIABLE
@@ -46,6 +64,29 @@ def p_expresion(p):
                 | U8
     '''
 
+def p_prints(p):
+    '''
+    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE
+    '''
+
+
+
+def p_print_expresion(p):
+    '''
+    print_expresion : STRING
+                    | STRING COMMA print_args
+    '''
+
+def p_print_args(p):
+    '''
+    print_args : print_datos COMMA print_args 
+                | print_datos
+    '''
+
+def p_print_datos(p):
+    '''
+    print_datos : expresion
+    '''
 
 parser = yacc.yacc()
  

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE CURLYL CURLYR DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NOT NUMBER NUMDATATYPES OR PATHSEP PLUSEQ POP_VEC PRINT PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    asignacion : declarador ASIGNAR expresion\n                | VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    '
+_lr_signature = 'AND ARROW AS ASIGNAR ASIGNATION_TYPE ASYNC AWAIT BRACKETL BRACKETR BREAK B_FALSE B_TRUE COMMA CONST CONTAINS_SLICE CONTIN CRATE CURLYL CURLYR DATATYPES DIFFERENT DIVISION DOLLAR DOT DOTDOTDOT DYN ELSE ENDLINE ENUM EQUAL ERRORPROP EXTERN FOR FUNCTION GET_SLICE GREATEQ GREATER HASHSET IF IMPL IN INSERT_HASH LESSEQ LESST LET LOOP LPAREN MAS MATCH MAYOR MAYORIGUAL MENOS MINUSEQ MOD MODULO MOVE MULT MUT NOT NUMBER NUMDATATYPES OR PATHSEP PLUSEQ POP_VEC PRINT PRINTS PUB PUSH_VEC REF RETURN RPAREN SELF SELFLOWERCASE SLASHEQ STAREQ STATIC STRING STRUCT SUPER TRAIT TYPE U8 UNION_HASH UNSAFE USE VARIABLE VECTOR WHERE WHILE\n    rust : asignacion\n         | prints\n    \n    asignacion : declarador ASIGNAR expresion ENDLINE\n                | other_operators ENDLINE\n    \n    other_operators : VARIABLE oper_asig expresion\n    \n    declarador : VARIABLE\n                | let_asig\n    \n    let_asig : LET var_tipo\n             | LET MUT var_tipo\n    \n    var_tipo : VARIABLE\n             | VARIABLE  ASIGNATION_TYPE tipos\n    \n    tipos : DATATYPES\n            | NUMDATATYPES\n    \n    oper_asig : ASIGNAR\n                | PLUSEQ\n                | MINUSEQ\n                | STAREQ\n                | SLASHEQ\n    \n    expresion : STRING\n                | U8\n    \n    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE\n    \n    print_expresion : STRING\n                    | STRING COMMA print_args\n    \n    print_args : print_datos COMMA print_args \n                | print_datos\n    \n    print_datos : expresion\n    '
     
-_lr_action_items = {'VARIABLE':([0,5,14,],[3,15,15,]),'LET':([0,],[5,]),'$end':([1,16,17,18,19,],[0,-1,-16,-17,-2,]),'ASIGNAR':([2,3,4,13,15,20,22,23,24,],[6,8,-4,-5,-7,-6,-8,-9,-10,]),'PLUSEQ':([3,],[9,]),'MINUSEQ':([3,],[10,]),'STAREQ':([3,],[11,]),'SLASHEQ':([3,],[12,]),'MUT':([5,],[14,]),'STRING':([6,7,8,9,10,11,12,],[17,17,-11,-12,-13,-14,-15,]),'U8':([6,7,8,9,10,11,12,],[18,18,-11,-12,-13,-14,-15,]),'ASIGNATION_TYPE':([15,],[21,]),'DATATYPES':([21,],[23,]),'NUMDATATYPES':([21,],[24,]),}
+_lr_action_items = {'PRINTS':([0,],[6,]),'VARIABLE':([0,9,20,],[7,21,21,]),'LET':([0,],[9,]),'$end':([1,2,3,11,30,36,],[0,-1,-2,-4,-3,-21,]),'ASIGNAR':([4,7,8,19,21,28,33,34,35,],[10,14,-7,-8,-10,-9,-11,-12,-13,]),'ENDLINE':([5,22,23,24,27,31,],[11,30,-19,-20,-5,36,]),'LPAREN':([6,],[12,]),'PLUSEQ':([7,],[15,]),'MINUSEQ':([7,],[16,]),'STAREQ':([7,],[17,]),'SLASHEQ':([7,],[18,]),'MUT':([9,],[20,]),'STRING':([10,12,13,14,15,16,17,18,32,40,],[23,26,23,-14,-15,-16,-17,-18,23,23,]),'U8':([10,13,14,15,16,17,18,32,40,],[24,24,-14,-15,-16,-17,-18,24,24,]),'ASIGNATION_TYPE':([21,],[29,]),'COMMA':([23,24,26,38,39,],[-19,-20,32,40,-26,]),'RPAREN':([23,24,25,26,37,38,39,41,],[-19,-20,31,-22,-23,-25,-26,-24,]),'DATATYPES':([29,],[34,]),'NUMDATATYPES':([29,],[35,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'asignacion':([0,],[1,]),'declarador':([0,],[2,]),'let_asig':([0,],[4,]),'oper_asig':([3,],[7,]),'var_tipo':([5,14,],[13,20,]),'expresion':([6,7,],[16,19,]),'tipos':([21,],[22,]),}
+_lr_goto_items = {'rust':([0,],[1,]),'asignacion':([0,],[2,]),'prints':([0,],[3,]),'declarador':([0,],[4,]),'other_operators':([0,],[5,]),'let_asig':([0,],[8,]),'oper_asig':([7,],[13,]),'var_tipo':([9,20,],[19,28,]),'expresion':([10,13,32,40,],[22,27,39,39,]),'print_expresion':([12,],[25,]),'tipos':([29,],[33,]),'print_args':([32,40,],[37,41,]),'print_datos':([32,40,],[38,38,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,22 +26,31 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> asignacion","S'",1,None,None,None),
-  ('asignacion -> declarador ASIGNAR expresion','asignacion',3,'p_asignacion','sintactico.py',7),
-  ('asignacion -> VARIABLE oper_asig expresion','asignacion',3,'p_asignacion','sintactico.py',8),
-  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',12),
-  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',13),
-  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',18),
-  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',19),
-  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',24),
-  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',25),
-  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',30),
-  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',31),
-  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',36),
-  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',37),
-  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',38),
-  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',39),
-  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',40),
-  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',45),
-  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',46),
+  ("S' -> rust","S'",1,None,None,None),
+  ('rust -> asignacion','rust',1,'p_rust','sintactico.py',13),
+  ('rust -> prints','rust',1,'p_rust','sintactico.py',14),
+  ('asignacion -> declarador ASIGNAR expresion ENDLINE','asignacion',4,'p_asignacion','sintactico.py',19),
+  ('asignacion -> other_operators ENDLINE','asignacion',2,'p_asignacion','sintactico.py',20),
+  ('other_operators -> VARIABLE oper_asig expresion','other_operators',3,'p_other_operators','sintactico.py',25),
+  ('declarador -> VARIABLE','declarador',1,'p_declarador','sintactico.py',30),
+  ('declarador -> let_asig','declarador',1,'p_declarador','sintactico.py',31),
+  ('let_asig -> LET var_tipo','let_asig',2,'p_let_asig','sintactico.py',36),
+  ('let_asig -> LET MUT var_tipo','let_asig',3,'p_let_asig','sintactico.py',37),
+  ('var_tipo -> VARIABLE','var_tipo',1,'p_var_tipo','sintactico.py',42),
+  ('var_tipo -> VARIABLE ASIGNATION_TYPE tipos','var_tipo',3,'p_var_tipo','sintactico.py',43),
+  ('tipos -> DATATYPES','tipos',1,'p_tipos','sintactico.py',48),
+  ('tipos -> NUMDATATYPES','tipos',1,'p_tipos','sintactico.py',49),
+  ('oper_asig -> ASIGNAR','oper_asig',1,'p_oper_asig','sintactico.py',54),
+  ('oper_asig -> PLUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',55),
+  ('oper_asig -> MINUSEQ','oper_asig',1,'p_oper_asig','sintactico.py',56),
+  ('oper_asig -> STAREQ','oper_asig',1,'p_oper_asig','sintactico.py',57),
+  ('oper_asig -> SLASHEQ','oper_asig',1,'p_oper_asig','sintactico.py',58),
+  ('expresion -> STRING','expresion',1,'p_expresion','sintactico.py',63),
+  ('expresion -> U8','expresion',1,'p_expresion','sintactico.py',64),
+  ('prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE','prints',5,'p_prints','sintactico.py',69),
+  ('print_expresion -> STRING','print_expresion',1,'p_print_expresion','sintactico.py',76),
+  ('print_expresion -> STRING COMMA print_args','print_expresion',3,'p_print_expresion','sintactico.py',77),
+  ('print_args -> print_datos COMMA print_args','print_args',3,'p_print_args','sintactico.py',82),
+  ('print_args -> print_datos','print_args',1,'p_print_args','sintactico.py',83),
+  ('print_datos -> expresion','print_datos',1,'p_print_datos','sintactico.py',88),
 ]

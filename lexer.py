@@ -99,7 +99,8 @@ tokens = (
     'MINUSEQ',
     'STAREQ',
     'SLASHEQ',
-    'ENDLINE'
+    'ENDLINE',
+    'PRINTS'
 ) + tuple(reserved.values())
 
 t_MAS = r'\+'
@@ -109,7 +110,7 @@ t_DIVISION = r'/'
 t_MODULO = r'%'
 t_OR = r'\|\|'
 t_AND = r'&&'
-t_NOT = r'!'
+#t_NOT = r'!'
 t_LESST = r'<'
 t_GREATER = r'>'
 t_LESSEQ = r'<='
@@ -119,7 +120,7 @@ t_DIFFERENT = r'!='
 t_ASIGNAR = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_STRING = r'\"[a-zA-Z0-9_]*\"'
+t_STRING = r'\"[a-zA-Z0-9_{}]*\"'
 t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]?[0-9]'
 t_ENDLINE = r';'
 t_ASIGNATION_TYPE = r':'
@@ -130,7 +131,6 @@ t_PLUSEQ = r'\+='
 t_MINUSEQ = r'-='
 t_STAREQ = r'\*='
 t_SLASHEQ = r'\/='
-
 '''
 Joangie's contribution 
 Tests and rules for the lexer and adding special characters
@@ -180,7 +180,12 @@ def t_NUMDATATYPES(t):
     return t
 
 def t_DATATYPES(t):
-    r'bool | char | str | ! '
+    r'bool | char | str '
+    return t
+
+
+def t_PRINTS(t):
+    r'format! | print! | println! | eprint! | eprintln!'
     return t
 
 def t_VARIABLE(t):
@@ -188,7 +193,6 @@ def t_VARIABLE(t):
     print(t.value)
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
-
 
 # Error handling rule
 def t_error(t):
