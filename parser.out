@@ -1,0 +1,435 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    ARROW
+    AS
+    ASYNC
+    AWAIT
+    BRACKETL
+    BRACKETR
+    BREAK
+    B_FALSE
+    B_TRUE
+    COMMA
+    CONST
+    CONTAINS_SLICE
+    CONTIN
+    CRATE
+    CURLYL
+    CURLYR
+    DIFFERENT
+    DIVISION
+    DOLLAR
+    DOT
+    DOTDOTDOT
+    DYN
+    ELSE
+    ENDLINE
+    ENUM
+    EQUAL
+    ERRORPROP
+    EXTERN
+    FOR
+    FUNCTION
+    GET_SLICE
+    GREATEQ
+    GREATER
+    HASHSET
+    IF
+    IMPL
+    IN
+    INSERT_HASH
+    LESSEQ
+    LESST
+    LOOP
+    LPAREN
+    MAS
+    MATCH
+    MAYOR
+    MAYORIGUAL
+    MENOS
+    MOD
+    MODULO
+    MOVE
+    MULT
+    NOT
+    NUMBER
+    OR
+    PATHSEP
+    POP_VEC
+    PRINT
+    PUB
+    PUSH_VEC
+    REF
+    RETURN
+    RPAREN
+    SELF
+    SELFLOWERCASE
+    STATIC
+    STRUCT
+    SUPER
+    TRAIT
+    TYPE
+    UNION_HASH
+    UNSAFE
+    USE
+    VECTOR
+    WHERE
+    WHILE
+
+Grammar
+
+Rule 0     S' -> asignacion
+Rule 1     asignacion -> declarador ASIGNAR expresion
+Rule 2     asignacion -> VARIABLE oper_asig expresion
+Rule 3     declarador -> VARIABLE
+Rule 4     declarador -> let_asig
+Rule 5     let_asig -> LET var_tipo
+Rule 6     let_asig -> LET MUT var_tipo
+Rule 7     var_tipo -> VARIABLE
+Rule 8     var_tipo -> VARIABLE ASIGNATION_TYPE tipos
+Rule 9     tipos -> DATATYPES
+Rule 10    tipos -> NUMDATATYPES
+Rule 11    oper_asig -> ASIGNAR
+Rule 12    oper_asig -> PLUSEQ
+Rule 13    oper_asig -> MINUSEQ
+Rule 14    oper_asig -> STAREQ
+Rule 15    oper_asig -> SLASHEQ
+Rule 16    expresion -> STRING
+Rule 17    expresion -> U8
+
+Terminals, with rules where they appear
+
+AND                  : 
+ARROW                : 
+AS                   : 
+ASIGNAR              : 1 11
+ASIGNATION_TYPE      : 8
+ASYNC                : 
+AWAIT                : 
+BRACKETL             : 
+BRACKETR             : 
+BREAK                : 
+B_FALSE              : 
+B_TRUE               : 
+COMMA                : 
+CONST                : 
+CONTAINS_SLICE       : 
+CONTIN               : 
+CRATE                : 
+CURLYL               : 
+CURLYR               : 
+DATATYPES            : 9
+DIFFERENT            : 
+DIVISION             : 
+DOLLAR               : 
+DOT                  : 
+DOTDOTDOT            : 
+DYN                  : 
+ELSE                 : 
+ENDLINE              : 
+ENUM                 : 
+EQUAL                : 
+ERRORPROP            : 
+EXTERN               : 
+FOR                  : 
+FUNCTION             : 
+GET_SLICE            : 
+GREATEQ              : 
+GREATER              : 
+HASHSET              : 
+IF                   : 
+IMPL                 : 
+IN                   : 
+INSERT_HASH          : 
+LESSEQ               : 
+LESST                : 
+LET                  : 5 6
+LOOP                 : 
+LPAREN               : 
+MAS                  : 
+MATCH                : 
+MAYOR                : 
+MAYORIGUAL           : 
+MENOS                : 
+MINUSEQ              : 13
+MOD                  : 
+MODULO               : 
+MOVE                 : 
+MULT                 : 
+MUT                  : 6
+NOT                  : 
+NUMBER               : 
+NUMDATATYPES         : 10
+OR                   : 
+PATHSEP              : 
+PLUSEQ               : 12
+POP_VEC              : 
+PRINT                : 
+PUB                  : 
+PUSH_VEC             : 
+REF                  : 
+RETURN               : 
+RPAREN               : 
+SELF                 : 
+SELFLOWERCASE        : 
+SLASHEQ              : 15
+STAREQ               : 14
+STATIC               : 
+STRING               : 16
+STRUCT               : 
+SUPER                : 
+TRAIT                : 
+TYPE                 : 
+U8                   : 17
+UNION_HASH           : 
+UNSAFE               : 
+USE                  : 
+VARIABLE             : 2 3 7 8
+VECTOR               : 
+WHERE                : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 0
+declarador           : 1
+expresion            : 1 2
+let_asig             : 4
+oper_asig            : 2
+tipos                : 8
+var_tipo             : 5 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . asignacion
+    (1) asignacion -> . declarador ASIGNAR expresion
+    (2) asignacion -> . VARIABLE oper_asig expresion
+    (3) declarador -> . VARIABLE
+    (4) declarador -> . let_asig
+    (5) let_asig -> . LET var_tipo
+    (6) let_asig -> . LET MUT var_tipo
+
+    VARIABLE        shift and go to state 3
+    LET             shift and go to state 5
+
+    asignacion                     shift and go to state 1
+    declarador                     shift and go to state 2
+    let_asig                       shift and go to state 4
+
+state 1
+
+    (0) S' -> asignacion .
+
+
+
+state 2
+
+    (1) asignacion -> declarador . ASIGNAR expresion
+
+    ASIGNAR         shift and go to state 6
+
+
+state 3
+
+    (2) asignacion -> VARIABLE . oper_asig expresion
+    (3) declarador -> VARIABLE .
+    (11) oper_asig -> . ASIGNAR
+    (12) oper_asig -> . PLUSEQ
+    (13) oper_asig -> . MINUSEQ
+    (14) oper_asig -> . STAREQ
+    (15) oper_asig -> . SLASHEQ
+
+  ! shift/reduce conflict for ASIGNAR resolved as shift
+    ASIGNAR         shift and go to state 8
+    PLUSEQ          shift and go to state 9
+    MINUSEQ         shift and go to state 10
+    STAREQ          shift and go to state 11
+    SLASHEQ         shift and go to state 12
+
+  ! ASIGNAR         [ reduce using rule 3 (declarador -> VARIABLE .) ]
+
+    oper_asig                      shift and go to state 7
+
+state 4
+
+    (4) declarador -> let_asig .
+
+    ASIGNAR         reduce using rule 4 (declarador -> let_asig .)
+
+
+state 5
+
+    (5) let_asig -> LET . var_tipo
+    (6) let_asig -> LET . MUT var_tipo
+    (7) var_tipo -> . VARIABLE
+    (8) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+
+    MUT             shift and go to state 14
+    VARIABLE        shift and go to state 15
+
+    var_tipo                       shift and go to state 13
+
+state 6
+
+    (1) asignacion -> declarador ASIGNAR . expresion
+    (16) expresion -> . STRING
+    (17) expresion -> . U8
+
+    STRING          shift and go to state 17
+    U8              shift and go to state 18
+
+    expresion                      shift and go to state 16
+
+state 7
+
+    (2) asignacion -> VARIABLE oper_asig . expresion
+    (16) expresion -> . STRING
+    (17) expresion -> . U8
+
+    STRING          shift and go to state 17
+    U8              shift and go to state 18
+
+    expresion                      shift and go to state 19
+
+state 8
+
+    (11) oper_asig -> ASIGNAR .
+
+    STRING          reduce using rule 11 (oper_asig -> ASIGNAR .)
+    U8              reduce using rule 11 (oper_asig -> ASIGNAR .)
+
+
+state 9
+
+    (12) oper_asig -> PLUSEQ .
+
+    STRING          reduce using rule 12 (oper_asig -> PLUSEQ .)
+    U8              reduce using rule 12 (oper_asig -> PLUSEQ .)
+
+
+state 10
+
+    (13) oper_asig -> MINUSEQ .
+
+    STRING          reduce using rule 13 (oper_asig -> MINUSEQ .)
+    U8              reduce using rule 13 (oper_asig -> MINUSEQ .)
+
+
+state 11
+
+    (14) oper_asig -> STAREQ .
+
+    STRING          reduce using rule 14 (oper_asig -> STAREQ .)
+    U8              reduce using rule 14 (oper_asig -> STAREQ .)
+
+
+state 12
+
+    (15) oper_asig -> SLASHEQ .
+
+    STRING          reduce using rule 15 (oper_asig -> SLASHEQ .)
+    U8              reduce using rule 15 (oper_asig -> SLASHEQ .)
+
+
+state 13
+
+    (5) let_asig -> LET var_tipo .
+
+    ASIGNAR         reduce using rule 5 (let_asig -> LET var_tipo .)
+
+
+state 14
+
+    (6) let_asig -> LET MUT . var_tipo
+    (7) var_tipo -> . VARIABLE
+    (8) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+
+    VARIABLE        shift and go to state 15
+
+    var_tipo                       shift and go to state 20
+
+state 15
+
+    (7) var_tipo -> VARIABLE .
+    (8) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
+
+    ASIGNAR         reduce using rule 7 (var_tipo -> VARIABLE .)
+    ASIGNATION_TYPE shift and go to state 21
+
+
+state 16
+
+    (1) asignacion -> declarador ASIGNAR expresion .
+
+    $end            reduce using rule 1 (asignacion -> declarador ASIGNAR expresion .)
+
+
+state 17
+
+    (16) expresion -> STRING .
+
+    $end            reduce using rule 16 (expresion -> STRING .)
+
+
+state 18
+
+    (17) expresion -> U8 .
+
+    $end            reduce using rule 17 (expresion -> U8 .)
+
+
+state 19
+
+    (2) asignacion -> VARIABLE oper_asig expresion .
+
+    $end            reduce using rule 2 (asignacion -> VARIABLE oper_asig expresion .)
+
+
+state 20
+
+    (6) let_asig -> LET MUT var_tipo .
+
+    ASIGNAR         reduce using rule 6 (let_asig -> LET MUT var_tipo .)
+
+
+state 21
+
+    (8) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
+    (9) tipos -> . DATATYPES
+    (10) tipos -> . NUMDATATYPES
+
+    DATATYPES       shift and go to state 23
+    NUMDATATYPES    shift and go to state 24
+
+    tipos                          shift and go to state 22
+
+state 22
+
+    (8) var_tipo -> VARIABLE ASIGNATION_TYPE tipos .
+
+    ASIGNAR         reduce using rule 8 (var_tipo -> VARIABLE ASIGNATION_TYPE tipos .)
+
+
+state 23
+
+    (9) tipos -> DATATYPES .
+
+    ASIGNAR         reduce using rule 9 (tipos -> DATATYPES .)
+
+
+state 24
+
+    (10) tipos -> NUMDATATYPES .
+
+    ASIGNAR         reduce using rule 10 (tipos -> NUMDATATYPES .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ASIGNAR in state 3 resolved as shift

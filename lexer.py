@@ -78,7 +78,7 @@ tokens = (
     'MAYOR',
     'MAYORIGUAL',
     'ASIGNAR',
-    'DATATYPE',
+    'DATATYPES',
     'VARIABLE',
     'STRING',
     'NUMDATATYPES',
@@ -95,6 +95,7 @@ tokens = (
     'DOTDOTDOT',
     'ERRORPROP',
     'PATHSEP',
+    'PLUSEQ',
     'MINUSEQ',
     'STAREQ',
     'SLASHEQ',
@@ -125,6 +126,7 @@ t_ASIGNATION_TYPE = r':'
 t_ARROW = r'->'
 
 t_PATHSEP = r'::'
+t_PLUSEQ = r'\+='
 t_MINUSEQ = r'-='
 t_STAREQ = r'\*='
 t_SLASHEQ = r'\/='
@@ -174,9 +176,12 @@ def t_newline(t):
 
 
 def t_NUMDATATYPES(t):
-    r'u8 | u16 | u32 | u64 | i8 | i16 | i32 | i64'
+    r'u8 | u16 | u32 | u64 | i8 | i16 | i32 | i64 | f32 | f64'
     return t
 
+def t_DATATYPES(t):
+    r'bool | char | str | ! '
+    return t
 
 def t_VARIABLE(t):
     r'[a-z][a-zA-Z_$0-9]*'
