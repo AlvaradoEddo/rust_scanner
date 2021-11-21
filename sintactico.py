@@ -19,6 +19,7 @@ def p_rust(p):
          | conditional_asigned
          | for_loop
          | struct_s
+         | asig_mate
     '''
 
 def p_asignacion(p):
@@ -197,6 +198,36 @@ def p_sentenciaStruct(p):
                 | VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
     '''
 
+def p_asignacion_matematica(p):
+    '''
+    asig_mate : VARIABLE ASIGNAR op_mat
+                | LET VARIABLE ASIGNAR op_mat
+                | LET MUT VARIABLE ASIGNAR op_mat
+    '''
+
+def p_operacion_matematica(p):
+    '''
+    op_mat : art_exp
+            | VARIABLE art_exp
+            | U8 art_exp
+    '''
+
+def p_aritmetic_expresion(p):
+    '''
+    art_exp : VARIABLE signo_arit VARIABLE
+            | U8 signo_arit VARIABLE
+            | VARIABLE signo_arit U8
+            | U8 signo_arit U8
+    '''
+
+def p_signos_aritmeticos(p):
+    '''
+    signo_arit : MAS
+                | MENOS
+                | MULT
+                | DIVISION
+                | MODULO
+    '''
 
 parser = yacc.yacc()
  
