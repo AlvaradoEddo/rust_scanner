@@ -42,6 +42,7 @@ reserved = {
     'trait': 'TRAIT',
     'where': 'WHERE',
     'crate': 'CRATE',
+    'tuple': 'TUPLE',
     'insert': 'INSERT_HASH',
     'union': 'UNION_HASH',
     'vec': 'VECTOR',

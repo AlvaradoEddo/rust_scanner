@@ -18,6 +18,7 @@ def p_rust(p):
          | conditional
          | conditional_asigned
          | for_loop
+         | struct
 
     '''
 
@@ -167,6 +168,46 @@ def p_for(p):
     '''
     for_loop : FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
     '''
+
+def p_struct(p):
+    '''
+    struct : STRUCT sent_stru
+    '''
+
+def p_argumento_var(p):
+    '''
+    argumentos_var : VARIABLE
+                    | VARIABLE COMMA argumentos_var
+    '''
+
+def p_argumentos_juntos(p):
+    '''
+    argumentos_juntos : VARIABLE ASIGNATION_TYPE tipos
+                        | VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    '''
+
+def p_argumento_tipo(p):
+    '''
+    argumentos_tipo : tipos
+                    | tipos COMMA argumentos_tipo
+    '''
+
+
+def p_argumentos(p):
+    '''
+    argumentos : argumentos_var 
+                | argumentos_tipo
+    '''
+
+def p_sentenciaStruct(p):
+    '''
+    sent_stru : UNIT ENDLINE
+                | TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
+                | LLAVEIZ argumentos_juntos LLAVEDER
+    '''
+
+
+
 
 parser = yacc.yacc()
  
