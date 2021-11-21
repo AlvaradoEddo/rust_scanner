@@ -8,6 +8,7 @@ reserved = {
     'mut': 'MUT',
     'type': 'TYPE',
     'struct': 'STRUCT',
+    'unit': 'UNIT',
     'fn': 'FUNCTION',
     'return': 'RETURN',
     'true': 'B_TRUE',
@@ -187,7 +188,7 @@ def t_NUMDATATYPES(t):
     return t
 
 def t_DATATYPES(t):
-    r'bool | char | str '
+    r'bool | char | string'
     return t
 
 
