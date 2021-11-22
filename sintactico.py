@@ -26,6 +26,8 @@ def p_rust(p):
          | empty_vector
          | vector_methods
          | data_vector
+         | slice_get
+         | slice_contains
     '''
 
 
@@ -175,7 +177,7 @@ def p_signoComparaion(p):
 
 def p_condicionFor(p):
     '''
-    f_comparacion : U8 DOT DOT U8
+    f_comparacion : rango
                     | VARIABLE
     '''
 
@@ -213,6 +215,69 @@ def p_sentenciaStruct(p):
                 | TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
                 | VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
     '''
+
+
+def p_operacion_matematica(p):
+    '''
+    op_mat : art_exp
+            | VARIABLE signo_arit art_exp
+            | U8 signo_arit art_exp
+    '''
+
+
+def p_aritmetic_expresion(p):
+    '''
+    art_exp : VARIABLE signo_arit VARIABLE
+            | U8 signo_arit VARIABLE
+            | VARIABLE signo_arit U8
+            | U8 signo_arit U8
+    '''
+
+
+def p_signos_aritmeticos(p):
+    '''
+    signo_arit : MAS
+                | MENOS
+                | MULT
+                | DIVISION
+                | MODULO
+    '''
+
+
+def p_rango(p):
+    '''
+    rango : U8 DOT DOT U8
+    '''
+
+
+def p_slice(p):
+    '''
+    slice_exp : AND empty VARIABLE empty BRACKETL rango BRACKETR
+    '''
+
+
+def p_slice_get(p):
+    '''
+    slice_get : VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    '''
+
+
+def p_valor_get(p):
+    '''
+    valor_get : rango
+                | U8
+    '''
+
+
+def p_contains(p):
+    '''
+    slice_contains : VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    '''
+
+
+def p_empty(p):
+    'empty :'
+    pass
 
 
 '''
@@ -322,8 +387,18 @@ def p_tipos(p):
     '''
 
 
+def p_expresion(p):
+    '''
+    expresion : STRING
+                | U8
+                | op_mat
+                | slice_exp
+    '''
+
+
 # all
 parser = yacc.yacc(start='rust')
+
 
 while True:
     try:

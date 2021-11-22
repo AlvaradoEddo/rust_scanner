@@ -7,7 +7,6 @@ reserved = {
     'let': 'LET',
     'mut': 'MUT',
     'type': 'TYPE',
-    'struct': 'STRUCT',
     'unit': 'UNIT',
     'fn': 'FUNCTION',
     'return': 'RETURN',
@@ -108,8 +107,8 @@ tokens = (
     'ENDLINE',
     'PRINTS',
     'NEWFUNC',
-    'HASHSET'
-
+    'HASHSET',
+    'STRUCT'
 ) + tuple(reserved.values())
 
 t_MAS = r'\+'
@@ -132,7 +131,7 @@ t_ASIGNAR = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_STRING = r'\"[a-zA-Z0-9_{}]*\"'
-t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9]?[0-9]'
+t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]'
 t_ENDLINE = r';'
 t_ASIGNATION_TYPE = r':'
 t_ARROW = r'->'
@@ -175,6 +174,7 @@ def t_WHITESPACE(t):
     r'\s+'
     pass
 
+
 # Included on symbols and special characters this might change later jajaja -Joangie
 
 
@@ -186,13 +186,18 @@ def t_newline(t):
     t.lexer.lineno += len(t.value)
 
 
+def t_STRUCT(t):
+    r'struct'
+    return t
+
+
 def t_NUMDATATYPES(t):
     r'u8 | u16 | u32 | u64 | i8 | i16 | i32 | i64 | f32 | f64'
     return t
 
 
 def t_DATATYPES(t):
-    r'bool | char | string'
+    r'bool | char | str'
     return t
 
 
@@ -240,12 +245,11 @@ lexer = lex.lex()
 
 
 def menu():
-
-    print(Fore.CYAN + """   Bienvenido al analizador lexico    
-1. Pruebas por defecto 
-2. Prueba manual    
-3. Salir
-""")
+    print("""   Bienvenido al analizador lexico    
+    1. Pruebas por defecto 
+    2. Prueba manual    
+    3. Salir
+    """)
 
 
 def opciones(opc):
