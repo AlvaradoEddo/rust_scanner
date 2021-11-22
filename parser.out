@@ -30,9 +30,7 @@ Unused terminals:
     NOT
     NUMBER
     OR
-    POP_VEC
     PRINT
-    PUSH_VEC
     REF
     RETURN
     SELF
@@ -43,9 +41,7 @@ Unused terminals:
     TYPE
     UNSAFE
     USE
-    VECTOR
     WHERE
-    WHILE
 
 Grammar
 
@@ -58,226 +54,271 @@ Rule 5     rust -> conditional
 Rule 6     rust -> conditional_asigned
 Rule 7     rust -> for_loop
 Rule 8     rust -> struct_s
-Rule 9     rust -> slice_get
-Rule 10    rust -> slice_contains
-Rule 11    asignacion -> declarador ASIGNAR expresion ENDLINE
-Rule 12    asignacion -> other_operators ENDLINE
-Rule 13    other_operators -> VARIABLE oper_asig expresion
-Rule 14    declarador -> VARIABLE
-Rule 15    declarador -> let_asig
-Rule 16    let_asig -> LET var_tipo
-Rule 17    let_asig -> LET MUT var_tipo
-Rule 18    var_tipo -> VARIABLE
-Rule 19    var_tipo -> VARIABLE ASIGNATION_TYPE tipos
-Rule 20    tipos -> DATATYPES
-Rule 21    tipos -> NUMDATATYPES
-Rule 22    oper_asig -> ASIGNAR
-Rule 23    oper_asig -> PLUSEQ
-Rule 24    oper_asig -> MINUSEQ
-Rule 25    oper_asig -> STAREQ
-Rule 26    oper_asig -> SLASHEQ
-Rule 27    expresion -> STRING
-Rule 28    expresion -> U8
-Rule 29    expresion -> op_mat
-Rule 30    expresion -> slice_exp
-Rule 31    prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE
-Rule 32    print_expresion -> STRING
-Rule 33    print_expresion -> STRING COMMA print_args
-Rule 34    print_args -> print_datos COMMA print_args
-Rule 35    print_args -> print_datos
-Rule 36    print_datos -> expresion
-Rule 37    hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-Rule 38    hashfunc -> hashset_insert
-Rule 39    hashfunc -> hashset_union
-Rule 40    hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-Rule 41    hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-Rule 42    conditional_asigned -> declarador ASIGNAR conditional ENDLINE
-Rule 43    conditional -> if_type validations LLAVEIZ rust LLAVEDER
-Rule 44    if_type -> IF
-Rule 45    if_type -> ELSE IF
-Rule 46    if_type -> ELSE
-Rule 47    validations -> comparison
-Rule 48    validations -> comparison ANDAND validations
-Rule 49    validations -> comparison OROR validations
-Rule 50    comparison -> VARIABLE signo_comp VARIABLE
-Rule 51    comparison -> VARIABLE signo_comp U8
-Rule 52    comparison -> U8 signo_comp VARIABLE
-Rule 53    signo_comp -> GREATER
-Rule 54    signo_comp -> LESST
-Rule 55    signo_comp -> GREATEQ
-Rule 56    signo_comp -> EQUAL
-Rule 57    signo_comp -> DIFFERENT
-Rule 58    f_comparacion -> rango
-Rule 59    f_comparacion -> VARIABLE
-Rule 60    for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
-Rule 61    struct_s -> STRUCT sent_stru
-Rule 62    argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos
-Rule 63    argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-Rule 64    argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-Rule 65    argumentos_tipo -> tipos
-Rule 66    argumentos_tipo -> tipos COMMA argumentos_tipo
-Rule 67    sent_stru -> UNIT ENDLINE
-Rule 68    sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
-Rule 69    sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
-Rule 70    op_mat -> art_exp
-Rule 71    op_mat -> VARIABLE signo_arit art_exp
-Rule 72    op_mat -> U8 signo_arit art_exp
-Rule 73    art_exp -> VARIABLE signo_arit VARIABLE
-Rule 74    art_exp -> U8 signo_arit VARIABLE
-Rule 75    art_exp -> VARIABLE signo_arit U8
-Rule 76    art_exp -> U8 signo_arit U8
-Rule 77    signo_arit -> MAS
-Rule 78    signo_arit -> MENOS
-Rule 79    signo_arit -> MULT
-Rule 80    signo_arit -> DIVISION
-Rule 81    signo_arit -> MODULO
-Rule 82    rango -> U8 DOT DOT U8
-Rule 83    slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR
-Rule 84    slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-Rule 85    valor_get -> rango
-Rule 86    valor_get -> U8
-Rule 87    slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-Rule 88    empty -> <empty>
+Rule 9     rust -> while_loop
+Rule 10    rust -> empty_vector
+Rule 11    rust -> vector_methods
+Rule 12    rust -> data_vector
+Rule 13    rust -> slice_get
+Rule 14    rust -> slice_contains
+Rule 15    rust -> read_data
+Rule 16    asignacion -> declarador ASIGNAR expresion ENDLINE
+Rule 17    asignacion -> other_operators ENDLINE
+Rule 18    other_operators -> VARIABLE oper_asig expresion
+Rule 19    declarador -> VARIABLE
+Rule 20    declarador -> let_asig
+Rule 21    let_asig -> LET var_tipo
+Rule 22    let_asig -> LET MUT var_tipo
+Rule 23    var_tipo -> VARIABLE
+Rule 24    var_tipo -> VARIABLE ASIGNATION_TYPE tipos
+Rule 25    oper_asig -> ASIGNAR
+Rule 26    oper_asig -> PLUSEQ
+Rule 27    oper_asig -> MINUSEQ
+Rule 28    oper_asig -> STAREQ
+Rule 29    oper_asig -> SLASHEQ
+Rule 30    prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE
+Rule 31    print_expresion -> STRING
+Rule 32    print_expresion -> STRING COMMA print_args
+Rule 33    print_args -> print_datos COMMA print_args
+Rule 34    print_args -> print_datos
+Rule 35    print_datos -> expresion
+Rule 36    hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+Rule 37    hashfunc -> hashset_insert
+Rule 38    hashfunc -> hashset_union
+Rule 39    hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+Rule 40    hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+Rule 41    conditional_asigned -> declarador ASIGNAR conditional ENDLINE
+Rule 42    conditional -> if_type validations LLAVEIZ rust LLAVEDER
+Rule 43    if_type -> IF
+Rule 44    if_type -> ELSE IF
+Rule 45    if_type -> ELSE
+Rule 46    validations -> comparison
+Rule 47    validations -> comparison ANDAND validations
+Rule 48    validations -> comparison OROR validations
+Rule 49    comparison -> VARIABLE signo_comp VARIABLE
+Rule 50    comparison -> VARIABLE signo_comp U8
+Rule 51    comparison -> U8 signo_comp VARIABLE
+Rule 52    signo_comp -> GREATER
+Rule 53    signo_comp -> LESST
+Rule 54    signo_comp -> GREATEQ
+Rule 55    signo_comp -> EQUAL
+Rule 56    signo_comp -> DIFFERENT
+Rule 57    f_comparacion -> rango
+Rule 58    f_comparacion -> VARIABLE
+Rule 59    for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+Rule 60    struct_s -> STRUCT sent_stru
+Rule 61    argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos
+Rule 62    argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+Rule 63    argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+Rule 64    argumentos_tipo -> tipos
+Rule 65    argumentos_tipo -> tipos COMMA argumentos_tipo
+Rule 66    sent_stru -> UNIT ENDLINE
+Rule 67    sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
+Rule 68    sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
+Rule 69    op_mat -> art_exp
+Rule 70    op_mat -> VARIABLE signo_arit art_exp
+Rule 71    op_mat -> U8 signo_arit art_exp
+Rule 72    art_exp -> VARIABLE signo_arit VARIABLE
+Rule 73    art_exp -> U8 signo_arit VARIABLE
+Rule 74    art_exp -> VARIABLE signo_arit U8
+Rule 75    art_exp -> U8 signo_arit U8
+Rule 76    signo_arit -> MAS
+Rule 77    signo_arit -> MENOS
+Rule 78    signo_arit -> MULT
+Rule 79    signo_arit -> DIVISION
+Rule 80    signo_arit -> MODULO
+Rule 81    rango -> U8 DOT DOT U8
+Rule 82    slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR
+Rule 83    slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+Rule 84    valor_get -> rango
+Rule 85    valor_get -> U8
+Rule 86    slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+Rule 87    empty -> <empty>
+Rule 88    while_loop -> WHILE validations LLAVEIZ rust LLAVEDER
+Rule 89    read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+Rule 90    reference -> AND empty MUT VARIABLE
+Rule 91    empty_vector -> declare_vector VECT types_vector empty_vec
+Rule 92    data_vector -> declare_vector VECT types_vector vector_content
+Rule 93    data_vector -> declare_vector vector_content
+Rule 94    data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+Rule 95    vector_content -> VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE
+Rule 96    vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+Rule 97    vector_elements -> element
+Rule 98    vector_elements -> element COMMA vector_elements
+Rule 99    element -> expresion
+Rule 100   element_type -> U8 NUMDATATYPES
+Rule 101   types_vector -> LESST DATATYPES GREATER
+Rule 102   types_vector -> LESST NUMDATATYPES GREATER
+Rule 103   declare_vector -> LET MUT VARIABLE ASIGNATION_TYPE
+Rule 104   declare_vector -> LET VARIABLE ASIGNATION_TYPE
+Rule 105   empty_vec -> ASIGNAR VECT PATHSEP NEWFUNC ENDLINE
+Rule 106   empty_vec -> ASIGNAR VECTMACRO BRACKETL BRACKETR ENDLINE
+Rule 107   empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN RPAREN ENDLINE
+Rule 108   vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+Rule 109   vector_methods -> VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+Rule 110   tipos -> DATATYPES
+Rule 111   tipos -> NUMDATATYPES
+Rule 112   expresion -> STRING
+Rule 113   expresion -> U8
+Rule 114   expresion -> op_mat
+Rule 115   expresion -> slice_exp
 
 Terminals, with rules where they appear
 
-AND                  : 41 83 87
-ANDAND               : 48
+AND                  : 40 82 86 90
+ANDAND               : 47
 ARROW                : 
 AS                   : 
-ASIGNAR              : 11 22 37 42
-ASIGNATION_TYPE      : 19 62 63 64
+ASIGNAR              : 16 25 36 41 94 105 106 107
+ASIGNATION_TYPE      : 24 61 62 63 103 104
 ASYNC                : 
 AWAIT                : 
-BRACKETL             : 83
-BRACKETR             : 83
+BRACKETL             : 82 106
+BRACKETR             : 82 106
 BREAK                : 
 B_FALSE              : 
 B_TRUE               : 
-COMMA                : 33 34 63 64 66
+COMMA                : 32 33 62 63 65 94 98
 CONST                : 
-CONTAINS_SLICE       : 87
+CONTAINS_SLICE       : 86
 CONTIN               : 
 CRATE                : 
-DATATYPES            : 20
-DIFFERENT            : 57
-DIVISION             : 80
+DATATYPES            : 101 110
+DIFFERENT            : 56
+DIVISION             : 79
 DOLLAR               : 
-DOT                  : 40 41 82 82 84 87
+DOT                  : 39 40 81 81 83 86 89 108 109
 DOTDOTDOT            : 
 DYN                  : 
-ELSE                 : 45 46
-ENDLINE              : 11 12 31 37 40 41 42 67 68
+ELSE                 : 44 45
+ENDLINE              : 16 17 30 36 39 40 41 66 67 89 94 95 96 105 106 107
 ENUM                 : 
-EQUAL                : 56
+EQUAL                : 55
 ERRORPROP            : 
 EXTERN               : 
-FOR                  : 60
+FOR                  : 59
+FROM                 : 96 107
 FUNCTION             : 
-GET_SLICE            : 84
-GREATEQ              : 55
-GREATER              : 53
-HASHSET              : 37
-IF                   : 44 45
+GET_SLICE            : 83
+GREATEQ              : 54
+GREATER              : 52 101 102
+HASHSET              : 36
+IF                   : 43 44
 IMPL                 : 
-IN                   : 60
-INSERT_HASH          : 40
+IN                   : 59
+INSERT_HASH          : 39
+IO                   : 89
 LESSEQ               : 
-LESST                : 54
-LET                  : 16 17 37
-LLAVEDER             : 43 60 69
-LLAVEIZ              : 43 60 69
+LESST                : 53 101 102
+LET                  : 21 22 36 103 104
+LLAVEDER             : 42 59 68 88 94 95 96
+LLAVEIZ              : 42 59 68 88 94 95 96
 LOOP                 : 
-LPAREN               : 31 40 41 68 84 87
-MAS                  : 77
+LPAREN               : 30 39 40 67 83 86 89 89 96 107 108 109
+MAS                  : 76
 MATCH                : 
 MAYOR                : 
 MAYORIGUAL           : 
-MENOS                : 78
-MINUSEQ              : 24
+MENOS                : 77
+MINUSEQ              : 27
 MOD                  : 
-MODULO               : 81
+MODULO               : 80
 MOVE                 : 
-MULT                 : 79
-MUT                  : 17 37
-NEWFUNC              : 37
+MULT                 : 78
+MUT                  : 22 36 90 103
+NEWFUNC              : 36 105
 NOT                  : 
 NUMBER               : 
-NUMDATATYPES         : 21
+NUMDATATYPES         : 100 102 111
 OR                   : 
-OROR                 : 49
-PATHSEP              : 37
-PLUSEQ               : 23
-POP_VEC              : 
+OROR                 : 48
+PATHSEP              : 36 89 96 105 107
+PLUSEQ               : 26
+POP_VEC              : 109
 PRINT                : 
-PRINTS               : 31
-PUB                  : 64
-PUSH_VEC             : 
+PRINTS               : 30
+PUB                  : 63
+PUSH_VEC             : 108
+READ                 : 89
 REF                  : 
 RETURN               : 
-RPAREN               : 31 40 41 68 84 87
+RPAREN               : 30 39 40 67 83 86 89 89 96 107 108 109
 SELF                 : 
 SELFLOWERCASE        : 
-SLASHEQ              : 26
-STAREQ               : 25
+SLASHEQ              : 29
+STAREQ               : 28
 STATIC               : 
-STRING               : 27 32 33
-STRUCT               : 61
+STDIN                : 89
+STRING               : 31 32 112
+STRUCT               : 60
 SUPER                : 
 TRAIT                : 
-TUPLE                : 68
+TUPLE                : 67
 TYPE                 : 
-U8                   : 28 51 52 72 74 75 76 76 82 82 86 87
-UNION_HASH           : 41
-UNIT                 : 67
+U8                   : 50 51 71 73 74 75 75 81 81 85 86 100 113
+UNION_HASH           : 40
+UNIT                 : 66
 UNSAFE               : 
 USE                  : 
-VARIABLE             : 13 14 18 19 37 40 41 41 50 50 51 52 59 60 62 63 64 69 71 73 73 74 75 83 84 87
-VECTOR               : 
+VARIABLE             : 18 19 23 24 36 39 40 40 49 49 50 51 58 59 61 62 63 68 70 72 72 73 74 82 83 86 90 103 104 108 109
+VECT                 : 91 92 96 105 107
+VECTMACRO            : 94 95 106
 WHERE                : 
-WHILE                : 
+WHILE                : 88
 error                : 
 
 Nonterminals, with rules where they appear
 
-argumentos_juntos    : 63 64 69
-argumentos_tipo      : 66 68
-art_exp              : 70 71 72
+argumentos_juntos    : 62 63 68
+argumentos_tipo      : 65 67
+art_exp              : 69 70 71
 asignacion           : 1
-comparison           : 47 48 49
-conditional          : 5 42
+comparison           : 46 47 48
+conditional          : 5 41
 conditional_asigned  : 6
-declarador           : 11 42
-empty                : 83 83 84 84 84 87 87 87
-expresion            : 11 13 36 40
-f_comparacion        : 60
+data_vector          : 12
+declarador           : 16 41
+declare_vector       : 91 92 93 94
+element              : 97 98
+element_type         : 94
+empty                : 82 82 83 83 83 86 86 86 89 89 89 89 90 96 96 108 108 109 109
+empty_vec            : 91
+empty_vector         : 10
+expresion            : 16 18 35 39 99 108
+f_comparacion        : 59
 for_loop             : 7
 hashfunc             : 4
 hashset              : 3
-hashset_insert       : 38
-hashset_union        : 39
-if_type              : 43
-let_asig             : 15
-op_mat               : 29
-oper_asig            : 13
-other_operators      : 12
-print_args           : 33 34
-print_datos          : 34 35
-print_expresion      : 31
+hashset_insert       : 37
+hashset_union        : 38
+if_type              : 42
+let_asig             : 20
+op_mat               : 114
+oper_asig            : 18
+other_operators      : 17
+print_args           : 32 33
+print_datos          : 33 34
+print_expresion      : 30
 prints               : 2
-rango                : 58 83 85
-rust                 : 43 60 0
-sent_stru            : 61
-signo_arit           : 71 72 73 74 75 76
-signo_comp           : 50 51 52
-slice_contains       : 10
-slice_exp            : 30
-slice_get            : 9
+rango                : 57 82 84
+read_data            : 15
+reference            : 89
+rust                 : 42 59 88 0
+sent_stru            : 60
+signo_arit           : 70 71 72 73 74 75
+signo_comp           : 49 50 51
+slice_contains       : 14
+slice_exp            : 115
+slice_get            : 13
 struct_s             : 8
-tipos                : 19 62 63 64 65 66
-validations          : 43 48 49
-valor_get            : 84
-var_tipo             : 16 17
+tipos                : 24 61 62 63 64 65
+types_vector         : 91 92
+validations          : 42 47 48 88
+valor_get            : 83
+var_tipo             : 21 22
+vector_content       : 92 93
+vector_elements      : 94 95 96 98
+vector_methods       : 11
+while_loop           : 9
 
 Parsing method: LALR
 
@@ -292,38 +333,55 @@ state 0
     (6) rust -> . conditional_asigned
     (7) rust -> . for_loop
     (8) rust -> . struct_s
-    (9) rust -> . slice_get
-    (10) rust -> . slice_contains
-    (11) asignacion -> . declarador ASIGNAR expresion ENDLINE
-    (12) asignacion -> . other_operators ENDLINE
-    (31) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
-    (37) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (38) hashfunc -> . hashset_insert
-    (39) hashfunc -> . hashset_union
-    (43) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
-    (42) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
-    (60) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
-    (61) struct_s -> . STRUCT sent_stru
-    (84) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-    (14) declarador -> . VARIABLE
-    (15) declarador -> . let_asig
-    (13) other_operators -> . VARIABLE oper_asig expresion
-    (40) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (41) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (44) if_type -> . IF
-    (45) if_type -> . ELSE IF
-    (46) if_type -> . ELSE
-    (16) let_asig -> . LET var_tipo
-    (17) let_asig -> . LET MUT var_tipo
+    (9) rust -> . while_loop
+    (10) rust -> . empty_vector
+    (11) rust -> . vector_methods
+    (12) rust -> . data_vector
+    (13) rust -> . slice_get
+    (14) rust -> . slice_contains
+    (15) rust -> . read_data
+    (16) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (17) asignacion -> . other_operators ENDLINE
+    (30) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (36) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (37) hashfunc -> . hashset_insert
+    (38) hashfunc -> . hashset_union
+    (42) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (41) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (59) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+    (60) struct_s -> . STRUCT sent_stru
+    (88) while_loop -> . WHILE validations LLAVEIZ rust LLAVEDER
+    (91) empty_vector -> . declare_vector VECT types_vector empty_vec
+    (108) vector_methods -> . VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> . VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+    (92) data_vector -> . declare_vector VECT types_vector vector_content
+    (93) data_vector -> . declare_vector vector_content
+    (94) data_vector -> . declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    (83) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (89) read_data -> . IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (19) declarador -> . VARIABLE
+    (20) declarador -> . let_asig
+    (18) other_operators -> . VARIABLE oper_asig expresion
+    (39) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (43) if_type -> . IF
+    (44) if_type -> . ELSE IF
+    (45) if_type -> . ELSE
+    (103) declare_vector -> . LET MUT VARIABLE ASIGNATION_TYPE
+    (104) declare_vector -> . LET VARIABLE ASIGNATION_TYPE
+    (21) let_asig -> . LET var_tipo
+    (22) let_asig -> . LET MUT var_tipo
 
-    PRINTS          shift and go to state 14
-    LET             shift and go to state 15
-    FOR             shift and go to state 20
-    STRUCT          shift and go to state 21
-    VARIABLE        shift and go to state 16
-    IF              shift and go to state 23
-    ELSE            shift and go to state 24
+    PRINTS          shift and go to state 19
+    LET             shift and go to state 20
+    FOR             shift and go to state 25
+    STRUCT          shift and go to state 26
+    WHILE           shift and go to state 27
+    VARIABLE        shift and go to state 21
+    IO              shift and go to state 29
+    IF              shift and go to state 31
+    ELSE            shift and go to state 32
 
     rust                           shift and go to state 1
     asignacion                     shift and go to state 2
@@ -334,14 +392,20 @@ state 0
     conditional_asigned            shift and go to state 7
     for_loop                       shift and go to state 8
     struct_s                       shift and go to state 9
-    slice_get                      shift and go to state 10
-    slice_contains                 shift and go to state 11
-    declarador                     shift and go to state 12
-    other_operators                shift and go to state 13
-    hashset_insert                 shift and go to state 17
-    hashset_union                  shift and go to state 18
-    if_type                        shift and go to state 19
-    let_asig                       shift and go to state 22
+    while_loop                     shift and go to state 10
+    empty_vector                   shift and go to state 11
+    vector_methods                 shift and go to state 12
+    data_vector                    shift and go to state 13
+    slice_get                      shift and go to state 14
+    slice_contains                 shift and go to state 15
+    read_data                      shift and go to state 16
+    declarador                     shift and go to state 17
+    other_operators                shift and go to state 18
+    hashset_insert                 shift and go to state 22
+    hashset_union                  shift and go to state 23
+    if_type                        shift and go to state 24
+    declare_vector                 shift and go to state 28
+    let_asig                       shift and go to state 30
 
 state 1
 
@@ -415,1328 +479,768 @@ state 9
 
 state 10
 
-    (9) rust -> slice_get .
+    (9) rust -> while_loop .
 
-    $end            reduce using rule 9 (rust -> slice_get .)
-    LLAVEDER        reduce using rule 9 (rust -> slice_get .)
+    $end            reduce using rule 9 (rust -> while_loop .)
+    LLAVEDER        reduce using rule 9 (rust -> while_loop .)
 
 
 state 11
 
-    (10) rust -> slice_contains .
+    (10) rust -> empty_vector .
 
-    $end            reduce using rule 10 (rust -> slice_contains .)
-    LLAVEDER        reduce using rule 10 (rust -> slice_contains .)
+    $end            reduce using rule 10 (rust -> empty_vector .)
+    LLAVEDER        reduce using rule 10 (rust -> empty_vector .)
 
 
 state 12
 
-    (11) asignacion -> declarador . ASIGNAR expresion ENDLINE
-    (42) conditional_asigned -> declarador . ASIGNAR conditional ENDLINE
+    (11) rust -> vector_methods .
 
-    ASIGNAR         shift and go to state 25
+    $end            reduce using rule 11 (rust -> vector_methods .)
+    LLAVEDER        reduce using rule 11 (rust -> vector_methods .)
 
 
 state 13
 
-    (12) asignacion -> other_operators . ENDLINE
+    (12) rust -> data_vector .
 
-    ENDLINE         shift and go to state 26
+    $end            reduce using rule 12 (rust -> data_vector .)
+    LLAVEDER        reduce using rule 12 (rust -> data_vector .)
 
 
 state 14
 
-    (31) prints -> PRINTS . LPAREN print_expresion RPAREN ENDLINE
+    (13) rust -> slice_get .
 
-    LPAREN          shift and go to state 27
+    $end            reduce using rule 13 (rust -> slice_get .)
+    LLAVEDER        reduce using rule 13 (rust -> slice_get .)
 
 
 state 15
 
-    (37) hashset -> LET . MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (16) let_asig -> LET . var_tipo
-    (17) let_asig -> LET . MUT var_tipo
-    (18) var_tipo -> . VARIABLE
-    (19) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+    (14) rust -> slice_contains .
 
-    MUT             shift and go to state 28
-    VARIABLE        shift and go to state 29
+    $end            reduce using rule 14 (rust -> slice_contains .)
+    LLAVEDER        reduce using rule 14 (rust -> slice_contains .)
 
-    var_tipo                       shift and go to state 30
 
 state 16
 
-    (84) slice_get -> VARIABLE . empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> VARIABLE . empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-    (14) declarador -> VARIABLE .
-    (13) other_operators -> VARIABLE . oper_asig expresion
-    (40) hashset_insert -> VARIABLE . DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (41) hashset_union -> VARIABLE . DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (88) empty -> .
-    (22) oper_asig -> . ASIGNAR
-    (23) oper_asig -> . PLUSEQ
-    (24) oper_asig -> . MINUSEQ
-    (25) oper_asig -> . STAREQ
-    (26) oper_asig -> . SLASHEQ
+    (15) rust -> read_data .
 
-  ! shift/reduce conflict for DOT resolved as shift
-  ! shift/reduce conflict for ASIGNAR resolved as shift
-    DOT             shift and go to state 32
-    ASIGNAR         shift and go to state 34
-    PLUSEQ          shift and go to state 35
-    MINUSEQ         shift and go to state 36
-    STAREQ          shift and go to state 37
-    SLASHEQ         shift and go to state 38
+    $end            reduce using rule 15 (rust -> read_data .)
+    LLAVEDER        reduce using rule 15 (rust -> read_data .)
 
-  ! ASIGNAR         [ reduce using rule 14 (declarador -> VARIABLE .) ]
-  ! DOT             [ reduce using rule 88 (empty -> .) ]
-
-    empty                          shift and go to state 31
-    oper_asig                      shift and go to state 33
 
 state 17
 
-    (38) hashfunc -> hashset_insert .
+    (16) asignacion -> declarador . ASIGNAR expresion ENDLINE
+    (41) conditional_asigned -> declarador . ASIGNAR conditional ENDLINE
 
-    $end            reduce using rule 38 (hashfunc -> hashset_insert .)
-    LLAVEDER        reduce using rule 38 (hashfunc -> hashset_insert .)
+    ASIGNAR         shift and go to state 33
 
 
 state 18
 
-    (39) hashfunc -> hashset_union .
+    (17) asignacion -> other_operators . ENDLINE
 
-    $end            reduce using rule 39 (hashfunc -> hashset_union .)
-    LLAVEDER        reduce using rule 39 (hashfunc -> hashset_union .)
+    ENDLINE         shift and go to state 34
 
 
 state 19
 
-    (43) conditional -> if_type . validations LLAVEIZ rust LLAVEDER
-    (47) validations -> . comparison
-    (48) validations -> . comparison ANDAND validations
-    (49) validations -> . comparison OROR validations
-    (50) comparison -> . VARIABLE signo_comp VARIABLE
-    (51) comparison -> . VARIABLE signo_comp U8
-    (52) comparison -> . U8 signo_comp VARIABLE
+    (30) prints -> PRINTS . LPAREN print_expresion RPAREN ENDLINE
 
-    VARIABLE        shift and go to state 41
-    U8              shift and go to state 42
+    LPAREN          shift and go to state 35
 
-    validations                    shift and go to state 39
-    comparison                     shift and go to state 40
 
 state 20
 
-    (60) for_loop -> FOR . VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+    (36) hashset -> LET . MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (103) declare_vector -> LET . MUT VARIABLE ASIGNATION_TYPE
+    (104) declare_vector -> LET . VARIABLE ASIGNATION_TYPE
+    (21) let_asig -> LET . var_tipo
+    (22) let_asig -> LET . MUT var_tipo
+    (23) var_tipo -> . VARIABLE
+    (24) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
 
-    VARIABLE        shift and go to state 43
+    MUT             shift and go to state 36
+    VARIABLE        shift and go to state 37
 
+    var_tipo                       shift and go to state 38
 
 state 21
 
-    (61) struct_s -> STRUCT . sent_stru
-    (67) sent_stru -> . UNIT ENDLINE
-    (68) sent_stru -> . TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
-    (69) sent_stru -> . VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
+    (108) vector_methods -> VARIABLE . empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> VARIABLE . empty DOT empty POP_VEC LPAREN RPAREN
+    (83) slice_get -> VARIABLE . empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> VARIABLE . empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (19) declarador -> VARIABLE .
+    (18) other_operators -> VARIABLE . oper_asig expresion
+    (39) hashset_insert -> VARIABLE . DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> VARIABLE . DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (87) empty -> .
+    (25) oper_asig -> . ASIGNAR
+    (26) oper_asig -> . PLUSEQ
+    (27) oper_asig -> . MINUSEQ
+    (28) oper_asig -> . STAREQ
+    (29) oper_asig -> . SLASHEQ
 
-    UNIT            shift and go to state 45
-    TUPLE           shift and go to state 46
-    VARIABLE        shift and go to state 47
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for ASIGNAR resolved as shift
+    DOT             shift and go to state 40
+    ASIGNAR         shift and go to state 42
+    PLUSEQ          shift and go to state 43
+    MINUSEQ         shift and go to state 44
+    STAREQ          shift and go to state 45
+    SLASHEQ         shift and go to state 46
 
-    sent_stru                      shift and go to state 44
+  ! ASIGNAR         [ reduce using rule 19 (declarador -> VARIABLE .) ]
+  ! DOT             [ reduce using rule 87 (empty -> .) ]
+
+    empty                          shift and go to state 39
+    oper_asig                      shift and go to state 41
 
 state 22
 
-    (15) declarador -> let_asig .
+    (37) hashfunc -> hashset_insert .
 
-    ASIGNAR         reduce using rule 15 (declarador -> let_asig .)
+    $end            reduce using rule 37 (hashfunc -> hashset_insert .)
+    LLAVEDER        reduce using rule 37 (hashfunc -> hashset_insert .)
 
 
 state 23
 
-    (44) if_type -> IF .
+    (38) hashfunc -> hashset_union .
 
-    VARIABLE        reduce using rule 44 (if_type -> IF .)
-    U8              reduce using rule 44 (if_type -> IF .)
+    $end            reduce using rule 38 (hashfunc -> hashset_union .)
+    LLAVEDER        reduce using rule 38 (hashfunc -> hashset_union .)
 
 
 state 24
 
-    (45) if_type -> ELSE . IF
-    (46) if_type -> ELSE .
+    (42) conditional -> if_type . validations LLAVEIZ rust LLAVEDER
+    (46) validations -> . comparison
+    (47) validations -> . comparison ANDAND validations
+    (48) validations -> . comparison OROR validations
+    (49) comparison -> . VARIABLE signo_comp VARIABLE
+    (50) comparison -> . VARIABLE signo_comp U8
+    (51) comparison -> . U8 signo_comp VARIABLE
 
-    IF              shift and go to state 48
-    VARIABLE        reduce using rule 46 (if_type -> ELSE .)
-    U8              reduce using rule 46 (if_type -> ELSE .)
+    VARIABLE        shift and go to state 49
+    U8              shift and go to state 50
 
+    validations                    shift and go to state 47
+    comparison                     shift and go to state 48
 
 state 25
 
-    (11) asignacion -> declarador ASIGNAR . expresion ENDLINE
-    (42) conditional_asigned -> declarador ASIGNAR . conditional ENDLINE
-    (27) expresion -> . STRING
-    (28) expresion -> . U8
-    (29) expresion -> . op_mat
-    (30) expresion -> . slice_exp
-    (43) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
-    (70) op_mat -> . art_exp
-    (71) op_mat -> . VARIABLE signo_arit art_exp
-    (72) op_mat -> . U8 signo_arit art_exp
-    (83) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
-    (44) if_type -> . IF
-    (45) if_type -> . ELSE IF
-    (46) if_type -> . ELSE
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
+    (59) for_loop -> FOR . VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
 
-    STRING          shift and go to state 51
-    U8              shift and go to state 52
-    VARIABLE        shift and go to state 56
-    AND             shift and go to state 57
-    IF              shift and go to state 23
-    ELSE            shift and go to state 24
+    VARIABLE        shift and go to state 51
 
-    expresion                      shift and go to state 49
-    conditional                    shift and go to state 50
-    op_mat                         shift and go to state 53
-    slice_exp                      shift and go to state 54
-    if_type                        shift and go to state 19
-    art_exp                        shift and go to state 55
 
 state 26
 
-    (12) asignacion -> other_operators ENDLINE .
+    (60) struct_s -> STRUCT . sent_stru
+    (66) sent_stru -> . UNIT ENDLINE
+    (67) sent_stru -> . TUPLE LPAREN argumentos_tipo RPAREN ENDLINE
+    (68) sent_stru -> . VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
 
-    $end            reduce using rule 12 (asignacion -> other_operators ENDLINE .)
-    LLAVEDER        reduce using rule 12 (asignacion -> other_operators ENDLINE .)
+    UNIT            shift and go to state 53
+    TUPLE           shift and go to state 54
+    VARIABLE        shift and go to state 55
 
+    sent_stru                      shift and go to state 52
 
 state 27
 
-    (31) prints -> PRINTS LPAREN . print_expresion RPAREN ENDLINE
-    (32) print_expresion -> . STRING
-    (33) print_expresion -> . STRING COMMA print_args
+    (88) while_loop -> WHILE . validations LLAVEIZ rust LLAVEDER
+    (46) validations -> . comparison
+    (47) validations -> . comparison ANDAND validations
+    (48) validations -> . comparison OROR validations
+    (49) comparison -> . VARIABLE signo_comp VARIABLE
+    (50) comparison -> . VARIABLE signo_comp U8
+    (51) comparison -> . U8 signo_comp VARIABLE
 
-    STRING          shift and go to state 59
+    VARIABLE        shift and go to state 49
+    U8              shift and go to state 50
 
-    print_expresion                shift and go to state 58
+    validations                    shift and go to state 56
+    comparison                     shift and go to state 48
 
 state 28
 
-    (37) hashset -> LET MUT . VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (17) let_asig -> LET MUT . var_tipo
-    (18) var_tipo -> . VARIABLE
-    (19) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
+    (91) empty_vector -> declare_vector . VECT types_vector empty_vec
+    (92) data_vector -> declare_vector . VECT types_vector vector_content
+    (93) data_vector -> declare_vector . vector_content
+    (94) data_vector -> declare_vector . ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    (95) vector_content -> . VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE
+    (96) vector_content -> . VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
 
-    VARIABLE        shift and go to state 60
+    VECT            shift and go to state 57
+    ASIGNAR         shift and go to state 59
+    VECTMACRO       shift and go to state 60
 
-    var_tipo                       shift and go to state 61
+    vector_content                 shift and go to state 58
 
 state 29
 
-    (18) var_tipo -> VARIABLE .
-    (19) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
+    (89) read_data -> IO . empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (87) empty -> .
 
-    ASIGNAR         reduce using rule 18 (var_tipo -> VARIABLE .)
-    ASIGNATION_TYPE shift and go to state 62
+    PATHSEP         reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 61
 
 state 30
 
-    (16) let_asig -> LET var_tipo .
+    (20) declarador -> let_asig .
 
-    ASIGNAR         reduce using rule 16 (let_asig -> LET var_tipo .)
+    ASIGNAR         reduce using rule 20 (declarador -> let_asig .)
 
 
 state 31
 
-    (84) slice_get -> VARIABLE empty . DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> VARIABLE empty . DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (43) if_type -> IF .
 
-    DOT             shift and go to state 63
+    VARIABLE        reduce using rule 43 (if_type -> IF .)
+    U8              reduce using rule 43 (if_type -> IF .)
 
 
 state 32
 
-    (40) hashset_insert -> VARIABLE DOT . INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (41) hashset_union -> VARIABLE DOT . UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (44) if_type -> ELSE . IF
+    (45) if_type -> ELSE .
 
-    INSERT_HASH     shift and go to state 64
-    UNION_HASH      shift and go to state 65
+    IF              shift and go to state 62
+    VARIABLE        reduce using rule 45 (if_type -> ELSE .)
+    U8              reduce using rule 45 (if_type -> ELSE .)
 
 
 state 33
 
-    (13) other_operators -> VARIABLE oper_asig . expresion
-    (27) expresion -> . STRING
-    (28) expresion -> . U8
-    (29) expresion -> . op_mat
-    (30) expresion -> . slice_exp
-    (70) op_mat -> . art_exp
-    (71) op_mat -> . VARIABLE signo_arit art_exp
-    (72) op_mat -> . U8 signo_arit art_exp
-    (83) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
+    (16) asignacion -> declarador ASIGNAR . expresion ENDLINE
+    (41) conditional_asigned -> declarador ASIGNAR . conditional ENDLINE
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (42) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (43) if_type -> . IF
+    (44) if_type -> . ELSE IF
+    (45) if_type -> . ELSE
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
 
-    STRING          shift and go to state 51
-    U8              shift and go to state 52
-    VARIABLE        shift and go to state 56
-    AND             shift and go to state 57
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+    IF              shift and go to state 31
+    ELSE            shift and go to state 32
 
-    expresion                      shift and go to state 66
-    op_mat                         shift and go to state 53
-    slice_exp                      shift and go to state 54
-    art_exp                        shift and go to state 55
+    expresion                      shift and go to state 63
+    conditional                    shift and go to state 64
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    if_type                        shift and go to state 24
+    art_exp                        shift and go to state 69
 
 state 34
 
-    (22) oper_asig -> ASIGNAR .
+    (17) asignacion -> other_operators ENDLINE .
 
-    STRING          reduce using rule 22 (oper_asig -> ASIGNAR .)
-    U8              reduce using rule 22 (oper_asig -> ASIGNAR .)
-    VARIABLE        reduce using rule 22 (oper_asig -> ASIGNAR .)
-    AND             reduce using rule 22 (oper_asig -> ASIGNAR .)
+    $end            reduce using rule 17 (asignacion -> other_operators ENDLINE .)
+    LLAVEDER        reduce using rule 17 (asignacion -> other_operators ENDLINE .)
 
 
 state 35
 
-    (23) oper_asig -> PLUSEQ .
+    (30) prints -> PRINTS LPAREN . print_expresion RPAREN ENDLINE
+    (31) print_expresion -> . STRING
+    (32) print_expresion -> . STRING COMMA print_args
 
-    STRING          reduce using rule 23 (oper_asig -> PLUSEQ .)
-    U8              reduce using rule 23 (oper_asig -> PLUSEQ .)
-    VARIABLE        reduce using rule 23 (oper_asig -> PLUSEQ .)
-    AND             reduce using rule 23 (oper_asig -> PLUSEQ .)
+    STRING          shift and go to state 73
 
+    print_expresion                shift and go to state 72
 
 state 36
 
-    (24) oper_asig -> MINUSEQ .
+    (36) hashset -> LET MUT . VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (103) declare_vector -> LET MUT . VARIABLE ASIGNATION_TYPE
+    (22) let_asig -> LET MUT . var_tipo
+    (23) var_tipo -> . VARIABLE
+    (24) var_tipo -> . VARIABLE ASIGNATION_TYPE tipos
 
-    STRING          reduce using rule 24 (oper_asig -> MINUSEQ .)
-    U8              reduce using rule 24 (oper_asig -> MINUSEQ .)
-    VARIABLE        reduce using rule 24 (oper_asig -> MINUSEQ .)
-    AND             reduce using rule 24 (oper_asig -> MINUSEQ .)
+    VARIABLE        shift and go to state 74
 
+    var_tipo                       shift and go to state 75
 
 state 37
 
-    (25) oper_asig -> STAREQ .
+    (104) declare_vector -> LET VARIABLE . ASIGNATION_TYPE
+    (23) var_tipo -> VARIABLE .
+    (24) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
 
-    STRING          reduce using rule 25 (oper_asig -> STAREQ .)
-    U8              reduce using rule 25 (oper_asig -> STAREQ .)
-    VARIABLE        reduce using rule 25 (oper_asig -> STAREQ .)
-    AND             reduce using rule 25 (oper_asig -> STAREQ .)
+    ASIGNATION_TYPE shift and go to state 76
+    ASIGNAR         reduce using rule 23 (var_tipo -> VARIABLE .)
 
 
 state 38
 
-    (26) oper_asig -> SLASHEQ .
+    (21) let_asig -> LET var_tipo .
 
-    STRING          reduce using rule 26 (oper_asig -> SLASHEQ .)
-    U8              reduce using rule 26 (oper_asig -> SLASHEQ .)
-    VARIABLE        reduce using rule 26 (oper_asig -> SLASHEQ .)
-    AND             reduce using rule 26 (oper_asig -> SLASHEQ .)
+    ASIGNAR         reduce using rule 21 (let_asig -> LET var_tipo .)
 
 
 state 39
 
-    (43) conditional -> if_type validations . LLAVEIZ rust LLAVEDER
+    (108) vector_methods -> VARIABLE empty . DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> VARIABLE empty . DOT empty POP_VEC LPAREN RPAREN
+    (83) slice_get -> VARIABLE empty . DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> VARIABLE empty . DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
 
-    LLAVEIZ         shift and go to state 67
+    DOT             shift and go to state 77
 
 
 state 40
 
-    (47) validations -> comparison .
-    (48) validations -> comparison . ANDAND validations
-    (49) validations -> comparison . OROR validations
+    (39) hashset_insert -> VARIABLE DOT . INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> VARIABLE DOT . UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
 
-    LLAVEIZ         reduce using rule 47 (validations -> comparison .)
-    ANDAND          shift and go to state 68
-    OROR            shift and go to state 69
+    INSERT_HASH     shift and go to state 78
+    UNION_HASH      shift and go to state 79
 
 
 state 41
 
-    (50) comparison -> VARIABLE . signo_comp VARIABLE
-    (51) comparison -> VARIABLE . signo_comp U8
-    (53) signo_comp -> . GREATER
-    (54) signo_comp -> . LESST
-    (55) signo_comp -> . GREATEQ
-    (56) signo_comp -> . EQUAL
-    (57) signo_comp -> . DIFFERENT
+    (18) other_operators -> VARIABLE oper_asig . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
 
-    GREATER         shift and go to state 71
-    LESST           shift and go to state 72
-    GREATEQ         shift and go to state 73
-    EQUAL           shift and go to state 74
-    DIFFERENT       shift and go to state 75
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
 
-    signo_comp                     shift and go to state 70
+    expresion                      shift and go to state 80
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
 
 state 42
 
-    (52) comparison -> U8 . signo_comp VARIABLE
-    (53) signo_comp -> . GREATER
-    (54) signo_comp -> . LESST
-    (55) signo_comp -> . GREATEQ
-    (56) signo_comp -> . EQUAL
-    (57) signo_comp -> . DIFFERENT
+    (25) oper_asig -> ASIGNAR .
 
-    GREATER         shift and go to state 71
-    LESST           shift and go to state 72
-    GREATEQ         shift and go to state 73
-    EQUAL           shift and go to state 74
-    DIFFERENT       shift and go to state 75
+    STRING          reduce using rule 25 (oper_asig -> ASIGNAR .)
+    U8              reduce using rule 25 (oper_asig -> ASIGNAR .)
+    VARIABLE        reduce using rule 25 (oper_asig -> ASIGNAR .)
+    AND             reduce using rule 25 (oper_asig -> ASIGNAR .)
 
-    signo_comp                     shift and go to state 76
 
 state 43
 
-    (60) for_loop -> FOR VARIABLE . IN f_comparacion LLAVEIZ rust LLAVEDER
+    (26) oper_asig -> PLUSEQ .
 
-    IN              shift and go to state 77
+    STRING          reduce using rule 26 (oper_asig -> PLUSEQ .)
+    U8              reduce using rule 26 (oper_asig -> PLUSEQ .)
+    VARIABLE        reduce using rule 26 (oper_asig -> PLUSEQ .)
+    AND             reduce using rule 26 (oper_asig -> PLUSEQ .)
 
 
 state 44
 
-    (61) struct_s -> STRUCT sent_stru .
+    (27) oper_asig -> MINUSEQ .
 
-    $end            reduce using rule 61 (struct_s -> STRUCT sent_stru .)
-    LLAVEDER        reduce using rule 61 (struct_s -> STRUCT sent_stru .)
+    STRING          reduce using rule 27 (oper_asig -> MINUSEQ .)
+    U8              reduce using rule 27 (oper_asig -> MINUSEQ .)
+    VARIABLE        reduce using rule 27 (oper_asig -> MINUSEQ .)
+    AND             reduce using rule 27 (oper_asig -> MINUSEQ .)
 
 
 state 45
 
-    (67) sent_stru -> UNIT . ENDLINE
+    (28) oper_asig -> STAREQ .
 
-    ENDLINE         shift and go to state 78
+    STRING          reduce using rule 28 (oper_asig -> STAREQ .)
+    U8              reduce using rule 28 (oper_asig -> STAREQ .)
+    VARIABLE        reduce using rule 28 (oper_asig -> STAREQ .)
+    AND             reduce using rule 28 (oper_asig -> STAREQ .)
 
 
 state 46
 
-    (68) sent_stru -> TUPLE . LPAREN argumentos_tipo RPAREN ENDLINE
+    (29) oper_asig -> SLASHEQ .
 
-    LPAREN          shift and go to state 79
+    STRING          reduce using rule 29 (oper_asig -> SLASHEQ .)
+    U8              reduce using rule 29 (oper_asig -> SLASHEQ .)
+    VARIABLE        reduce using rule 29 (oper_asig -> SLASHEQ .)
+    AND             reduce using rule 29 (oper_asig -> SLASHEQ .)
 
 
 state 47
 
-    (69) sent_stru -> VARIABLE . LLAVEIZ argumentos_juntos LLAVEDER
+    (42) conditional -> if_type validations . LLAVEIZ rust LLAVEDER
 
-    LLAVEIZ         shift and go to state 80
+    LLAVEIZ         shift and go to state 81
 
 
 state 48
 
-    (45) if_type -> ELSE IF .
+    (46) validations -> comparison .
+    (47) validations -> comparison . ANDAND validations
+    (48) validations -> comparison . OROR validations
 
-    VARIABLE        reduce using rule 45 (if_type -> ELSE IF .)
-    U8              reduce using rule 45 (if_type -> ELSE IF .)
+    LLAVEIZ         reduce using rule 46 (validations -> comparison .)
+    ANDAND          shift and go to state 82
+    OROR            shift and go to state 83
 
 
 state 49
 
-    (11) asignacion -> declarador ASIGNAR expresion . ENDLINE
+    (49) comparison -> VARIABLE . signo_comp VARIABLE
+    (50) comparison -> VARIABLE . signo_comp U8
+    (52) signo_comp -> . GREATER
+    (53) signo_comp -> . LESST
+    (54) signo_comp -> . GREATEQ
+    (55) signo_comp -> . EQUAL
+    (56) signo_comp -> . DIFFERENT
 
-    ENDLINE         shift and go to state 81
+    GREATER         shift and go to state 85
+    LESST           shift and go to state 86
+    GREATEQ         shift and go to state 87
+    EQUAL           shift and go to state 88
+    DIFFERENT       shift and go to state 89
 
+    signo_comp                     shift and go to state 84
 
 state 50
 
-    (42) conditional_asigned -> declarador ASIGNAR conditional . ENDLINE
+    (51) comparison -> U8 . signo_comp VARIABLE
+    (52) signo_comp -> . GREATER
+    (53) signo_comp -> . LESST
+    (54) signo_comp -> . GREATEQ
+    (55) signo_comp -> . EQUAL
+    (56) signo_comp -> . DIFFERENT
 
-    ENDLINE         shift and go to state 82
+    GREATER         shift and go to state 85
+    LESST           shift and go to state 86
+    GREATEQ         shift and go to state 87
+    EQUAL           shift and go to state 88
+    DIFFERENT       shift and go to state 89
 
+    signo_comp                     shift and go to state 90
 
 state 51
 
-    (27) expresion -> STRING .
+    (59) for_loop -> FOR VARIABLE . IN f_comparacion LLAVEIZ rust LLAVEDER
 
-    ENDLINE         reduce using rule 27 (expresion -> STRING .)
-    COMMA           reduce using rule 27 (expresion -> STRING .)
-    RPAREN          reduce using rule 27 (expresion -> STRING .)
+    IN              shift and go to state 91
 
 
 state 52
 
-    (28) expresion -> U8 .
-    (72) op_mat -> U8 . signo_arit art_exp
-    (74) art_exp -> U8 . signo_arit VARIABLE
-    (76) art_exp -> U8 . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
+    (60) struct_s -> STRUCT sent_stru .
 
-    ENDLINE         reduce using rule 28 (expresion -> U8 .)
-    COMMA           reduce using rule 28 (expresion -> U8 .)
-    RPAREN          reduce using rule 28 (expresion -> U8 .)
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
+    $end            reduce using rule 60 (struct_s -> STRUCT sent_stru .)
+    LLAVEDER        reduce using rule 60 (struct_s -> STRUCT sent_stru .)
 
-    signo_arit                     shift and go to state 83
 
 state 53
 
-    (29) expresion -> op_mat .
+    (66) sent_stru -> UNIT . ENDLINE
 
-    ENDLINE         reduce using rule 29 (expresion -> op_mat .)
-    COMMA           reduce using rule 29 (expresion -> op_mat .)
-    RPAREN          reduce using rule 29 (expresion -> op_mat .)
+    ENDLINE         shift and go to state 92
 
 
 state 54
 
-    (30) expresion -> slice_exp .
+    (67) sent_stru -> TUPLE . LPAREN argumentos_tipo RPAREN ENDLINE
 
-    ENDLINE         reduce using rule 30 (expresion -> slice_exp .)
-    COMMA           reduce using rule 30 (expresion -> slice_exp .)
-    RPAREN          reduce using rule 30 (expresion -> slice_exp .)
+    LPAREN          shift and go to state 93
 
 
 state 55
 
-    (70) op_mat -> art_exp .
+    (68) sent_stru -> VARIABLE . LLAVEIZ argumentos_juntos LLAVEDER
 
-    ENDLINE         reduce using rule 70 (op_mat -> art_exp .)
-    COMMA           reduce using rule 70 (op_mat -> art_exp .)
-    RPAREN          reduce using rule 70 (op_mat -> art_exp .)
+    LLAVEIZ         shift and go to state 94
 
 
 state 56
 
-    (71) op_mat -> VARIABLE . signo_arit art_exp
-    (73) art_exp -> VARIABLE . signo_arit VARIABLE
-    (75) art_exp -> VARIABLE . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
+    (88) while_loop -> WHILE validations . LLAVEIZ rust LLAVEDER
 
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
+    LLAVEIZ         shift and go to state 95
 
-    signo_arit                     shift and go to state 89
 
 state 57
 
-    (83) slice_exp -> AND . empty VARIABLE empty BRACKETL rango BRACKETR
-    (88) empty -> .
+    (91) empty_vector -> declare_vector VECT . types_vector empty_vec
+    (92) data_vector -> declare_vector VECT . types_vector vector_content
+    (96) vector_content -> VECT . empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+    (101) types_vector -> . LESST DATATYPES GREATER
+    (102) types_vector -> . LESST NUMDATATYPES GREATER
+    (87) empty -> .
 
-    VARIABLE        reduce using rule 88 (empty -> .)
+    LESST           shift and go to state 98
+    PATHSEP         reduce using rule 87 (empty -> .)
 
-    empty                          shift and go to state 90
+    types_vector                   shift and go to state 96
+    empty                          shift and go to state 97
 
 state 58
 
-    (31) prints -> PRINTS LPAREN print_expresion . RPAREN ENDLINE
+    (93) data_vector -> declare_vector vector_content .
 
-    RPAREN          shift and go to state 91
+    $end            reduce using rule 93 (data_vector -> declare_vector vector_content .)
+    LLAVEDER        reduce using rule 93 (data_vector -> declare_vector vector_content .)
 
 
 state 59
 
-    (32) print_expresion -> STRING .
-    (33) print_expresion -> STRING . COMMA print_args
+    (94) data_vector -> declare_vector ASIGNAR . VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
 
-    RPAREN          reduce using rule 32 (print_expresion -> STRING .)
-    COMMA           shift and go to state 92
+    VECTMACRO       shift and go to state 99
 
 
 state 60
 
-    (37) hashset -> LET MUT VARIABLE . ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (18) var_tipo -> VARIABLE .
-    (19) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
+    (95) vector_content -> VECTMACRO . LLAVEIZ vector_elements LLAVEDER ENDLINE
 
-  ! shift/reduce conflict for ASIGNAR resolved as shift
-    ASIGNAR         shift and go to state 93
-    ASIGNATION_TYPE shift and go to state 62
-
-  ! ASIGNAR         [ reduce using rule 18 (var_tipo -> VARIABLE .) ]
+    LLAVEIZ         shift and go to state 100
 
 
 state 61
 
-    (17) let_asig -> LET MUT var_tipo .
+    (89) read_data -> IO empty . PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
 
-    ASIGNAR         reduce using rule 17 (let_asig -> LET MUT var_tipo .)
+    PATHSEP         shift and go to state 101
 
 
 state 62
 
-    (19) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
-    (20) tipos -> . DATATYPES
-    (21) tipos -> . NUMDATATYPES
+    (44) if_type -> ELSE IF .
 
-    DATATYPES       shift and go to state 95
-    NUMDATATYPES    shift and go to state 96
+    VARIABLE        reduce using rule 44 (if_type -> ELSE IF .)
+    U8              reduce using rule 44 (if_type -> ELSE IF .)
 
-    tipos                          shift and go to state 94
 
 state 63
 
-    (84) slice_get -> VARIABLE empty DOT . empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> VARIABLE empty DOT . empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-    (88) empty -> .
+    (16) asignacion -> declarador ASIGNAR expresion . ENDLINE
 
-    GET_SLICE       reduce using rule 88 (empty -> .)
-    CONTAINS_SLICE  reduce using rule 88 (empty -> .)
+    ENDLINE         shift and go to state 102
 
-    empty                          shift and go to state 97
 
 state 64
 
-    (40) hashset_insert -> VARIABLE DOT INSERT_HASH . LPAREN expresion RPAREN ENDLINE
+    (41) conditional_asigned -> declarador ASIGNAR conditional . ENDLINE
 
-    LPAREN          shift and go to state 98
+    ENDLINE         shift and go to state 103
 
 
 state 65
 
-    (41) hashset_union -> VARIABLE DOT UNION_HASH . LPAREN AND VARIABLE RPAREN ENDLINE
+    (112) expresion -> STRING .
 
-    LPAREN          shift and go to state 99
+    ENDLINE         reduce using rule 112 (expresion -> STRING .)
+    COMMA           reduce using rule 112 (expresion -> STRING .)
+    LLAVEDER        reduce using rule 112 (expresion -> STRING .)
+    RPAREN          reduce using rule 112 (expresion -> STRING .)
 
 
 state 66
 
-    (13) other_operators -> VARIABLE oper_asig expresion .
+    (113) expresion -> U8 .
+    (71) op_mat -> U8 . signo_arit art_exp
+    (73) art_exp -> U8 . signo_arit VARIABLE
+    (75) art_exp -> U8 . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    ENDLINE         reduce using rule 13 (other_operators -> VARIABLE oper_asig expresion .)
+    ENDLINE         reduce using rule 113 (expresion -> U8 .)
+    COMMA           reduce using rule 113 (expresion -> U8 .)
+    LLAVEDER        reduce using rule 113 (expresion -> U8 .)
+    RPAREN          reduce using rule 113 (expresion -> U8 .)
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
+    signo_arit                     shift and go to state 104
 
 state 67
 
-    (43) conditional -> if_type validations LLAVEIZ . rust LLAVEDER
-    (1) rust -> . asignacion
-    (2) rust -> . prints
-    (3) rust -> . hashset
-    (4) rust -> . hashfunc
-    (5) rust -> . conditional
-    (6) rust -> . conditional_asigned
-    (7) rust -> . for_loop
-    (8) rust -> . struct_s
-    (9) rust -> . slice_get
-    (10) rust -> . slice_contains
-    (11) asignacion -> . declarador ASIGNAR expresion ENDLINE
-    (12) asignacion -> . other_operators ENDLINE
-    (31) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
-    (37) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (38) hashfunc -> . hashset_insert
-    (39) hashfunc -> . hashset_union
-    (43) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
-    (42) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
-    (60) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
-    (61) struct_s -> . STRUCT sent_stru
-    (84) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-    (14) declarador -> . VARIABLE
-    (15) declarador -> . let_asig
-    (13) other_operators -> . VARIABLE oper_asig expresion
-    (40) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (41) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (44) if_type -> . IF
-    (45) if_type -> . ELSE IF
-    (46) if_type -> . ELSE
-    (16) let_asig -> . LET var_tipo
-    (17) let_asig -> . LET MUT var_tipo
+    (114) expresion -> op_mat .
 
-    PRINTS          shift and go to state 14
-    LET             shift and go to state 15
-    FOR             shift and go to state 20
-    STRUCT          shift and go to state 21
-    VARIABLE        shift and go to state 16
-    IF              shift and go to state 23
-    ELSE            shift and go to state 24
+    ENDLINE         reduce using rule 114 (expresion -> op_mat .)
+    COMMA           reduce using rule 114 (expresion -> op_mat .)
+    LLAVEDER        reduce using rule 114 (expresion -> op_mat .)
+    RPAREN          reduce using rule 114 (expresion -> op_mat .)
 
-    if_type                        shift and go to state 19
-    rust                           shift and go to state 100
-    asignacion                     shift and go to state 2
-    prints                         shift and go to state 3
-    hashset                        shift and go to state 4
-    hashfunc                       shift and go to state 5
-    conditional                    shift and go to state 6
-    conditional_asigned            shift and go to state 7
-    for_loop                       shift and go to state 8
-    struct_s                       shift and go to state 9
-    slice_get                      shift and go to state 10
-    slice_contains                 shift and go to state 11
-    declarador                     shift and go to state 12
-    other_operators                shift and go to state 13
-    hashset_insert                 shift and go to state 17
-    hashset_union                  shift and go to state 18
-    let_asig                       shift and go to state 22
 
 state 68
 
-    (48) validations -> comparison ANDAND . validations
-    (47) validations -> . comparison
-    (48) validations -> . comparison ANDAND validations
-    (49) validations -> . comparison OROR validations
-    (50) comparison -> . VARIABLE signo_comp VARIABLE
-    (51) comparison -> . VARIABLE signo_comp U8
-    (52) comparison -> . U8 signo_comp VARIABLE
+    (115) expresion -> slice_exp .
 
-    VARIABLE        shift and go to state 41
-    U8              shift and go to state 42
+    ENDLINE         reduce using rule 115 (expresion -> slice_exp .)
+    COMMA           reduce using rule 115 (expresion -> slice_exp .)
+    LLAVEDER        reduce using rule 115 (expresion -> slice_exp .)
+    RPAREN          reduce using rule 115 (expresion -> slice_exp .)
 
-    comparison                     shift and go to state 40
-    validations                    shift and go to state 101
 
 state 69
 
-    (49) validations -> comparison OROR . validations
-    (47) validations -> . comparison
-    (48) validations -> . comparison ANDAND validations
-    (49) validations -> . comparison OROR validations
-    (50) comparison -> . VARIABLE signo_comp VARIABLE
-    (51) comparison -> . VARIABLE signo_comp U8
-    (52) comparison -> . U8 signo_comp VARIABLE
+    (69) op_mat -> art_exp .
 
-    VARIABLE        shift and go to state 41
-    U8              shift and go to state 42
+    ENDLINE         reduce using rule 69 (op_mat -> art_exp .)
+    COMMA           reduce using rule 69 (op_mat -> art_exp .)
+    LLAVEDER        reduce using rule 69 (op_mat -> art_exp .)
+    RPAREN          reduce using rule 69 (op_mat -> art_exp .)
 
-    comparison                     shift and go to state 40
-    validations                    shift and go to state 102
 
 state 70
 
-    (50) comparison -> VARIABLE signo_comp . VARIABLE
-    (51) comparison -> VARIABLE signo_comp . U8
+    (70) op_mat -> VARIABLE . signo_arit art_exp
+    (72) art_exp -> VARIABLE . signo_arit VARIABLE
+    (74) art_exp -> VARIABLE . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    VARIABLE        shift and go to state 103
-    U8              shift and go to state 104
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
+    signo_arit                     shift and go to state 110
 
 state 71
 
-    (53) signo_comp -> GREATER .
+    (82) slice_exp -> AND . empty VARIABLE empty BRACKETL rango BRACKETR
+    (87) empty -> .
 
-    VARIABLE        reduce using rule 53 (signo_comp -> GREATER .)
-    U8              reduce using rule 53 (signo_comp -> GREATER .)
+    VARIABLE        reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 111
 
 state 72
 
-    (54) signo_comp -> LESST .
+    (30) prints -> PRINTS LPAREN print_expresion . RPAREN ENDLINE
 
-    VARIABLE        reduce using rule 54 (signo_comp -> LESST .)
-    U8              reduce using rule 54 (signo_comp -> LESST .)
+    RPAREN          shift and go to state 112
 
 
 state 73
 
-    (55) signo_comp -> GREATEQ .
+    (31) print_expresion -> STRING .
+    (32) print_expresion -> STRING . COMMA print_args
 
-    VARIABLE        reduce using rule 55 (signo_comp -> GREATEQ .)
-    U8              reduce using rule 55 (signo_comp -> GREATEQ .)
+    RPAREN          reduce using rule 31 (print_expresion -> STRING .)
+    COMMA           shift and go to state 113
 
 
 state 74
 
-    (56) signo_comp -> EQUAL .
+    (36) hashset -> LET MUT VARIABLE . ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (103) declare_vector -> LET MUT VARIABLE . ASIGNATION_TYPE
+    (23) var_tipo -> VARIABLE .
+    (24) var_tipo -> VARIABLE . ASIGNATION_TYPE tipos
 
-    VARIABLE        reduce using rule 56 (signo_comp -> EQUAL .)
-    U8              reduce using rule 56 (signo_comp -> EQUAL .)
+  ! shift/reduce conflict for ASIGNAR resolved as shift
+    ASIGNAR         shift and go to state 114
+    ASIGNATION_TYPE shift and go to state 115
+
+  ! ASIGNAR         [ reduce using rule 23 (var_tipo -> VARIABLE .) ]
 
 
 state 75
 
-    (57) signo_comp -> DIFFERENT .
+    (22) let_asig -> LET MUT var_tipo .
 
-    VARIABLE        reduce using rule 57 (signo_comp -> DIFFERENT .)
-    U8              reduce using rule 57 (signo_comp -> DIFFERENT .)
+    ASIGNAR         reduce using rule 22 (let_asig -> LET MUT var_tipo .)
 
 
 state 76
 
-    (52) comparison -> U8 signo_comp . VARIABLE
+    (104) declare_vector -> LET VARIABLE ASIGNATION_TYPE .
+    (24) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
 
-    VARIABLE        shift and go to state 105
+    VECT            reduce using rule 104 (declare_vector -> LET VARIABLE ASIGNATION_TYPE .)
+    ASIGNAR         reduce using rule 104 (declare_vector -> LET VARIABLE ASIGNATION_TYPE .)
+    VECTMACRO       reduce using rule 104 (declare_vector -> LET VARIABLE ASIGNATION_TYPE .)
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
 
+    tipos                          shift and go to state 116
 
 state 77
 
-    (60) for_loop -> FOR VARIABLE IN . f_comparacion LLAVEIZ rust LLAVEDER
-    (58) f_comparacion -> . rango
-    (59) f_comparacion -> . VARIABLE
-    (82) rango -> . U8 DOT DOT U8
+    (108) vector_methods -> VARIABLE empty DOT . empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> VARIABLE empty DOT . empty POP_VEC LPAREN RPAREN
+    (83) slice_get -> VARIABLE empty DOT . empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> VARIABLE empty DOT . empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (87) empty -> .
 
-    VARIABLE        shift and go to state 106
-    U8              shift and go to state 109
+    PUSH_VEC        reduce using rule 87 (empty -> .)
+    POP_VEC         reduce using rule 87 (empty -> .)
+    GET_SLICE       reduce using rule 87 (empty -> .)
+    CONTAINS_SLICE  reduce using rule 87 (empty -> .)
 
-    f_comparacion                  shift and go to state 107
-    rango                          shift and go to state 108
+    empty                          shift and go to state 119
 
 state 78
 
-    (67) sent_stru -> UNIT ENDLINE .
+    (39) hashset_insert -> VARIABLE DOT INSERT_HASH . LPAREN expresion RPAREN ENDLINE
 
-    $end            reduce using rule 67 (sent_stru -> UNIT ENDLINE .)
-    LLAVEDER        reduce using rule 67 (sent_stru -> UNIT ENDLINE .)
+    LPAREN          shift and go to state 120
 
 
 state 79
 
-    (68) sent_stru -> TUPLE LPAREN . argumentos_tipo RPAREN ENDLINE
-    (65) argumentos_tipo -> . tipos
-    (66) argumentos_tipo -> . tipos COMMA argumentos_tipo
-    (20) tipos -> . DATATYPES
-    (21) tipos -> . NUMDATATYPES
+    (40) hashset_union -> VARIABLE DOT UNION_HASH . LPAREN AND VARIABLE RPAREN ENDLINE
 
-    DATATYPES       shift and go to state 95
-    NUMDATATYPES    shift and go to state 96
+    LPAREN          shift and go to state 121
 
-    argumentos_tipo                shift and go to state 110
-    tipos                          shift and go to state 111
 
 state 80
 
-    (69) sent_stru -> VARIABLE LLAVEIZ . argumentos_juntos LLAVEDER
-    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
-    (63) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-    (64) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (18) other_operators -> VARIABLE oper_asig expresion .
 
-    VARIABLE        shift and go to state 112
-    PUB             shift and go to state 114
+    ENDLINE         reduce using rule 18 (other_operators -> VARIABLE oper_asig expresion .)
 
-    argumentos_juntos              shift and go to state 113
 
 state 81
 
-    (11) asignacion -> declarador ASIGNAR expresion ENDLINE .
-
-    $end            reduce using rule 11 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
-    LLAVEDER        reduce using rule 11 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
-
-
-state 82
-
-    (42) conditional_asigned -> declarador ASIGNAR conditional ENDLINE .
-
-    $end            reduce using rule 42 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
-    LLAVEDER        reduce using rule 42 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
-
-
-state 83
-
-    (72) op_mat -> U8 signo_arit . art_exp
-    (74) art_exp -> U8 signo_arit . VARIABLE
-    (76) art_exp -> U8 signo_arit . U8
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
-
-    VARIABLE        shift and go to state 117
-    U8              shift and go to state 115
-
-    art_exp                        shift and go to state 116
-
-state 84
-
-    (77) signo_arit -> MAS .
-
-    VARIABLE        reduce using rule 77 (signo_arit -> MAS .)
-    U8              reduce using rule 77 (signo_arit -> MAS .)
-
-
-state 85
-
-    (78) signo_arit -> MENOS .
-
-    VARIABLE        reduce using rule 78 (signo_arit -> MENOS .)
-    U8              reduce using rule 78 (signo_arit -> MENOS .)
-
-
-state 86
-
-    (79) signo_arit -> MULT .
-
-    VARIABLE        reduce using rule 79 (signo_arit -> MULT .)
-    U8              reduce using rule 79 (signo_arit -> MULT .)
-
-
-state 87
-
-    (80) signo_arit -> DIVISION .
-
-    VARIABLE        reduce using rule 80 (signo_arit -> DIVISION .)
-    U8              reduce using rule 80 (signo_arit -> DIVISION .)
-
-
-state 88
-
-    (81) signo_arit -> MODULO .
-
-    VARIABLE        reduce using rule 81 (signo_arit -> MODULO .)
-    U8              reduce using rule 81 (signo_arit -> MODULO .)
-
-
-state 89
-
-    (71) op_mat -> VARIABLE signo_arit . art_exp
-    (73) art_exp -> VARIABLE signo_arit . VARIABLE
-    (75) art_exp -> VARIABLE signo_arit . U8
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
-
-    VARIABLE        shift and go to state 118
-    U8              shift and go to state 120
-
-    art_exp                        shift and go to state 119
-
-state 90
-
-    (83) slice_exp -> AND empty . VARIABLE empty BRACKETL rango BRACKETR
-
-    VARIABLE        shift and go to state 121
-
-
-state 91
-
-    (31) prints -> PRINTS LPAREN print_expresion RPAREN . ENDLINE
-
-    ENDLINE         shift and go to state 122
-
-
-state 92
-
-    (33) print_expresion -> STRING COMMA . print_args
-    (34) print_args -> . print_datos COMMA print_args
-    (35) print_args -> . print_datos
-    (36) print_datos -> . expresion
-    (27) expresion -> . STRING
-    (28) expresion -> . U8
-    (29) expresion -> . op_mat
-    (30) expresion -> . slice_exp
-    (70) op_mat -> . art_exp
-    (71) op_mat -> . VARIABLE signo_arit art_exp
-    (72) op_mat -> . U8 signo_arit art_exp
-    (83) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
-
-    STRING          shift and go to state 51
-    U8              shift and go to state 52
-    VARIABLE        shift and go to state 56
-    AND             shift and go to state 57
-
-    print_args                     shift and go to state 123
-    print_datos                    shift and go to state 124
-    expresion                      shift and go to state 125
-    op_mat                         shift and go to state 53
-    slice_exp                      shift and go to state 54
-    art_exp                        shift and go to state 55
-
-state 93
-
-    (37) hashset -> LET MUT VARIABLE ASIGNAR . HASHSET PATHSEP NEWFUNC ENDLINE
-
-    HASHSET         shift and go to state 126
-
-
-state 94
-
-    (19) var_tipo -> VARIABLE ASIGNATION_TYPE tipos .
-
-    ASIGNAR         reduce using rule 19 (var_tipo -> VARIABLE ASIGNATION_TYPE tipos .)
-
-
-state 95
-
-    (20) tipos -> DATATYPES .
-
-    ASIGNAR         reduce using rule 20 (tipos -> DATATYPES .)
-    COMMA           reduce using rule 20 (tipos -> DATATYPES .)
-    RPAREN          reduce using rule 20 (tipos -> DATATYPES .)
-    LLAVEDER        reduce using rule 20 (tipos -> DATATYPES .)
-
-
-state 96
-
-    (21) tipos -> NUMDATATYPES .
-
-    ASIGNAR         reduce using rule 21 (tipos -> NUMDATATYPES .)
-    COMMA           reduce using rule 21 (tipos -> NUMDATATYPES .)
-    RPAREN          reduce using rule 21 (tipos -> NUMDATATYPES .)
-    LLAVEDER        reduce using rule 21 (tipos -> NUMDATATYPES .)
-
-
-state 97
-
-    (84) slice_get -> VARIABLE empty DOT empty . GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> VARIABLE empty DOT empty . CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-
-    GET_SLICE       shift and go to state 127
-    CONTAINS_SLICE  shift and go to state 128
-
-
-state 98
-
-    (40) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN . expresion RPAREN ENDLINE
-    (27) expresion -> . STRING
-    (28) expresion -> . U8
-    (29) expresion -> . op_mat
-    (30) expresion -> . slice_exp
-    (70) op_mat -> . art_exp
-    (71) op_mat -> . VARIABLE signo_arit art_exp
-    (72) op_mat -> . U8 signo_arit art_exp
-    (83) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
-
-    STRING          shift and go to state 51
-    U8              shift and go to state 52
-    VARIABLE        shift and go to state 56
-    AND             shift and go to state 57
-
-    expresion                      shift and go to state 129
-    op_mat                         shift and go to state 53
-    slice_exp                      shift and go to state 54
-    art_exp                        shift and go to state 55
-
-state 99
-
-    (41) hashset_union -> VARIABLE DOT UNION_HASH LPAREN . AND VARIABLE RPAREN ENDLINE
-
-    AND             shift and go to state 130
-
-
-state 100
-
-    (43) conditional -> if_type validations LLAVEIZ rust . LLAVEDER
-
-    LLAVEDER        shift and go to state 131
-
-
-state 101
-
-    (48) validations -> comparison ANDAND validations .
-
-    LLAVEIZ         reduce using rule 48 (validations -> comparison ANDAND validations .)
-
-
-state 102
-
-    (49) validations -> comparison OROR validations .
-
-    LLAVEIZ         reduce using rule 49 (validations -> comparison OROR validations .)
-
-
-state 103
-
-    (50) comparison -> VARIABLE signo_comp VARIABLE .
-
-    ANDAND          reduce using rule 50 (comparison -> VARIABLE signo_comp VARIABLE .)
-    OROR            reduce using rule 50 (comparison -> VARIABLE signo_comp VARIABLE .)
-    LLAVEIZ         reduce using rule 50 (comparison -> VARIABLE signo_comp VARIABLE .)
-
-
-state 104
-
-    (51) comparison -> VARIABLE signo_comp U8 .
-
-    ANDAND          reduce using rule 51 (comparison -> VARIABLE signo_comp U8 .)
-    OROR            reduce using rule 51 (comparison -> VARIABLE signo_comp U8 .)
-    LLAVEIZ         reduce using rule 51 (comparison -> VARIABLE signo_comp U8 .)
-
-
-state 105
-
-    (52) comparison -> U8 signo_comp VARIABLE .
-
-    ANDAND          reduce using rule 52 (comparison -> U8 signo_comp VARIABLE .)
-    OROR            reduce using rule 52 (comparison -> U8 signo_comp VARIABLE .)
-    LLAVEIZ         reduce using rule 52 (comparison -> U8 signo_comp VARIABLE .)
-
-
-state 106
-
-    (59) f_comparacion -> VARIABLE .
-
-    LLAVEIZ         reduce using rule 59 (f_comparacion -> VARIABLE .)
-
-
-state 107
-
-    (60) for_loop -> FOR VARIABLE IN f_comparacion . LLAVEIZ rust LLAVEDER
-
-    LLAVEIZ         shift and go to state 132
-
-
-state 108
-
-    (58) f_comparacion -> rango .
-
-    LLAVEIZ         reduce using rule 58 (f_comparacion -> rango .)
-
-
-state 109
-
-    (82) rango -> U8 . DOT DOT U8
-
-    DOT             shift and go to state 133
-
-
-state 110
-
-    (68) sent_stru -> TUPLE LPAREN argumentos_tipo . RPAREN ENDLINE
-
-    RPAREN          shift and go to state 134
-
-
-state 111
-
-    (65) argumentos_tipo -> tipos .
-    (66) argumentos_tipo -> tipos . COMMA argumentos_tipo
-
-    RPAREN          reduce using rule 65 (argumentos_tipo -> tipos .)
-    COMMA           shift and go to state 135
-
-
-state 112
-
-    (62) argumentos_juntos -> VARIABLE . ASIGNATION_TYPE tipos
-    (63) argumentos_juntos -> VARIABLE . ASIGNATION_TYPE tipos COMMA argumentos_juntos
-
-    ASIGNATION_TYPE shift and go to state 136
-
-
-state 113
-
-    (69) sent_stru -> VARIABLE LLAVEIZ argumentos_juntos . LLAVEDER
-
-    LLAVEDER        shift and go to state 137
-
-
-state 114
-
-    (64) argumentos_juntos -> PUB . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-
-    VARIABLE        shift and go to state 138
-
-
-state 115
-
-    (76) art_exp -> U8 signo_arit U8 .
-    (74) art_exp -> U8 . signo_arit VARIABLE
-    (76) art_exp -> U8 . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
-
-    ENDLINE         reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
-    COMMA           reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
-    RPAREN          reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
-
-    signo_arit                     shift and go to state 139
-
-state 116
-
-    (72) op_mat -> U8 signo_arit art_exp .
-
-    ENDLINE         reduce using rule 72 (op_mat -> U8 signo_arit art_exp .)
-    COMMA           reduce using rule 72 (op_mat -> U8 signo_arit art_exp .)
-    RPAREN          reduce using rule 72 (op_mat -> U8 signo_arit art_exp .)
-
-
-state 117
-
-    (74) art_exp -> U8 signo_arit VARIABLE .
-    (73) art_exp -> VARIABLE . signo_arit VARIABLE
-    (75) art_exp -> VARIABLE . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
-
-    ENDLINE         reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
-    COMMA           reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
-    RPAREN          reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
-
-    signo_arit                     shift and go to state 140
-
-state 118
-
-    (73) art_exp -> VARIABLE signo_arit VARIABLE .
-    (73) art_exp -> VARIABLE . signo_arit VARIABLE
-    (75) art_exp -> VARIABLE . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
-
-    ENDLINE         reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
-    COMMA           reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
-    RPAREN          reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
-
-    signo_arit                     shift and go to state 140
-
-state 119
-
-    (71) op_mat -> VARIABLE signo_arit art_exp .
-
-    ENDLINE         reduce using rule 71 (op_mat -> VARIABLE signo_arit art_exp .)
-    COMMA           reduce using rule 71 (op_mat -> VARIABLE signo_arit art_exp .)
-    RPAREN          reduce using rule 71 (op_mat -> VARIABLE signo_arit art_exp .)
-
-
-state 120
-
-    (75) art_exp -> VARIABLE signo_arit U8 .
-    (74) art_exp -> U8 . signo_arit VARIABLE
-    (76) art_exp -> U8 . signo_arit U8
-    (77) signo_arit -> . MAS
-    (78) signo_arit -> . MENOS
-    (79) signo_arit -> . MULT
-    (80) signo_arit -> . DIVISION
-    (81) signo_arit -> . MODULO
-
-    ENDLINE         reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
-    COMMA           reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
-    RPAREN          reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
-    MAS             shift and go to state 84
-    MENOS           shift and go to state 85
-    MULT            shift and go to state 86
-    DIVISION        shift and go to state 87
-    MODULO          shift and go to state 88
-
-    signo_arit                     shift and go to state 139
-
-state 121
-
-    (83) slice_exp -> AND empty VARIABLE . empty BRACKETL rango BRACKETR
-    (88) empty -> .
-
-    BRACKETL        reduce using rule 88 (empty -> .)
-
-    empty                          shift and go to state 141
-
-state 122
-
-    (31) prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .
-
-    $end            reduce using rule 31 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
-    LLAVEDER        reduce using rule 31 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
-
-
-state 123
-
-    (33) print_expresion -> STRING COMMA print_args .
-
-    RPAREN          reduce using rule 33 (print_expresion -> STRING COMMA print_args .)
-
-
-state 124
-
-    (34) print_args -> print_datos . COMMA print_args
-    (35) print_args -> print_datos .
-
-    COMMA           shift and go to state 142
-    RPAREN          reduce using rule 35 (print_args -> print_datos .)
-
-
-state 125
-
-    (36) print_datos -> expresion .
-
-    COMMA           reduce using rule 36 (print_datos -> expresion .)
-    RPAREN          reduce using rule 36 (print_datos -> expresion .)
-
-
-state 126
-
-    (37) hashset -> LET MUT VARIABLE ASIGNAR HASHSET . PATHSEP NEWFUNC ENDLINE
-
-    PATHSEP         shift and go to state 143
-
-
-state 127
-
-    (84) slice_get -> VARIABLE empty DOT empty GET_SLICE . empty LPAREN valor_get RPAREN
-    (88) empty -> .
-
-    LPAREN          reduce using rule 88 (empty -> .)
-
-    empty                          shift and go to state 144
-
-state 128
-
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE . empty LPAREN AND U8 RPAREN
-    (88) empty -> .
-
-    LPAREN          reduce using rule 88 (empty -> .)
-
-    empty                          shift and go to state 145
-
-state 129
-
-    (40) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion . RPAREN ENDLINE
-
-    RPAREN          shift and go to state 146
-
-
-state 130
-
-    (41) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND . VARIABLE RPAREN ENDLINE
-
-    VARIABLE        shift and go to state 147
-
-
-state 131
-
-    (43) conditional -> if_type validations LLAVEIZ rust LLAVEDER .
-
-    $end            reduce using rule 43 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
-    ENDLINE         reduce using rule 43 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
-    LLAVEDER        reduce using rule 43 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
-
-
-state 132
-
-    (60) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ . rust LLAVEDER
+    (42) conditional -> if_type validations LLAVEIZ . rust LLAVEDER
     (1) rust -> . asignacion
     (2) rust -> . prints
     (3) rust -> . hashset
@@ -1745,40 +1249,58 @@ state 132
     (6) rust -> . conditional_asigned
     (7) rust -> . for_loop
     (8) rust -> . struct_s
-    (9) rust -> . slice_get
-    (10) rust -> . slice_contains
-    (11) asignacion -> . declarador ASIGNAR expresion ENDLINE
-    (12) asignacion -> . other_operators ENDLINE
-    (31) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
-    (37) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
-    (38) hashfunc -> . hashset_insert
-    (39) hashfunc -> . hashset_union
-    (43) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
-    (42) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
-    (60) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
-    (61) struct_s -> . STRUCT sent_stru
-    (84) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
-    (87) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
-    (14) declarador -> . VARIABLE
-    (15) declarador -> . let_asig
-    (13) other_operators -> . VARIABLE oper_asig expresion
-    (40) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
-    (41) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
-    (44) if_type -> . IF
-    (45) if_type -> . ELSE IF
-    (46) if_type -> . ELSE
-    (16) let_asig -> . LET var_tipo
-    (17) let_asig -> . LET MUT var_tipo
+    (9) rust -> . while_loop
+    (10) rust -> . empty_vector
+    (11) rust -> . vector_methods
+    (12) rust -> . data_vector
+    (13) rust -> . slice_get
+    (14) rust -> . slice_contains
+    (15) rust -> . read_data
+    (16) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (17) asignacion -> . other_operators ENDLINE
+    (30) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (36) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (37) hashfunc -> . hashset_insert
+    (38) hashfunc -> . hashset_union
+    (42) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (41) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (59) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+    (60) struct_s -> . STRUCT sent_stru
+    (88) while_loop -> . WHILE validations LLAVEIZ rust LLAVEDER
+    (91) empty_vector -> . declare_vector VECT types_vector empty_vec
+    (108) vector_methods -> . VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> . VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+    (92) data_vector -> . declare_vector VECT types_vector vector_content
+    (93) data_vector -> . declare_vector vector_content
+    (94) data_vector -> . declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    (83) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (89) read_data -> . IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (19) declarador -> . VARIABLE
+    (20) declarador -> . let_asig
+    (18) other_operators -> . VARIABLE oper_asig expresion
+    (39) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (43) if_type -> . IF
+    (44) if_type -> . ELSE IF
+    (45) if_type -> . ELSE
+    (103) declare_vector -> . LET MUT VARIABLE ASIGNATION_TYPE
+    (104) declare_vector -> . LET VARIABLE ASIGNATION_TYPE
+    (21) let_asig -> . LET var_tipo
+    (22) let_asig -> . LET MUT var_tipo
 
-    PRINTS          shift and go to state 14
-    LET             shift and go to state 15
-    FOR             shift and go to state 20
-    STRUCT          shift and go to state 21
-    VARIABLE        shift and go to state 16
-    IF              shift and go to state 23
-    ELSE            shift and go to state 24
+    PRINTS          shift and go to state 19
+    LET             shift and go to state 20
+    FOR             shift and go to state 25
+    STRUCT          shift and go to state 26
+    WHILE           shift and go to state 27
+    VARIABLE        shift and go to state 21
+    IO              shift and go to state 29
+    IF              shift and go to state 31
+    ELSE            shift and go to state 32
 
-    rust                           shift and go to state 148
+    if_type                        shift and go to state 24
+    rust                           shift and go to state 122
     asignacion                     shift and go to state 2
     prints                         shift and go to state 3
     hashset                        shift and go to state 4
@@ -1787,452 +1309,2001 @@ state 132
     conditional_asigned            shift and go to state 7
     for_loop                       shift and go to state 8
     struct_s                       shift and go to state 9
-    slice_get                      shift and go to state 10
-    slice_contains                 shift and go to state 11
-    declarador                     shift and go to state 12
-    other_operators                shift and go to state 13
-    hashset_insert                 shift and go to state 17
-    hashset_union                  shift and go to state 18
-    if_type                        shift and go to state 19
-    let_asig                       shift and go to state 22
+    while_loop                     shift and go to state 10
+    empty_vector                   shift and go to state 11
+    vector_methods                 shift and go to state 12
+    data_vector                    shift and go to state 13
+    slice_get                      shift and go to state 14
+    slice_contains                 shift and go to state 15
+    read_data                      shift and go to state 16
+    declarador                     shift and go to state 17
+    other_operators                shift and go to state 18
+    hashset_insert                 shift and go to state 22
+    hashset_union                  shift and go to state 23
+    declare_vector                 shift and go to state 28
+    let_asig                       shift and go to state 30
+
+state 82
+
+    (47) validations -> comparison ANDAND . validations
+    (46) validations -> . comparison
+    (47) validations -> . comparison ANDAND validations
+    (48) validations -> . comparison OROR validations
+    (49) comparison -> . VARIABLE signo_comp VARIABLE
+    (50) comparison -> . VARIABLE signo_comp U8
+    (51) comparison -> . U8 signo_comp VARIABLE
+
+    VARIABLE        shift and go to state 49
+    U8              shift and go to state 50
+
+    comparison                     shift and go to state 48
+    validations                    shift and go to state 123
+
+state 83
+
+    (48) validations -> comparison OROR . validations
+    (46) validations -> . comparison
+    (47) validations -> . comparison ANDAND validations
+    (48) validations -> . comparison OROR validations
+    (49) comparison -> . VARIABLE signo_comp VARIABLE
+    (50) comparison -> . VARIABLE signo_comp U8
+    (51) comparison -> . U8 signo_comp VARIABLE
+
+    VARIABLE        shift and go to state 49
+    U8              shift and go to state 50
+
+    comparison                     shift and go to state 48
+    validations                    shift and go to state 124
+
+state 84
+
+    (49) comparison -> VARIABLE signo_comp . VARIABLE
+    (50) comparison -> VARIABLE signo_comp . U8
+
+    VARIABLE        shift and go to state 125
+    U8              shift and go to state 126
+
+
+state 85
+
+    (52) signo_comp -> GREATER .
+
+    VARIABLE        reduce using rule 52 (signo_comp -> GREATER .)
+    U8              reduce using rule 52 (signo_comp -> GREATER .)
+
+
+state 86
+
+    (53) signo_comp -> LESST .
+
+    VARIABLE        reduce using rule 53 (signo_comp -> LESST .)
+    U8              reduce using rule 53 (signo_comp -> LESST .)
+
+
+state 87
+
+    (54) signo_comp -> GREATEQ .
+
+    VARIABLE        reduce using rule 54 (signo_comp -> GREATEQ .)
+    U8              reduce using rule 54 (signo_comp -> GREATEQ .)
+
+
+state 88
+
+    (55) signo_comp -> EQUAL .
+
+    VARIABLE        reduce using rule 55 (signo_comp -> EQUAL .)
+    U8              reduce using rule 55 (signo_comp -> EQUAL .)
+
+
+state 89
+
+    (56) signo_comp -> DIFFERENT .
+
+    VARIABLE        reduce using rule 56 (signo_comp -> DIFFERENT .)
+    U8              reduce using rule 56 (signo_comp -> DIFFERENT .)
+
+
+state 90
+
+    (51) comparison -> U8 signo_comp . VARIABLE
+
+    VARIABLE        shift and go to state 127
+
+
+state 91
+
+    (59) for_loop -> FOR VARIABLE IN . f_comparacion LLAVEIZ rust LLAVEDER
+    (57) f_comparacion -> . rango
+    (58) f_comparacion -> . VARIABLE
+    (81) rango -> . U8 DOT DOT U8
+
+    VARIABLE        shift and go to state 128
+    U8              shift and go to state 131
+
+    f_comparacion                  shift and go to state 129
+    rango                          shift and go to state 130
+
+state 92
+
+    (66) sent_stru -> UNIT ENDLINE .
+
+    $end            reduce using rule 66 (sent_stru -> UNIT ENDLINE .)
+    LLAVEDER        reduce using rule 66 (sent_stru -> UNIT ENDLINE .)
+
+
+state 93
+
+    (67) sent_stru -> TUPLE LPAREN . argumentos_tipo RPAREN ENDLINE
+    (64) argumentos_tipo -> . tipos
+    (65) argumentos_tipo -> . tipos COMMA argumentos_tipo
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
+
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
+
+    argumentos_tipo                shift and go to state 132
+    tipos                          shift and go to state 133
+
+state 94
+
+    (68) sent_stru -> VARIABLE LLAVEIZ . argumentos_juntos LLAVEDER
+    (61) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
+    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (63) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+
+    VARIABLE        shift and go to state 134
+    PUB             shift and go to state 136
+
+    argumentos_juntos              shift and go to state 135
+
+state 95
+
+    (88) while_loop -> WHILE validations LLAVEIZ . rust LLAVEDER
+    (1) rust -> . asignacion
+    (2) rust -> . prints
+    (3) rust -> . hashset
+    (4) rust -> . hashfunc
+    (5) rust -> . conditional
+    (6) rust -> . conditional_asigned
+    (7) rust -> . for_loop
+    (8) rust -> . struct_s
+    (9) rust -> . while_loop
+    (10) rust -> . empty_vector
+    (11) rust -> . vector_methods
+    (12) rust -> . data_vector
+    (13) rust -> . slice_get
+    (14) rust -> . slice_contains
+    (15) rust -> . read_data
+    (16) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (17) asignacion -> . other_operators ENDLINE
+    (30) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (36) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (37) hashfunc -> . hashset_insert
+    (38) hashfunc -> . hashset_union
+    (42) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (41) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (59) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+    (60) struct_s -> . STRUCT sent_stru
+    (88) while_loop -> . WHILE validations LLAVEIZ rust LLAVEDER
+    (91) empty_vector -> . declare_vector VECT types_vector empty_vec
+    (108) vector_methods -> . VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> . VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+    (92) data_vector -> . declare_vector VECT types_vector vector_content
+    (93) data_vector -> . declare_vector vector_content
+    (94) data_vector -> . declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    (83) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (89) read_data -> . IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (19) declarador -> . VARIABLE
+    (20) declarador -> . let_asig
+    (18) other_operators -> . VARIABLE oper_asig expresion
+    (39) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (43) if_type -> . IF
+    (44) if_type -> . ELSE IF
+    (45) if_type -> . ELSE
+    (103) declare_vector -> . LET MUT VARIABLE ASIGNATION_TYPE
+    (104) declare_vector -> . LET VARIABLE ASIGNATION_TYPE
+    (21) let_asig -> . LET var_tipo
+    (22) let_asig -> . LET MUT var_tipo
+
+    PRINTS          shift and go to state 19
+    LET             shift and go to state 20
+    FOR             shift and go to state 25
+    STRUCT          shift and go to state 26
+    WHILE           shift and go to state 27
+    VARIABLE        shift and go to state 21
+    IO              shift and go to state 29
+    IF              shift and go to state 31
+    ELSE            shift and go to state 32
+
+    rust                           shift and go to state 137
+    asignacion                     shift and go to state 2
+    prints                         shift and go to state 3
+    hashset                        shift and go to state 4
+    hashfunc                       shift and go to state 5
+    conditional                    shift and go to state 6
+    conditional_asigned            shift and go to state 7
+    for_loop                       shift and go to state 8
+    struct_s                       shift and go to state 9
+    while_loop                     shift and go to state 10
+    empty_vector                   shift and go to state 11
+    vector_methods                 shift and go to state 12
+    data_vector                    shift and go to state 13
+    slice_get                      shift and go to state 14
+    slice_contains                 shift and go to state 15
+    read_data                      shift and go to state 16
+    declarador                     shift and go to state 17
+    other_operators                shift and go to state 18
+    hashset_insert                 shift and go to state 22
+    hashset_union                  shift and go to state 23
+    if_type                        shift and go to state 24
+    declare_vector                 shift and go to state 28
+    let_asig                       shift and go to state 30
+
+state 96
+
+    (91) empty_vector -> declare_vector VECT types_vector . empty_vec
+    (92) data_vector -> declare_vector VECT types_vector . vector_content
+    (105) empty_vec -> . ASIGNAR VECT PATHSEP NEWFUNC ENDLINE
+    (106) empty_vec -> . ASIGNAR VECTMACRO BRACKETL BRACKETR ENDLINE
+    (107) empty_vec -> . ASIGNAR VECT PATHSEP FROM LPAREN RPAREN ENDLINE
+    (95) vector_content -> . VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE
+    (96) vector_content -> . VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+
+    ASIGNAR         shift and go to state 141
+    VECTMACRO       shift and go to state 60
+    VECT            shift and go to state 138
+
+    empty_vec                      shift and go to state 139
+    vector_content                 shift and go to state 140
+
+state 97
+
+    (96) vector_content -> VECT empty . PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+
+    PATHSEP         shift and go to state 142
+
+
+state 98
+
+    (101) types_vector -> LESST . DATATYPES GREATER
+    (102) types_vector -> LESST . NUMDATATYPES GREATER
+
+    DATATYPES       shift and go to state 143
+    NUMDATATYPES    shift and go to state 144
+
+
+state 99
+
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO . LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+
+    LLAVEIZ         shift and go to state 145
+
+
+state 100
+
+    (95) vector_content -> VECTMACRO LLAVEIZ . vector_elements LLAVEDER ENDLINE
+    (97) vector_elements -> . element
+    (98) vector_elements -> . element COMMA vector_elements
+    (99) element -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    vector_elements                shift and go to state 146
+    element                        shift and go to state 147
+    expresion                      shift and go to state 148
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 101
+
+    (89) read_data -> IO empty PATHSEP . empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (87) empty -> .
+
+    STDIN           reduce using rule 87 (empty -> .)
+
+    empty                          shift and go to state 149
+
+state 102
+
+    (16) asignacion -> declarador ASIGNAR expresion ENDLINE .
+
+    $end            reduce using rule 16 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
+    LLAVEDER        reduce using rule 16 (asignacion -> declarador ASIGNAR expresion ENDLINE .)
+
+
+state 103
+
+    (41) conditional_asigned -> declarador ASIGNAR conditional ENDLINE .
+
+    $end            reduce using rule 41 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
+    LLAVEDER        reduce using rule 41 (conditional_asigned -> declarador ASIGNAR conditional ENDLINE .)
+
+
+state 104
+
+    (71) op_mat -> U8 signo_arit . art_exp
+    (73) art_exp -> U8 signo_arit . VARIABLE
+    (75) art_exp -> U8 signo_arit . U8
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    VARIABLE        shift and go to state 152
+    U8              shift and go to state 150
+
+    art_exp                        shift and go to state 151
+
+state 105
+
+    (76) signo_arit -> MAS .
+
+    VARIABLE        reduce using rule 76 (signo_arit -> MAS .)
+    U8              reduce using rule 76 (signo_arit -> MAS .)
+
+
+state 106
+
+    (77) signo_arit -> MENOS .
+
+    VARIABLE        reduce using rule 77 (signo_arit -> MENOS .)
+    U8              reduce using rule 77 (signo_arit -> MENOS .)
+
+
+state 107
+
+    (78) signo_arit -> MULT .
+
+    VARIABLE        reduce using rule 78 (signo_arit -> MULT .)
+    U8              reduce using rule 78 (signo_arit -> MULT .)
+
+
+state 108
+
+    (79) signo_arit -> DIVISION .
+
+    VARIABLE        reduce using rule 79 (signo_arit -> DIVISION .)
+    U8              reduce using rule 79 (signo_arit -> DIVISION .)
+
+
+state 109
+
+    (80) signo_arit -> MODULO .
+
+    VARIABLE        reduce using rule 80 (signo_arit -> MODULO .)
+    U8              reduce using rule 80 (signo_arit -> MODULO .)
+
+
+state 110
+
+    (70) op_mat -> VARIABLE signo_arit . art_exp
+    (72) art_exp -> VARIABLE signo_arit . VARIABLE
+    (74) art_exp -> VARIABLE signo_arit . U8
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    VARIABLE        shift and go to state 153
+    U8              shift and go to state 155
+
+    art_exp                        shift and go to state 154
+
+state 111
+
+    (82) slice_exp -> AND empty . VARIABLE empty BRACKETL rango BRACKETR
+
+    VARIABLE        shift and go to state 156
+
+
+state 112
+
+    (30) prints -> PRINTS LPAREN print_expresion RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 157
+
+
+state 113
+
+    (32) print_expresion -> STRING COMMA . print_args
+    (33) print_args -> . print_datos COMMA print_args
+    (34) print_args -> . print_datos
+    (35) print_datos -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    print_args                     shift and go to state 158
+    print_datos                    shift and go to state 159
+    expresion                      shift and go to state 160
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 114
+
+    (36) hashset -> LET MUT VARIABLE ASIGNAR . HASHSET PATHSEP NEWFUNC ENDLINE
+
+    HASHSET         shift and go to state 161
+
+
+state 115
+
+    (103) declare_vector -> LET MUT VARIABLE ASIGNATION_TYPE .
+    (24) var_tipo -> VARIABLE ASIGNATION_TYPE . tipos
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
+
+    VECT            reduce using rule 103 (declare_vector -> LET MUT VARIABLE ASIGNATION_TYPE .)
+    ASIGNAR         reduce using rule 103 (declare_vector -> LET MUT VARIABLE ASIGNATION_TYPE .)
+    VECTMACRO       reduce using rule 103 (declare_vector -> LET MUT VARIABLE ASIGNATION_TYPE .)
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
+
+    tipos                          shift and go to state 116
+
+state 116
+
+    (24) var_tipo -> VARIABLE ASIGNATION_TYPE tipos .
+
+    ASIGNAR         reduce using rule 24 (var_tipo -> VARIABLE ASIGNATION_TYPE tipos .)
+
+
+state 117
+
+    (110) tipos -> DATATYPES .
+
+    ASIGNAR         reduce using rule 110 (tipos -> DATATYPES .)
+    COMMA           reduce using rule 110 (tipos -> DATATYPES .)
+    RPAREN          reduce using rule 110 (tipos -> DATATYPES .)
+    LLAVEDER        reduce using rule 110 (tipos -> DATATYPES .)
+
+
+state 118
+
+    (111) tipos -> NUMDATATYPES .
+
+    ASIGNAR         reduce using rule 111 (tipos -> NUMDATATYPES .)
+    COMMA           reduce using rule 111 (tipos -> NUMDATATYPES .)
+    RPAREN          reduce using rule 111 (tipos -> NUMDATATYPES .)
+    LLAVEDER        reduce using rule 111 (tipos -> NUMDATATYPES .)
+
+
+state 119
+
+    (108) vector_methods -> VARIABLE empty DOT empty . PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> VARIABLE empty DOT empty . POP_VEC LPAREN RPAREN
+    (83) slice_get -> VARIABLE empty DOT empty . GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> VARIABLE empty DOT empty . CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+
+    PUSH_VEC        shift and go to state 162
+    POP_VEC         shift and go to state 163
+    GET_SLICE       shift and go to state 164
+    CONTAINS_SLICE  shift and go to state 165
+
+
+state 120
+
+    (39) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN . expresion RPAREN ENDLINE
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    expresion                      shift and go to state 166
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 121
+
+    (40) hashset_union -> VARIABLE DOT UNION_HASH LPAREN . AND VARIABLE RPAREN ENDLINE
+
+    AND             shift and go to state 167
+
+
+state 122
+
+    (42) conditional -> if_type validations LLAVEIZ rust . LLAVEDER
+
+    LLAVEDER        shift and go to state 168
+
+
+state 123
+
+    (47) validations -> comparison ANDAND validations .
+
+    LLAVEIZ         reduce using rule 47 (validations -> comparison ANDAND validations .)
+
+
+state 124
+
+    (48) validations -> comparison OROR validations .
+
+    LLAVEIZ         reduce using rule 48 (validations -> comparison OROR validations .)
+
+
+state 125
+
+    (49) comparison -> VARIABLE signo_comp VARIABLE .
+
+    ANDAND          reduce using rule 49 (comparison -> VARIABLE signo_comp VARIABLE .)
+    OROR            reduce using rule 49 (comparison -> VARIABLE signo_comp VARIABLE .)
+    LLAVEIZ         reduce using rule 49 (comparison -> VARIABLE signo_comp VARIABLE .)
+
+
+state 126
+
+    (50) comparison -> VARIABLE signo_comp U8 .
+
+    ANDAND          reduce using rule 50 (comparison -> VARIABLE signo_comp U8 .)
+    OROR            reduce using rule 50 (comparison -> VARIABLE signo_comp U8 .)
+    LLAVEIZ         reduce using rule 50 (comparison -> VARIABLE signo_comp U8 .)
+
+
+state 127
+
+    (51) comparison -> U8 signo_comp VARIABLE .
+
+    ANDAND          reduce using rule 51 (comparison -> U8 signo_comp VARIABLE .)
+    OROR            reduce using rule 51 (comparison -> U8 signo_comp VARIABLE .)
+    LLAVEIZ         reduce using rule 51 (comparison -> U8 signo_comp VARIABLE .)
+
+
+state 128
+
+    (58) f_comparacion -> VARIABLE .
+
+    LLAVEIZ         reduce using rule 58 (f_comparacion -> VARIABLE .)
+
+
+state 129
+
+    (59) for_loop -> FOR VARIABLE IN f_comparacion . LLAVEIZ rust LLAVEDER
+
+    LLAVEIZ         shift and go to state 169
+
+
+state 130
+
+    (57) f_comparacion -> rango .
+
+    LLAVEIZ         reduce using rule 57 (f_comparacion -> rango .)
+
+
+state 131
+
+    (81) rango -> U8 . DOT DOT U8
+
+    DOT             shift and go to state 170
+
+
+state 132
+
+    (67) sent_stru -> TUPLE LPAREN argumentos_tipo . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 171
+
 
 state 133
 
-    (82) rango -> U8 DOT . DOT U8
+    (64) argumentos_tipo -> tipos .
+    (65) argumentos_tipo -> tipos . COMMA argumentos_tipo
 
-    DOT             shift and go to state 149
+    RPAREN          reduce using rule 64 (argumentos_tipo -> tipos .)
+    COMMA           shift and go to state 172
 
 
 state 134
 
-    (68) sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN . ENDLINE
+    (61) argumentos_juntos -> VARIABLE . ASIGNATION_TYPE tipos
+    (62) argumentos_juntos -> VARIABLE . ASIGNATION_TYPE tipos COMMA argumentos_juntos
 
-    ENDLINE         shift and go to state 150
+    ASIGNATION_TYPE shift and go to state 173
 
 
 state 135
 
-    (66) argumentos_tipo -> tipos COMMA . argumentos_tipo
-    (65) argumentos_tipo -> . tipos
-    (66) argumentos_tipo -> . tipos COMMA argumentos_tipo
-    (20) tipos -> . DATATYPES
-    (21) tipos -> . NUMDATATYPES
+    (68) sent_stru -> VARIABLE LLAVEIZ argumentos_juntos . LLAVEDER
 
-    DATATYPES       shift and go to state 95
-    NUMDATATYPES    shift and go to state 96
+    LLAVEDER        shift and go to state 174
 
-    tipos                          shift and go to state 111
-    argumentos_tipo                shift and go to state 151
 
 state 136
 
-    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE . tipos
-    (63) argumentos_juntos -> VARIABLE ASIGNATION_TYPE . tipos COMMA argumentos_juntos
-    (20) tipos -> . DATATYPES
-    (21) tipos -> . NUMDATATYPES
+    (63) argumentos_juntos -> PUB . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
 
-    DATATYPES       shift and go to state 95
-    NUMDATATYPES    shift and go to state 96
+    VARIABLE        shift and go to state 175
 
-    tipos                          shift and go to state 152
 
 state 137
 
-    (69) sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .
+    (88) while_loop -> WHILE validations LLAVEIZ rust . LLAVEDER
 
-    $end            reduce using rule 69 (sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .)
-    LLAVEDER        reduce using rule 69 (sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .)
+    LLAVEDER        shift and go to state 176
 
 
 state 138
 
-    (64) argumentos_juntos -> PUB VARIABLE . ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (96) vector_content -> VECT . empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+    (87) empty -> .
 
-    ASIGNATION_TYPE shift and go to state 153
+    PATHSEP         reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 97
 
 state 139
 
-    (74) art_exp -> U8 signo_arit . VARIABLE
-    (76) art_exp -> U8 signo_arit . U8
+    (91) empty_vector -> declare_vector VECT types_vector empty_vec .
 
-    VARIABLE        shift and go to state 155
-    U8              shift and go to state 154
+    $end            reduce using rule 91 (empty_vector -> declare_vector VECT types_vector empty_vec .)
+    LLAVEDER        reduce using rule 91 (empty_vector -> declare_vector VECT types_vector empty_vec .)
 
 
 state 140
 
-    (73) art_exp -> VARIABLE signo_arit . VARIABLE
-    (75) art_exp -> VARIABLE signo_arit . U8
+    (92) data_vector -> declare_vector VECT types_vector vector_content .
 
-    VARIABLE        shift and go to state 156
-    U8              shift and go to state 157
+    $end            reduce using rule 92 (data_vector -> declare_vector VECT types_vector vector_content .)
+    LLAVEDER        reduce using rule 92 (data_vector -> declare_vector VECT types_vector vector_content .)
 
 
 state 141
 
-    (83) slice_exp -> AND empty VARIABLE empty . BRACKETL rango BRACKETR
+    (105) empty_vec -> ASIGNAR . VECT PATHSEP NEWFUNC ENDLINE
+    (106) empty_vec -> ASIGNAR . VECTMACRO BRACKETL BRACKETR ENDLINE
+    (107) empty_vec -> ASIGNAR . VECT PATHSEP FROM LPAREN RPAREN ENDLINE
 
-    BRACKETL        shift and go to state 158
+    VECT            shift and go to state 177
+    VECTMACRO       shift and go to state 178
 
 
 state 142
 
-    (34) print_args -> print_datos COMMA . print_args
-    (34) print_args -> . print_datos COMMA print_args
-    (35) print_args -> . print_datos
-    (36) print_datos -> . expresion
-    (27) expresion -> . STRING
-    (28) expresion -> . U8
-    (29) expresion -> . op_mat
-    (30) expresion -> . slice_exp
-    (70) op_mat -> . art_exp
-    (71) op_mat -> . VARIABLE signo_arit art_exp
-    (72) op_mat -> . U8 signo_arit art_exp
-    (83) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
-    (73) art_exp -> . VARIABLE signo_arit VARIABLE
-    (74) art_exp -> . U8 signo_arit VARIABLE
-    (75) art_exp -> . VARIABLE signo_arit U8
-    (76) art_exp -> . U8 signo_arit U8
+    (96) vector_content -> VECT empty PATHSEP . empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+    (87) empty -> .
 
-    STRING          shift and go to state 51
-    U8              shift and go to state 52
-    VARIABLE        shift and go to state 56
-    AND             shift and go to state 57
+    FROM            reduce using rule 87 (empty -> .)
 
-    print_datos                    shift and go to state 124
-    print_args                     shift and go to state 159
-    expresion                      shift and go to state 125
-    op_mat                         shift and go to state 53
-    slice_exp                      shift and go to state 54
-    art_exp                        shift and go to state 55
+    empty                          shift and go to state 179
 
 state 143
 
-    (37) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP . NEWFUNC ENDLINE
+    (101) types_vector -> LESST DATATYPES . GREATER
 
-    NEWFUNC         shift and go to state 160
+    GREATER         shift and go to state 180
 
 
 state 144
 
-    (84) slice_get -> VARIABLE empty DOT empty GET_SLICE empty . LPAREN valor_get RPAREN
+    (102) types_vector -> LESST NUMDATATYPES . GREATER
 
-    LPAREN          shift and go to state 161
+    GREATER         shift and go to state 181
 
 
 state 145
 
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty . LPAREN AND U8 RPAREN
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ . element_type COMMA vector_elements LLAVEDER ENDLINE
+    (100) element_type -> . U8 NUMDATATYPES
 
-    LPAREN          shift and go to state 162
+    U8              shift and go to state 183
 
+    element_type                   shift and go to state 182
 
 state 146
 
-    (40) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN . ENDLINE
+    (95) vector_content -> VECTMACRO LLAVEIZ vector_elements . LLAVEDER ENDLINE
 
-    ENDLINE         shift and go to state 163
+    LLAVEDER        shift and go to state 184
 
 
 state 147
 
-    (41) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE . RPAREN ENDLINE
+    (97) vector_elements -> element .
+    (98) vector_elements -> element . COMMA vector_elements
 
-    RPAREN          shift and go to state 164
+    LLAVEDER        reduce using rule 97 (vector_elements -> element .)
+    COMMA           shift and go to state 185
 
 
 state 148
 
-    (60) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust . LLAVEDER
+    (99) element -> expresion .
 
-    LLAVEDER        shift and go to state 165
+    COMMA           reduce using rule 99 (element -> expresion .)
+    LLAVEDER        reduce using rule 99 (element -> expresion .)
 
 
 state 149
 
-    (82) rango -> U8 DOT DOT . U8
+    (89) read_data -> IO empty PATHSEP empty . STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
 
-    U8              shift and go to state 166
+    STDIN           shift and go to state 186
 
 
 state 150
 
-    (68) sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .
+    (75) art_exp -> U8 signo_arit U8 .
+    (73) art_exp -> U8 . signo_arit VARIABLE
+    (75) art_exp -> U8 . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    $end            reduce using rule 68 (sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .)
-    LLAVEDER        reduce using rule 68 (sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .)
+    ENDLINE         reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    COMMA           reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    LLAVEDER        reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    RPAREN          reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
+    signo_arit                     shift and go to state 187
 
 state 151
 
-    (66) argumentos_tipo -> tipos COMMA argumentos_tipo .
+    (71) op_mat -> U8 signo_arit art_exp .
 
-    RPAREN          reduce using rule 66 (argumentos_tipo -> tipos COMMA argumentos_tipo .)
+    ENDLINE         reduce using rule 71 (op_mat -> U8 signo_arit art_exp .)
+    COMMA           reduce using rule 71 (op_mat -> U8 signo_arit art_exp .)
+    LLAVEDER        reduce using rule 71 (op_mat -> U8 signo_arit art_exp .)
+    RPAREN          reduce using rule 71 (op_mat -> U8 signo_arit art_exp .)
 
 
 state 152
 
-    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos .
-    (63) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos . COMMA argumentos_juntos
+    (73) art_exp -> U8 signo_arit VARIABLE .
+    (72) art_exp -> VARIABLE . signo_arit VARIABLE
+    (74) art_exp -> VARIABLE . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    LLAVEDER        reduce using rule 62 (argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos .)
-    COMMA           shift and go to state 167
+    ENDLINE         reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    COMMA           reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    LLAVEDER        reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    RPAREN          reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
+    signo_arit                     shift and go to state 188
 
 state 153
 
-    (64) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE . tipos COMMA argumentos_juntos
-    (20) tipos -> . DATATYPES
-    (21) tipos -> . NUMDATATYPES
+    (72) art_exp -> VARIABLE signo_arit VARIABLE .
+    (72) art_exp -> VARIABLE . signo_arit VARIABLE
+    (74) art_exp -> VARIABLE . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    DATATYPES       shift and go to state 95
-    NUMDATATYPES    shift and go to state 96
+    ENDLINE         reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    COMMA           reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    LLAVEDER        reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    RPAREN          reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
-    tipos                          shift and go to state 168
+    signo_arit                     shift and go to state 188
 
 state 154
 
-    (76) art_exp -> U8 signo_arit U8 .
+    (70) op_mat -> VARIABLE signo_arit art_exp .
 
-    ENDLINE         reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
-    COMMA           reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
-    RPAREN          reduce using rule 76 (art_exp -> U8 signo_arit U8 .)
+    ENDLINE         reduce using rule 70 (op_mat -> VARIABLE signo_arit art_exp .)
+    COMMA           reduce using rule 70 (op_mat -> VARIABLE signo_arit art_exp .)
+    LLAVEDER        reduce using rule 70 (op_mat -> VARIABLE signo_arit art_exp .)
+    RPAREN          reduce using rule 70 (op_mat -> VARIABLE signo_arit art_exp .)
 
 
 state 155
 
-    (74) art_exp -> U8 signo_arit VARIABLE .
+    (74) art_exp -> VARIABLE signo_arit U8 .
+    (73) art_exp -> U8 . signo_arit VARIABLE
+    (75) art_exp -> U8 . signo_arit U8
+    (76) signo_arit -> . MAS
+    (77) signo_arit -> . MENOS
+    (78) signo_arit -> . MULT
+    (79) signo_arit -> . DIVISION
+    (80) signo_arit -> . MODULO
 
-    ENDLINE         reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
-    COMMA           reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
-    RPAREN          reduce using rule 74 (art_exp -> U8 signo_arit VARIABLE .)
+    ENDLINE         reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    COMMA           reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    LLAVEDER        reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    RPAREN          reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    MAS             shift and go to state 105
+    MENOS           shift and go to state 106
+    MULT            shift and go to state 107
+    DIVISION        shift and go to state 108
+    MODULO          shift and go to state 109
 
+    signo_arit                     shift and go to state 187
 
 state 156
 
-    (73) art_exp -> VARIABLE signo_arit VARIABLE .
+    (82) slice_exp -> AND empty VARIABLE . empty BRACKETL rango BRACKETR
+    (87) empty -> .
 
-    ENDLINE         reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
-    COMMA           reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
-    RPAREN          reduce using rule 73 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    BRACKETL        reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 189
 
 state 157
 
-    (75) art_exp -> VARIABLE signo_arit U8 .
+    (30) prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .
 
-    ENDLINE         reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
-    COMMA           reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
-    RPAREN          reduce using rule 75 (art_exp -> VARIABLE signo_arit U8 .)
+    $end            reduce using rule 30 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 30 (prints -> PRINTS LPAREN print_expresion RPAREN ENDLINE .)
 
 
 state 158
 
-    (83) slice_exp -> AND empty VARIABLE empty BRACKETL . rango BRACKETR
-    (82) rango -> . U8 DOT DOT U8
+    (32) print_expresion -> STRING COMMA print_args .
 
-    U8              shift and go to state 109
+    RPAREN          reduce using rule 32 (print_expresion -> STRING COMMA print_args .)
 
-    rango                          shift and go to state 169
 
 state 159
 
-    (34) print_args -> print_datos COMMA print_args .
+    (33) print_args -> print_datos . COMMA print_args
+    (34) print_args -> print_datos .
 
-    RPAREN          reduce using rule 34 (print_args -> print_datos COMMA print_args .)
+    COMMA           shift and go to state 190
+    RPAREN          reduce using rule 34 (print_args -> print_datos .)
 
 
 state 160
 
-    (37) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC . ENDLINE
+    (35) print_datos -> expresion .
 
-    ENDLINE         shift and go to state 170
+    COMMA           reduce using rule 35 (print_datos -> expresion .)
+    RPAREN          reduce using rule 35 (print_datos -> expresion .)
 
 
 state 161
 
-    (84) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN . valor_get RPAREN
-    (85) valor_get -> . rango
-    (86) valor_get -> . U8
-    (82) rango -> . U8 DOT DOT U8
+    (36) hashset -> LET MUT VARIABLE ASIGNAR HASHSET . PATHSEP NEWFUNC ENDLINE
 
-    U8              shift and go to state 173
+    PATHSEP         shift and go to state 191
 
-    valor_get                      shift and go to state 171
-    rango                          shift and go to state 172
 
 state 162
 
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN . AND U8 RPAREN
+    (108) vector_methods -> VARIABLE empty DOT empty PUSH_VEC . LPAREN expresion RPAREN
 
-    AND             shift and go to state 174
+    LPAREN          shift and go to state 192
 
 
 state 163
 
-    (40) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .
+    (109) vector_methods -> VARIABLE empty DOT empty POP_VEC . LPAREN RPAREN
 
-    $end            reduce using rule 40 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
-    LLAVEDER        reduce using rule 40 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+    LPAREN          shift and go to state 193
 
 
 state 164
 
-    (41) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN . ENDLINE
+    (83) slice_get -> VARIABLE empty DOT empty GET_SLICE . empty LPAREN valor_get RPAREN
+    (87) empty -> .
 
-    ENDLINE         shift and go to state 175
+    LPAREN          reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 194
 
 state 165
 
-    (60) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE . empty LPAREN AND U8 RPAREN
+    (87) empty -> .
 
-    $end            reduce using rule 60 (for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .)
-    LLAVEDER        reduce using rule 60 (for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .)
+    LPAREN          reduce using rule 87 (empty -> .)
 
+    empty                          shift and go to state 195
 
 state 166
 
-    (82) rango -> U8 DOT DOT U8 .
+    (39) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion . RPAREN ENDLINE
 
-    LLAVEIZ         reduce using rule 82 (rango -> U8 DOT DOT U8 .)
-    BRACKETR        reduce using rule 82 (rango -> U8 DOT DOT U8 .)
-    RPAREN          reduce using rule 82 (rango -> U8 DOT DOT U8 .)
+    RPAREN          shift and go to state 196
 
 
 state 167
 
-    (63) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA . argumentos_juntos
-    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
-    (63) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-    (64) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (40) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND . VARIABLE RPAREN ENDLINE
 
-    VARIABLE        shift and go to state 112
-    PUB             shift and go to state 114
+    VARIABLE        shift and go to state 197
 
-    argumentos_juntos              shift and go to state 176
 
 state 168
 
-    (64) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos . COMMA argumentos_juntos
+    (42) conditional -> if_type validations LLAVEIZ rust LLAVEDER .
 
-    COMMA           shift and go to state 177
+    $end            reduce using rule 42 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
+    ENDLINE         reduce using rule 42 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
+    LLAVEDER        reduce using rule 42 (conditional -> if_type validations LLAVEIZ rust LLAVEDER .)
 
 
 state 169
 
-    (83) slice_exp -> AND empty VARIABLE empty BRACKETL rango . BRACKETR
+    (59) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ . rust LLAVEDER
+    (1) rust -> . asignacion
+    (2) rust -> . prints
+    (3) rust -> . hashset
+    (4) rust -> . hashfunc
+    (5) rust -> . conditional
+    (6) rust -> . conditional_asigned
+    (7) rust -> . for_loop
+    (8) rust -> . struct_s
+    (9) rust -> . while_loop
+    (10) rust -> . empty_vector
+    (11) rust -> . vector_methods
+    (12) rust -> . data_vector
+    (13) rust -> . slice_get
+    (14) rust -> . slice_contains
+    (15) rust -> . read_data
+    (16) asignacion -> . declarador ASIGNAR expresion ENDLINE
+    (17) asignacion -> . other_operators ENDLINE
+    (30) prints -> . PRINTS LPAREN print_expresion RPAREN ENDLINE
+    (36) hashset -> . LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    (37) hashfunc -> . hashset_insert
+    (38) hashfunc -> . hashset_union
+    (42) conditional -> . if_type validations LLAVEIZ rust LLAVEDER
+    (41) conditional_asigned -> . declarador ASIGNAR conditional ENDLINE
+    (59) for_loop -> . FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER
+    (60) struct_s -> . STRUCT sent_stru
+    (88) while_loop -> . WHILE validations LLAVEIZ rust LLAVEDER
+    (91) empty_vector -> . declare_vector VECT types_vector empty_vec
+    (108) vector_methods -> . VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+    (109) vector_methods -> . VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+    (92) data_vector -> . declare_vector VECT types_vector vector_content
+    (93) data_vector -> . declare_vector vector_content
+    (94) data_vector -> . declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    (83) slice_get -> . VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    (86) slice_contains -> . VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    (89) read_data -> . IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (19) declarador -> . VARIABLE
+    (20) declarador -> . let_asig
+    (18) other_operators -> . VARIABLE oper_asig expresion
+    (39) hashset_insert -> . VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    (40) hashset_union -> . VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    (43) if_type -> . IF
+    (44) if_type -> . ELSE IF
+    (45) if_type -> . ELSE
+    (103) declare_vector -> . LET MUT VARIABLE ASIGNATION_TYPE
+    (104) declare_vector -> . LET VARIABLE ASIGNATION_TYPE
+    (21) let_asig -> . LET var_tipo
+    (22) let_asig -> . LET MUT var_tipo
 
-    BRACKETR        shift and go to state 178
+    PRINTS          shift and go to state 19
+    LET             shift and go to state 20
+    FOR             shift and go to state 25
+    STRUCT          shift and go to state 26
+    WHILE           shift and go to state 27
+    VARIABLE        shift and go to state 21
+    IO              shift and go to state 29
+    IF              shift and go to state 31
+    ELSE            shift and go to state 32
 
+    rust                           shift and go to state 198
+    asignacion                     shift and go to state 2
+    prints                         shift and go to state 3
+    hashset                        shift and go to state 4
+    hashfunc                       shift and go to state 5
+    conditional                    shift and go to state 6
+    conditional_asigned            shift and go to state 7
+    for_loop                       shift and go to state 8
+    struct_s                       shift and go to state 9
+    while_loop                     shift and go to state 10
+    empty_vector                   shift and go to state 11
+    vector_methods                 shift and go to state 12
+    data_vector                    shift and go to state 13
+    slice_get                      shift and go to state 14
+    slice_contains                 shift and go to state 15
+    read_data                      shift and go to state 16
+    declarador                     shift and go to state 17
+    other_operators                shift and go to state 18
+    hashset_insert                 shift and go to state 22
+    hashset_union                  shift and go to state 23
+    if_type                        shift and go to state 24
+    declare_vector                 shift and go to state 28
+    let_asig                       shift and go to state 30
 
 state 170
 
-    (37) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .
+    (81) rango -> U8 DOT . DOT U8
 
-    $end            reduce using rule 37 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
-    LLAVEDER        reduce using rule 37 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+    DOT             shift and go to state 199
 
 
 state 171
 
-    (84) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get . RPAREN
+    (67) sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN . ENDLINE
 
-    RPAREN          shift and go to state 179
+    ENDLINE         shift and go to state 200
 
 
 state 172
 
-    (85) valor_get -> rango .
+    (65) argumentos_tipo -> tipos COMMA . argumentos_tipo
+    (64) argumentos_tipo -> . tipos
+    (65) argumentos_tipo -> . tipos COMMA argumentos_tipo
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
 
-    RPAREN          reduce using rule 85 (valor_get -> rango .)
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
 
+    tipos                          shift and go to state 133
+    argumentos_tipo                shift and go to state 201
 
 state 173
 
-    (86) valor_get -> U8 .
-    (82) rango -> U8 . DOT DOT U8
+    (61) argumentos_juntos -> VARIABLE ASIGNATION_TYPE . tipos
+    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE . tipos COMMA argumentos_juntos
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
 
-    RPAREN          reduce using rule 86 (valor_get -> U8 .)
-    DOT             shift and go to state 133
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
 
+    tipos                          shift and go to state 202
 
 state 174
 
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND . U8 RPAREN
+    (68) sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .
 
-    U8              shift and go to state 180
+    $end            reduce using rule 68 (sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .)
+    LLAVEDER        reduce using rule 68 (sent_stru -> VARIABLE LLAVEIZ argumentos_juntos LLAVEDER .)
 
 
 state 175
 
-    (41) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .
+    (63) argumentos_juntos -> PUB VARIABLE . ASIGNATION_TYPE tipos COMMA argumentos_juntos
 
-    $end            reduce using rule 41 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
-    LLAVEDER        reduce using rule 41 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
+    ASIGNATION_TYPE shift and go to state 203
 
 
 state 176
 
-    (63) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .
+    (88) while_loop -> WHILE validations LLAVEIZ rust LLAVEDER .
 
-    LLAVEDER        reduce using rule 63 (argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .)
+    $end            reduce using rule 88 (while_loop -> WHILE validations LLAVEIZ rust LLAVEDER .)
+    LLAVEDER        reduce using rule 88 (while_loop -> WHILE validations LLAVEIZ rust LLAVEDER .)
 
 
 state 177
 
-    (64) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA . argumentos_juntos
-    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
-    (63) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
-    (64) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (105) empty_vec -> ASIGNAR VECT . PATHSEP NEWFUNC ENDLINE
+    (107) empty_vec -> ASIGNAR VECT . PATHSEP FROM LPAREN RPAREN ENDLINE
 
-    VARIABLE        shift and go to state 112
-    PUB             shift and go to state 114
+    PATHSEP         shift and go to state 204
 
-    argumentos_juntos              shift and go to state 181
 
 state 178
 
-    (83) slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .
+    (106) empty_vec -> ASIGNAR VECTMACRO . BRACKETL BRACKETR ENDLINE
 
-    ENDLINE         reduce using rule 83 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
-    COMMA           reduce using rule 83 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
-    RPAREN          reduce using rule 83 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
+    BRACKETL        shift and go to state 205
 
 
 state 179
 
-    (84) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .
+    (96) vector_content -> VECT empty PATHSEP empty . FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
 
-    $end            reduce using rule 84 (slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .)
-    LLAVEDER        reduce using rule 84 (slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .)
+    FROM            shift and go to state 206
 
 
 state 180
 
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 . RPAREN
+    (101) types_vector -> LESST DATATYPES GREATER .
 
-    RPAREN          shift and go to state 182
+    ASIGNAR         reduce using rule 101 (types_vector -> LESST DATATYPES GREATER .)
+    VECTMACRO       reduce using rule 101 (types_vector -> LESST DATATYPES GREATER .)
+    VECT            reduce using rule 101 (types_vector -> LESST DATATYPES GREATER .)
 
 
 state 181
 
-    (64) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .
+    (102) types_vector -> LESST NUMDATATYPES GREATER .
 
-    LLAVEDER        reduce using rule 64 (argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .)
+    ASIGNAR         reduce using rule 102 (types_vector -> LESST NUMDATATYPES GREATER .)
+    VECTMACRO       reduce using rule 102 (types_vector -> LESST NUMDATATYPES GREATER .)
+    VECT            reduce using rule 102 (types_vector -> LESST NUMDATATYPES GREATER .)
 
 
 state 182
 
-    (87) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type . COMMA vector_elements LLAVEDER ENDLINE
 
-    $end            reduce using rule 87 (slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .)
-    LLAVEDER        reduce using rule 87 (slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .)
+    COMMA           shift and go to state 207
+
+
+state 183
+
+    (100) element_type -> U8 . NUMDATATYPES
+
+    NUMDATATYPES    shift and go to state 208
+
+
+state 184
+
+    (95) vector_content -> VECTMACRO LLAVEIZ vector_elements LLAVEDER . ENDLINE
+
+    ENDLINE         shift and go to state 209
+
+
+state 185
+
+    (98) vector_elements -> element COMMA . vector_elements
+    (97) vector_elements -> . element
+    (98) vector_elements -> . element COMMA vector_elements
+    (99) element -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    element                        shift and go to state 147
+    vector_elements                shift and go to state 210
+    expresion                      shift and go to state 148
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 186
+
+    (89) read_data -> IO empty PATHSEP empty STDIN . LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+
+    LPAREN          shift and go to state 211
+
+
+state 187
+
+    (73) art_exp -> U8 signo_arit . VARIABLE
+    (75) art_exp -> U8 signo_arit . U8
+
+    VARIABLE        shift and go to state 213
+    U8              shift and go to state 212
+
+
+state 188
+
+    (72) art_exp -> VARIABLE signo_arit . VARIABLE
+    (74) art_exp -> VARIABLE signo_arit . U8
+
+    VARIABLE        shift and go to state 214
+    U8              shift and go to state 215
+
+
+state 189
+
+    (82) slice_exp -> AND empty VARIABLE empty . BRACKETL rango BRACKETR
+
+    BRACKETL        shift and go to state 216
+
+
+state 190
+
+    (33) print_args -> print_datos COMMA . print_args
+    (33) print_args -> . print_datos COMMA print_args
+    (34) print_args -> . print_datos
+    (35) print_datos -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    print_datos                    shift and go to state 159
+    print_args                     shift and go to state 217
+    expresion                      shift and go to state 160
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 191
+
+    (36) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP . NEWFUNC ENDLINE
+
+    NEWFUNC         shift and go to state 218
+
+
+state 192
+
+    (108) vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN . expresion RPAREN
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    expresion                      shift and go to state 219
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 193
+
+    (109) vector_methods -> VARIABLE empty DOT empty POP_VEC LPAREN . RPAREN
+
+    RPAREN          shift and go to state 220
+
+
+state 194
+
+    (83) slice_get -> VARIABLE empty DOT empty GET_SLICE empty . LPAREN valor_get RPAREN
+
+    LPAREN          shift and go to state 221
+
+
+state 195
+
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty . LPAREN AND U8 RPAREN
+
+    LPAREN          shift and go to state 222
+
+
+state 196
+
+    (39) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 223
+
+
+state 197
+
+    (40) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 224
+
+
+state 198
+
+    (59) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust . LLAVEDER
+
+    LLAVEDER        shift and go to state 225
+
+
+state 199
+
+    (81) rango -> U8 DOT DOT . U8
+
+    U8              shift and go to state 226
+
+
+state 200
+
+    (67) sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .
+
+    $end            reduce using rule 67 (sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 67 (sent_stru -> TUPLE LPAREN argumentos_tipo RPAREN ENDLINE .)
+
+
+state 201
+
+    (65) argumentos_tipo -> tipos COMMA argumentos_tipo .
+
+    RPAREN          reduce using rule 65 (argumentos_tipo -> tipos COMMA argumentos_tipo .)
+
+
+state 202
+
+    (61) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos .
+    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos . COMMA argumentos_juntos
+
+    LLAVEDER        reduce using rule 61 (argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos .)
+    COMMA           shift and go to state 227
+
+
+state 203
+
+    (63) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE . tipos COMMA argumentos_juntos
+    (110) tipos -> . DATATYPES
+    (111) tipos -> . NUMDATATYPES
+
+    DATATYPES       shift and go to state 117
+    NUMDATATYPES    shift and go to state 118
+
+    tipos                          shift and go to state 228
+
+state 204
+
+    (105) empty_vec -> ASIGNAR VECT PATHSEP . NEWFUNC ENDLINE
+    (107) empty_vec -> ASIGNAR VECT PATHSEP . FROM LPAREN RPAREN ENDLINE
+
+    NEWFUNC         shift and go to state 229
+    FROM            shift and go to state 230
+
+
+state 205
+
+    (106) empty_vec -> ASIGNAR VECTMACRO BRACKETL . BRACKETR ENDLINE
+
+    BRACKETR        shift and go to state 231
+
+
+state 206
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM . LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+
+    LPAREN          shift and go to state 232
+
+
+state 207
+
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA . vector_elements LLAVEDER ENDLINE
+    (97) vector_elements -> . element
+    (98) vector_elements -> . element COMMA vector_elements
+    (99) element -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    vector_elements                shift and go to state 233
+    element                        shift and go to state 147
+    expresion                      shift and go to state 148
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 208
+
+    (100) element_type -> U8 NUMDATATYPES .
+
+    COMMA           reduce using rule 100 (element_type -> U8 NUMDATATYPES .)
+
+
+state 209
+
+    (95) vector_content -> VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE .
+
+    $end            reduce using rule 95 (vector_content -> VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE .)
+    LLAVEDER        reduce using rule 95 (vector_content -> VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE .)
+
+
+state 210
+
+    (98) vector_elements -> element COMMA vector_elements .
+
+    LLAVEDER        reduce using rule 98 (vector_elements -> element COMMA vector_elements .)
+
+
+state 211
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN . RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+
+    RPAREN          shift and go to state 234
+
+
+state 212
+
+    (75) art_exp -> U8 signo_arit U8 .
+
+    ENDLINE         reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    COMMA           reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    LLAVEDER        reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+    RPAREN          reduce using rule 75 (art_exp -> U8 signo_arit U8 .)
+
+
+state 213
+
+    (73) art_exp -> U8 signo_arit VARIABLE .
+
+    ENDLINE         reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    COMMA           reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    LLAVEDER        reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+    RPAREN          reduce using rule 73 (art_exp -> U8 signo_arit VARIABLE .)
+
+
+state 214
+
+    (72) art_exp -> VARIABLE signo_arit VARIABLE .
+
+    ENDLINE         reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    COMMA           reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    LLAVEDER        reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+    RPAREN          reduce using rule 72 (art_exp -> VARIABLE signo_arit VARIABLE .)
+
+
+state 215
+
+    (74) art_exp -> VARIABLE signo_arit U8 .
+
+    ENDLINE         reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    COMMA           reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    LLAVEDER        reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+    RPAREN          reduce using rule 74 (art_exp -> VARIABLE signo_arit U8 .)
+
+
+state 216
+
+    (82) slice_exp -> AND empty VARIABLE empty BRACKETL . rango BRACKETR
+    (81) rango -> . U8 DOT DOT U8
+
+    U8              shift and go to state 131
+
+    rango                          shift and go to state 235
+
+state 217
+
+    (33) print_args -> print_datos COMMA print_args .
+
+    RPAREN          reduce using rule 33 (print_args -> print_datos COMMA print_args .)
+
+
+state 218
+
+    (36) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC . ENDLINE
+
+    ENDLINE         shift and go to state 236
+
+
+state 219
+
+    (108) vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN expresion . RPAREN
+
+    RPAREN          shift and go to state 237
+
+
+state 220
+
+    (109) vector_methods -> VARIABLE empty DOT empty POP_VEC LPAREN RPAREN .
+
+    $end            reduce using rule 109 (vector_methods -> VARIABLE empty DOT empty POP_VEC LPAREN RPAREN .)
+    LLAVEDER        reduce using rule 109 (vector_methods -> VARIABLE empty DOT empty POP_VEC LPAREN RPAREN .)
+
+
+state 221
+
+    (83) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN . valor_get RPAREN
+    (84) valor_get -> . rango
+    (85) valor_get -> . U8
+    (81) rango -> . U8 DOT DOT U8
+
+    U8              shift and go to state 240
+
+    valor_get                      shift and go to state 238
+    rango                          shift and go to state 239
+
+state 222
+
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN . AND U8 RPAREN
+
+    AND             shift and go to state 241
+
+
+state 223
+
+    (39) hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .
+
+    $end            reduce using rule 39 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 39 (hashset_insert -> VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE .)
+
+
+state 224
+
+    (40) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 242
+
+
+state 225
+
+    (59) for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .
+
+    $end            reduce using rule 59 (for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .)
+    LLAVEDER        reduce using rule 59 (for_loop -> FOR VARIABLE IN f_comparacion LLAVEIZ rust LLAVEDER .)
+
+
+state 226
+
+    (81) rango -> U8 DOT DOT U8 .
+
+    LLAVEIZ         reduce using rule 81 (rango -> U8 DOT DOT U8 .)
+    BRACKETR        reduce using rule 81 (rango -> U8 DOT DOT U8 .)
+    RPAREN          reduce using rule 81 (rango -> U8 DOT DOT U8 .)
+
+
+state 227
+
+    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA . argumentos_juntos
+    (61) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
+    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (63) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+
+    VARIABLE        shift and go to state 134
+    PUB             shift and go to state 136
+
+    argumentos_juntos              shift and go to state 243
+
+state 228
+
+    (63) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos . COMMA argumentos_juntos
+
+    COMMA           shift and go to state 244
+
+
+state 229
+
+    (105) empty_vec -> ASIGNAR VECT PATHSEP NEWFUNC . ENDLINE
+
+    ENDLINE         shift and go to state 245
+
+
+state 230
+
+    (107) empty_vec -> ASIGNAR VECT PATHSEP FROM . LPAREN RPAREN ENDLINE
+
+    LPAREN          shift and go to state 246
+
+
+state 231
+
+    (106) empty_vec -> ASIGNAR VECTMACRO BRACKETL BRACKETR . ENDLINE
+
+    ENDLINE         shift and go to state 247
+
+
+state 232
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN . LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+
+    LLAVEIZ         shift and go to state 248
+
+
+state 233
+
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements . LLAVEDER ENDLINE
+
+    LLAVEDER        shift and go to state 249
+
+
+state 234
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN . empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    (87) empty -> .
+
+    DOT             reduce using rule 87 (empty -> .)
+
+    empty                          shift and go to state 250
+
+state 235
+
+    (82) slice_exp -> AND empty VARIABLE empty BRACKETL rango . BRACKETR
+
+    BRACKETR        shift and go to state 251
+
+
+state 236
+
+    (36) hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .
+
+    $end            reduce using rule 36 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+    LLAVEDER        reduce using rule 36 (hashset -> LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE .)
+
+
+state 237
+
+    (108) vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN .
+
+    $end            reduce using rule 108 (vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN .)
+    LLAVEDER        reduce using rule 108 (vector_methods -> VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN .)
+
+
+state 238
+
+    (83) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get . RPAREN
+
+    RPAREN          shift and go to state 252
+
+
+state 239
+
+    (84) valor_get -> rango .
+
+    RPAREN          reduce using rule 84 (valor_get -> rango .)
+
+
+state 240
+
+    (85) valor_get -> U8 .
+    (81) rango -> U8 . DOT DOT U8
+
+    RPAREN          reduce using rule 85 (valor_get -> U8 .)
+    DOT             shift and go to state 170
+
+
+state 241
+
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND . U8 RPAREN
+
+    U8              shift and go to state 253
+
+
+state 242
+
+    (40) hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .
+
+    $end            reduce using rule 40 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 40 (hashset_union -> VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE .)
+
+
+state 243
+
+    (62) argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .
+
+    LLAVEDER        reduce using rule 62 (argumentos_juntos -> VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .)
+
+
+state 244
+
+    (63) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA . argumentos_juntos
+    (61) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos
+    (62) argumentos_juntos -> . VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+    (63) argumentos_juntos -> . PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos
+
+    VARIABLE        shift and go to state 134
+    PUB             shift and go to state 136
+
+    argumentos_juntos              shift and go to state 254
+
+state 245
+
+    (105) empty_vec -> ASIGNAR VECT PATHSEP NEWFUNC ENDLINE .
+
+    $end            reduce using rule 105 (empty_vec -> ASIGNAR VECT PATHSEP NEWFUNC ENDLINE .)
+    LLAVEDER        reduce using rule 105 (empty_vec -> ASIGNAR VECT PATHSEP NEWFUNC ENDLINE .)
+
+
+state 246
+
+    (107) empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 255
+
+
+state 247
+
+    (106) empty_vec -> ASIGNAR VECTMACRO BRACKETL BRACKETR ENDLINE .
+
+    $end            reduce using rule 106 (empty_vec -> ASIGNAR VECTMACRO BRACKETL BRACKETR ENDLINE .)
+    LLAVEDER        reduce using rule 106 (empty_vec -> ASIGNAR VECTMACRO BRACKETL BRACKETR ENDLINE .)
+
+
+state 248
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ . vector_elements LLAVEDER RPAREN ENDLINE
+    (97) vector_elements -> . element
+    (98) vector_elements -> . element COMMA vector_elements
+    (99) element -> . expresion
+    (112) expresion -> . STRING
+    (113) expresion -> . U8
+    (114) expresion -> . op_mat
+    (115) expresion -> . slice_exp
+    (69) op_mat -> . art_exp
+    (70) op_mat -> . VARIABLE signo_arit art_exp
+    (71) op_mat -> . U8 signo_arit art_exp
+    (82) slice_exp -> . AND empty VARIABLE empty BRACKETL rango BRACKETR
+    (72) art_exp -> . VARIABLE signo_arit VARIABLE
+    (73) art_exp -> . U8 signo_arit VARIABLE
+    (74) art_exp -> . VARIABLE signo_arit U8
+    (75) art_exp -> . U8 signo_arit U8
+
+    STRING          shift and go to state 65
+    U8              shift and go to state 66
+    VARIABLE        shift and go to state 70
+    AND             shift and go to state 71
+
+    vector_elements                shift and go to state 256
+    element                        shift and go to state 147
+    expresion                      shift and go to state 148
+    op_mat                         shift and go to state 67
+    slice_exp                      shift and go to state 68
+    art_exp                        shift and go to state 69
+
+state 249
+
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER . ENDLINE
+
+    ENDLINE         shift and go to state 257
+
+
+state 250
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty . DOT empty READ LPAREN reference RPAREN ENDLINE
+
+    DOT             shift and go to state 258
+
+
+state 251
+
+    (82) slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .
+
+    ENDLINE         reduce using rule 82 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
+    COMMA           reduce using rule 82 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
+    LLAVEDER        reduce using rule 82 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
+    RPAREN          reduce using rule 82 (slice_exp -> AND empty VARIABLE empty BRACKETL rango BRACKETR .)
+
+
+state 252
+
+    (83) slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .
+
+    $end            reduce using rule 83 (slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .)
+    LLAVEDER        reduce using rule 83 (slice_get -> VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN .)
+
+
+state 253
+
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 . RPAREN
+
+    RPAREN          shift and go to state 259
+
+
+state 254
+
+    (63) argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .
+
+    LLAVEDER        reduce using rule 63 (argumentos_juntos -> PUB VARIABLE ASIGNATION_TYPE tipos COMMA argumentos_juntos .)
+
+
+state 255
+
+    (107) empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 260
+
+
+state 256
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements . LLAVEDER RPAREN ENDLINE
+
+    LLAVEDER        shift and go to state 261
+
+
+state 257
+
+    (94) data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE .
+
+    $end            reduce using rule 94 (data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE .)
+    LLAVEDER        reduce using rule 94 (data_vector -> declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE .)
+
+
+state 258
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT . empty READ LPAREN reference RPAREN ENDLINE
+    (87) empty -> .
+
+    READ            reduce using rule 87 (empty -> .)
+
+    empty                          shift and go to state 262
+
+state 259
+
+    (86) slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .
+
+    $end            reduce using rule 86 (slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .)
+    LLAVEDER        reduce using rule 86 (slice_contains -> VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN .)
+
+
+state 260
+
+    (107) empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN RPAREN ENDLINE .
+
+    $end            reduce using rule 107 (empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 107 (empty_vec -> ASIGNAR VECT PATHSEP FROM LPAREN RPAREN ENDLINE .)
+
+
+state 261
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 263
+
+
+state 262
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty . READ LPAREN reference RPAREN ENDLINE
+
+    READ            shift and go to state 264
+
+
+state 263
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 265
+
+
+state 264
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ . LPAREN reference RPAREN ENDLINE
+
+    LPAREN          shift and go to state 266
+
+
+state 265
+
+    (96) vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE .
+
+    $end            reduce using rule 96 (vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 96 (vector_content -> VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE .)
+
+
+state 266
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN . reference RPAREN ENDLINE
+    (90) reference -> . AND empty MUT VARIABLE
+
+    AND             shift and go to state 268
+
+    reference                      shift and go to state 267
+
+state 267
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference . RPAREN ENDLINE
+
+    RPAREN          shift and go to state 269
+
+
+state 268
+
+    (90) reference -> AND . empty MUT VARIABLE
+    (87) empty -> .
+
+    MUT             reduce using rule 87 (empty -> .)
+
+    empty                          shift and go to state 270
+
+state 269
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN . ENDLINE
+
+    ENDLINE         shift and go to state 271
+
+
+state 270
+
+    (90) reference -> AND empty . MUT VARIABLE
+
+    MUT             shift and go to state 272
+
+
+state 271
+
+    (89) read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE .
+
+    $end            reduce using rule 89 (read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE .)
+    LLAVEDER        reduce using rule 89 (read_data -> IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE .)
+
+
+state 272
+
+    (90) reference -> AND empty MUT . VARIABLE
+
+    VARIABLE        shift and go to state 273
+
+
+state 273
+
+    (90) reference -> AND empty MUT VARIABLE .
+
+    RPAREN          reduce using rule 90 (reference -> AND empty MUT VARIABLE .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for DOT in state 16 resolved as shift
-WARNING: shift/reduce conflict for ASIGNAR in state 16 resolved as shift
-WARNING: shift/reduce conflict for ASIGNAR in state 60 resolved as shift
+WARNING: shift/reduce conflict for DOT in state 21 resolved as shift
+WARNING: shift/reduce conflict for ASIGNAR in state 21 resolved as shift
+WARNING: shift/reduce conflict for ASIGNAR in state 74 resolved as shift

@@ -130,3 +130,5 @@ dmypy.json
 
 #eddo
 .idea
+parse.out
+parsetab.py
