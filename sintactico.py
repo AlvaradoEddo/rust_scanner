@@ -29,6 +29,8 @@ def p_rust(p):
          | slice_get
          | slice_contains
          | read_data
+        | function
+        | empty_function
     '''
 
 
@@ -312,9 +314,29 @@ def p_reference(p):
     reference : AND empty MUT VARIABLE
     '''
 
+# function
+
+
+def p_function(p):
+    ''' 
+    function : FUNCTION VARIABLE LPAREN arguments RPAREN LLAVEIZ rust LLAVEDER
+    '''
+
+
+def p_empty_function(p):
+    '''
+    empty_function : FUNCTION VARIABLE LPAREN RPAREN LLAVEIZ rust LLAVEDER
+    '''
+
+
+def p_arguments(p):
+    '''
+    arguments : VARIABLE ASIGNATION_TYPE tipos 
+                | VARIABLE ASIGNATION_TYPE tipos COMMA arguments
+    '''
+
+
 # vector
-
-
 def p_empty_vector(p):
     '''
     empty_vector : declare_vector VECT types_vector empty_vec
@@ -387,14 +409,6 @@ def p_vector_methods(p):
 
 
 # JAIME
-
-
-def p_expresion(p):
-    '''
-    expresion : STRING
-                | U8
-    '''
-
 
 def p_tipos(p):
     '''
