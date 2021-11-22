@@ -263,6 +263,37 @@ def menu():
     """)
 
 
+data = '''
+
+
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
+
+let mut set = HashSet::new();
+set.insert("a");
+set.insert("b");
+let x = &mut [1, 2, 3];
+for n in numbers {
+    println!("hola");
+}
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("hola");
+}
+
+v.pop();
+
+}
+
+'''
+
+
 def opciones(opc):
     if(opc == 1):
         data = '''

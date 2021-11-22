@@ -478,9 +478,38 @@ def p_expresion_sintipo(p):
 # all
 parser = yacc.yacc(start='rust')
 
+code = '''
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
+
+let mut set = HashSet::new();
+set.insert("a");
+set.insert("b");
+let x = &mut [1, 2, 3];
+for n in numbers {
+    println!("hola");
+}
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("hola");
+}
+
+v.pop();
+
+}
+'''
+
+yacc.parse(code)
+
 while True:
     try:
-        s = input('calc > ')
+        s = input('code > ')
     except EOFError:
         break
     if not s:
