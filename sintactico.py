@@ -28,6 +28,7 @@ def p_rust(p):
          | data_vector
          | slice_get
          | slice_contains
+         | read_data
     '''
 
 
@@ -299,6 +300,21 @@ def p_while(p):
 # read data with std:io
 
 
+def p_read_data(p):
+    # io::stdin().read_line(&mut s)
+    '''
+    read_data : IO empty PATHSEP empty STDIN LPAREN RPAREN empty DOT empty READ LPAREN reference RPAREN ENDLINE
+    '''
+
+
+def p_reference(p):
+    '''
+    reference : AND empty MUT VARIABLE
+    '''
+
+# vector
+
+
 def p_empty_vector(p):
     '''
     empty_vector : declare_vector VECT types_vector empty_vec
@@ -317,7 +333,7 @@ def p_data_vector(p):
 def p_vector_content(p):
     '''
     vector_content :  VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE
-                    | VECT PATHSEP FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+                    | VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
     '''
 
 
@@ -365,8 +381,8 @@ def p_assign_empty(p):
 
 def p_vector_methods(p):
     '''
-    vector_methods : VARIABLE DOT PUSH_VEC LPAREN expresion RPAREN
-                    | VARIABLE DOT POP_VEC LPAREN RPAREN
+    vector_methods : VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
+                    | VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
     '''
 
 
@@ -398,7 +414,6 @@ def p_expresion(p):
 
 # all
 parser = yacc.yacc(start='rust')
-
 
 while True:
     try:

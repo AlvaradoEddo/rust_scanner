@@ -52,7 +52,10 @@ reserved = {
     'println': 'PRINT',
     'vec!': 'VECTMACRO',
     'Vec': 'VECT',
-    'from': 'FROM'
+    'from': 'FROM',
+    'io': 'IO',
+    'stdin': 'STDIN',
+    'read_line': 'READ'
 }
 '''
 Jaime's contribution
@@ -60,7 +63,6 @@ Tokens and regular expressions (regex) for simple tokens
 '''
 
 tokens = (
-    'READ',
     'NUMBER',
     'MAS',
     'MENOS',
@@ -109,6 +111,7 @@ tokens = (
     'NEWFUNC',
     'HASHSET',
     'STRUCT'
+
 ) + tuple(reserved.values())
 
 t_MAS = r'\+'
