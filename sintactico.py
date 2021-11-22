@@ -20,6 +20,9 @@ def p_rust(p):
          | for_loop
          | struct_s
          | asig_mate
+         | dec_slice
+         | slice_get
+         | slice_contains
     '''
 
 def p_asignacion(p):
@@ -160,7 +163,7 @@ def p_signoComparaion(p):
 
 def p_condicionFor(p):
     '''
-    f_comparacion : U8 DOT DOT U8
+    f_comparacion : rango
                     | VARIABLE
     '''
 
@@ -200,9 +203,9 @@ def p_sentenciaStruct(p):
 
 def p_asignacion_matematica(p):
     '''
-    asig_mate : VARIABLE ASIGNAR op_mat
-                | LET VARIABLE ASIGNAR op_mat
-                | LET MUT VARIABLE ASIGNAR op_mat
+    asig_mate : VARIABLE ASIGNAR op_mat ENDLINE
+                | LET VARIABLE ASIGNAR op_mat ENDLINE
+                | LET MUT VARIABLE ASIGNAR op_mat ENDLINE
     '''
 
 def p_operacion_matematica(p):
@@ -228,6 +231,42 @@ def p_signos_aritmeticos(p):
                 | DIVISION
                 | MODULO
     '''
+
+def p_rango(p):
+    '''
+    rango : U8 DOT DOT U8
+    '''
+
+def p_declaracion_slice(p):
+    '''
+    dec_slice : LET VARIABLE ASIGNAR slice_exp ENDLINE
+                | LET MUT VARIABLE ASIGNAR slice_exp ENDLINE
+    '''
+
+def p_slice(p):
+    '''
+    slice_exp : AND empty VARIABLE empty BRACKETL rango BRACKETR
+    '''
+
+def p_slice_get(p):
+    '''
+    slice_get : VARIABLE empty DOT empty GET_SLICE empty LPAREN valor_get RPAREN
+    '''
+
+def p_valor_get(p):
+    '''
+    valor_get : rango
+                | U8
+    '''
+
+def p_contains(p):
+    '''
+    slice_contains : VARIABLE empty DOT empty CONTAINS_SLICE empty LPAREN AND U8 RPAREN
+    '''
+
+def p_empty(p):
+    'empty :'
+    pass
 
 parser = yacc.yacc()
  
