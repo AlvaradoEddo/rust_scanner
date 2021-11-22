@@ -268,13 +268,23 @@ def opciones(opc):
         data = '''
 
 
-let mut number = 3;
-while number != 0 {
-println!("{}!", number);
-}
-number -= 1;
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("{}", counter);
 }
 
+v.pop();
+
+println!("{:?}",v)
+}
 
 '''
     if opc == 2:
