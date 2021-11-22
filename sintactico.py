@@ -30,7 +30,6 @@ def p_rust(p):
          | slice_contains
          | read_data
         | function
-        | empty_function
     '''
 
 
@@ -339,13 +338,23 @@ def p_reference(p):
 
 def p_function(p):
     ''' 
-    function : FUNCTION VARIABLE LPAREN arguments RPAREN LLAVEIZ rust LLAVEDER
+    function : no_return_function
+              | return_function
     '''
 
 
-def p_empty_function(p):
+def p_return_function(p):
     '''
-    empty_function : FUNCTION VARIABLE LPAREN RPAREN LLAVEIZ rust LLAVEDER
+    return_function : FUNCTION VARIABLE LPAREN arguments RPAREN ARROW tipos LLAVEIZ rust return LLAVEDER
+                    | FUNCTION VARIABLE LPAREN RPAREN ARROW tipos LLAVEIZ rust return LLAVEDER
+                    | FUNCTION VARIABLE LPAREN RPAREN ARROW tipos LLAVEIZ return LLAVEDER
+    '''
+
+
+def p_noreturn_function(p):
+    '''
+    no_return_function : FUNCTION VARIABLE LPAREN arguments RPAREN LLAVEIZ rust LLAVEDER
+                | FUNCTION VARIABLE LPAREN RPAREN LLAVEIZ rust LLAVEDER
     '''
 
 
@@ -356,7 +365,18 @@ def p_arguments(p):
     '''
 
 
+def p_return(p):
+    '''
+    return : RETURN expresion ENDLINE
+            | expresion
+    '''
+
+# closure
+
+
 # vector
+
+
 def p_empty_vector(p):
     '''
     empty_vector : declare_vector types_vector empty_vec
