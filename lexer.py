@@ -163,9 +163,11 @@ t_ERRORPROP = r'\?'
 
 # These are not tokens but they need to be ignored by the lexer
 
+
 def t_F32(t):
     r'[0-9]+\.[0-9]+'
     return t
+
 
 def t_COMMENT_SIMPLE(t):
     r'//(.*?)\n'
@@ -225,11 +227,13 @@ def t_FROM(t):
 
 def t_VECTMACRO(t):
     r'vec!'
+    print(t.value)
     return t
 
 
 def t_VECT(t):
     r'Vec'
+    print(t.value)
     return t
 
 
@@ -262,18 +266,14 @@ def menu():
 def opciones(opc):
     if(opc == 1):
         data = '''
- 
-let mut x = 10;
-let mut y = 20;
-let mut z: u8 = x + y;
-_x2 = x + y; 
-
-//Hola
-fn add(x: u8, y: u8) -> u8 {
-        return x + y;
-    }
 
 
+let mut number = 3;
+while number != 0 {
+println!("{}!", number);
+}
+number -= 1;
+}
 
 
 '''
@@ -295,7 +295,6 @@ fn add(x: u8, y: u8) -> u8 {
 
 
 if __name__ == '__main__':
-
     opc = 0
     while(opc != 3):
         menu()
