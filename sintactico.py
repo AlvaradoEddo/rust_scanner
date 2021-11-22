@@ -4,9 +4,9 @@ import ply.yacc as yacc
 
 '''
 Jaime's Contribution
-Asignations
+Asignations for every possible type
 Printing Formats
-
+Hashset and methods
 '''
 
 start = 'rust'
@@ -15,8 +15,8 @@ start = 'rust'
 def p_rust(p):
     '''
     rust : asignacion
+         | asignacion_sintipo 
          | prints
-         | hashset
          | hashfunc
          | conditional
          | conditional_asigned
@@ -40,6 +40,10 @@ def p_asignacion(p):
                 | other_operators ENDLINE
     '''
 
+def p_asignacion_sintipo(p):
+    '''
+    asignacion_sintipo : declarador_sintipo ASIGNAR expresion_sintipo ENDLINE
+    '''
 
 def p_other_operators(p):
     '''
@@ -53,6 +57,11 @@ def p_declarador(p):
                 | let_asig
     '''
 
+def p_declarador_sintipo(p):
+    '''
+    declarador_sintipo : VARIABLE 
+                        | let_asig_sintipo
+    '''
 
 def p_let_asig(p):
     '''
@@ -60,6 +69,11 @@ def p_let_asig(p):
              | LET MUT var_tipo
     '''
 
+def p_let_asig_sintipo(p):
+    '''
+    let_asig_sintipo : LET MUT VARIABLE
+                     | LET VARIABLE
+    '''
 
 def p_var_tipo(p):
     '''
@@ -80,7 +94,7 @@ def p_oper_asig(p):
 
 def p_prints(p):
     '''
-    prints : PRINTS LPAREN print_expresion RPAREN ENDLINE
+    prints : PRINTS empty LPAREN print_expresion RPAREN empty ENDLINE
     '''
 
 
@@ -106,7 +120,7 @@ def p_print_datos(p):
 
 def p_hashset(p):
     '''
-    hashset : LET MUT VARIABLE ASIGNAR HASHSET PATHSEP NEWFUNC ENDLINE
+    hashset : HASHSET empty PATHSEP empty NEWFUNC
     '''
 
 
@@ -119,13 +133,13 @@ def p_hashfunc(p):
 
 def p_hashset_insert(p):
     '''
-    hashset_insert : VARIABLE DOT INSERT_HASH LPAREN expresion RPAREN ENDLINE
+    hashset_insert : VARIABLE empty DOT empty INSERT_HASH empty LPAREN expresion RPAREN empty ENDLINE
     '''
 
 
 def p_hashset_union(p):
     '''
-    hashset_union : VARIABLE DOT UNION_HASH LPAREN AND VARIABLE RPAREN ENDLINE
+    hashset_union : VARIABLE empty DOT empty UNION_HASH empty LPAREN AND empty VARIABLE RPAREN empty ENDLINE
     '''
 
 # An if-statement can be assigned to a variable
@@ -421,10 +435,17 @@ def p_expresion(p):
     '''
     expresion : STRING
                 | U8
-                | op_mat
-                | slice_exp
+                | F32
+                | VARIABLE
     '''
 
+def p_expresion_sintipo(p):
+    '''
+    expresion_sintipo : hashset
+                        | op_mat
+                        | slice_exp
+                        | expresion
+    '''
 
 # all
 parser = yacc.yacc(start='rust')
