@@ -1,5 +1,5 @@
 import ply.lex as lex
-#from colorama import Fore, Style
+from colorama import Fore, Style
 
 
 # APORTE EDDO
@@ -46,19 +46,22 @@ reserved = {
     'tuple': 'TUPLE',
     'insert': 'INSERT_HASH',
     'union': 'UNION_HASH',
-    'vec': 'VECTOR',
     'push': 'PUSH_VEC',
     'pop': 'POP_VEC',
     'contains': 'CONTAINS_SLICE',
     'get': 'GET_SLICE',
     'println': 'PRINT',
+    'vec!': 'VECTMACRO',
+    'Vec': 'VECT',
+    'from': 'FROM'
 }
 '''
-Jaime's contribution 
+Jaime's contribution
 Tokens and regular expressions (regex) for simple tokens
 '''
 
 tokens = (
+    'READ',
     'NUMBER',
     'MAS',
     'MENOS',
@@ -106,6 +109,7 @@ tokens = (
     'PRINTS',
     'NEWFUNC',
     'HASHSET'
+
 ) + tuple(reserved.values())
 
 t_MAS = r'\+'
@@ -139,8 +143,9 @@ t_MINUSEQ = r'-='
 t_STAREQ = r'\*='
 t_SLASHEQ = r'\/='
 t_HASHSET = r'HashSet'
+
 '''
-Joangie's contribution 
+Joangie's contribution
 Tests and rules for the lexer and adding special characters
 '''
 t_LLAVEIZ = r'\{'
@@ -152,8 +157,6 @@ t_DOT = r'\.'
 t_DOTDOTDOT = r'\.\.\.'
 t_COMMA = r','
 t_ERRORPROP = r'\?'
-
-
 
 # These are not tokens but they need to be ignored by the lexer
 
@@ -187,6 +190,7 @@ def t_NUMDATATYPES(t):
     r'u8 | u16 | u32 | u64 | i8 | i16 | i32 | i64 | f32 | f64'
     return t
 
+
 def t_DATATYPES(t):
     r'bool | char | string'
     return t
@@ -196,9 +200,26 @@ def t_PRINTS(t):
     r'format! | print! | println! | eprint! | eprintln!'
     return t
 
+
 def t_NEWFUNC(t):
     r'new\(\)'
     return t
+
+
+def t_FROM(t):
+    r'from'
+    return t
+
+
+def t_VECTMACRO(t):
+    r'vec!'
+    return t
+
+
+def t_VECT(t):
+    r'Vec'
+    return t
+
 
 def t_VARIABLE(t):
     r'[a-z][a-zA-Z_$0-9]*'
@@ -206,7 +227,10 @@ def t_VARIABLE(t):
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
+
 # Error handling rule
+
+
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -217,7 +241,7 @@ lexer = lex.lex()
 
 def menu():
 
- print(Fore.CYAN + """   Bienvenido al analizador lexico    
+    print(Fore.CYAN + """   Bienvenido al analizador lexico    
 1. Pruebas por defecto 
 2. Prueba manual    
 3. Salir
@@ -237,7 +261,6 @@ _x2 = x + y;
 fn add(x: u8, y: u8) -> u8 {
         return x + y;
     }
-
 
 
 
