@@ -19,8 +19,6 @@ def p_rust(p):
          | conditional_asigned
          | for_loop
          | struct_s
-         | asig_mate
-         | dec_slice
          | slice_get
          | slice_contains
     '''
@@ -73,6 +71,8 @@ def p_expresion(p):
     '''
     expresion : STRING
                 | U8
+                | op_mat
+                | slice_exp
     '''
 
 def p_prints(p):
@@ -201,18 +201,13 @@ def p_sentenciaStruct(p):
                 | VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
     '''
 
-def p_asignacion_matematica(p):
-    '''
-    asig_mate : VARIABLE ASIGNAR op_mat ENDLINE
-                | LET VARIABLE ASIGNAR op_mat ENDLINE
-                | LET MUT VARIABLE ASIGNAR op_mat ENDLINE
-    '''
+
 
 def p_operacion_matematica(p):
     '''
     op_mat : art_exp
-            | VARIABLE art_exp
-            | U8 art_exp
+            | VARIABLE signo_arit art_exp
+            | U8 signo_arit art_exp
     '''
 
 def p_aritmetic_expresion(p):
@@ -235,12 +230,6 @@ def p_signos_aritmeticos(p):
 def p_rango(p):
     '''
     rango : U8 DOT DOT U8
-    '''
-
-def p_declaracion_slice(p):
-    '''
-    dec_slice : LET VARIABLE ASIGNAR slice_exp ENDLINE
-                | LET MUT VARIABLE ASIGNAR slice_exp ENDLINE
     '''
 
 def p_slice(p):
