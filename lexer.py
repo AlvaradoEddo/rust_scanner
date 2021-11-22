@@ -85,6 +85,7 @@ tokens = (
     'STRING',
     'NUMDATATYPES',
     'U8',
+    'F32',
     'ASIGNATION_TYPE',
     'ARROW',
     'COMMA',
@@ -157,6 +158,9 @@ t_ERRORPROP = r'\?'
 
 # These are not tokens but they need to be ignored by the lexer
 
+def t_F32(t):
+    r'[0-9]+\.[0-9]+'
+    return t
 
 def t_COMMENT_SIMPLE(t):
     r'//(.*?)\n'
