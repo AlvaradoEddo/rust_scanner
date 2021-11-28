@@ -163,9 +163,11 @@ t_ERRORPROP = r'\?'
 
 # These are not tokens but they need to be ignored by the lexer
 
+
 def t_F32(t):
     r'[0-9]+\.[0-9]+'
     return t
+
 
 def t_COMMENT_SIMPLE(t):
     r'//(.*?)\n'
@@ -225,11 +227,13 @@ def t_FROM(t):
 
 def t_VECTMACRO(t):
     r'vec!'
+    print(t.value)
     return t
 
 
 def t_VECT(t):
     r'Vec'
+    print(t.value)
     return t
 
 
@@ -259,22 +263,66 @@ def menu():
     """)
 
 
+data = '''
+
+
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
+
+let mut set = HashSet::new();
+set.insert("a");
+set.insert("b");
+let x = &mut [1, 2, 3];
+for n in numbers {
+    println!("hola");
+}
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("hola");
+}
+
+v.pop();
+
+}
+
+'''
+
+
 def opciones(opc):
     if(opc == 1):
         data = '''
- 
-let mut x = 10;
-let mut y = 20;
-let mut z: u8 = x + y;
-_x2 = x + y; 
-
-//Hola
-fn add(x: u8, y: u8) -> u8 {
-        return x + y;
-    }
 
 
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
 
+let mut set = HashSet::new();
+set.insert("a");
+set.insert("b");
+let x = &mut [1, 2, 3];
+for n in numbers {
+    println!("hola");
+}
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("hola");
+}
+
+v.pop();
+
+}
 
 '''
     if opc == 2:
@@ -295,7 +343,6 @@ fn add(x: u8, y: u8) -> u8 {
 
 
 if __name__ == '__main__':
-
     opc = 0
     while(opc != 3):
         menu()

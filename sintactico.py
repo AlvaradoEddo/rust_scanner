@@ -30,7 +30,6 @@ def p_rust(p):
          | slice_contains
          | read_data
         | function
-        | empty_function
     '''
 
 
@@ -41,10 +40,12 @@ def p_asignacion(p):
                 | op_mat ENDLINE
     '''
 
+
 def p_asignacion_sintipo(p):
     '''
     asignacion_sintipo : declarador_sintipo ASIGNAR expresion_sintipo ENDLINE
     '''
+
 
 def p_other_operators(p):
     '''
@@ -58,11 +59,13 @@ def p_declarador(p):
                 | let_asig
     '''
 
+
 def p_declarador_sintipo(p):
     '''
     declarador_sintipo : VARIABLE 
                         | let_asig_sintipo
     '''
+
 
 def p_let_asig(p):
     '''
@@ -70,11 +73,13 @@ def p_let_asig(p):
              | LET MUT var_tipo
     '''
 
+
 def p_let_asig_sintipo(p):
     '''
     let_asig_sintipo : LET MUT VARIABLE
                      | LET VARIABLE
     '''
+
 
 def p_var_tipo(p):
     '''
@@ -334,13 +339,23 @@ def p_reference(p):
 
 def p_function(p):
     ''' 
-    function : FUNCTION VARIABLE LPAREN arguments RPAREN LLAVEIZ rust LLAVEDER
+    function : no_return_function
+              | return_function
     '''
 
 
-def p_empty_function(p):
+def p_return_function(p):
     '''
-    empty_function : FUNCTION VARIABLE LPAREN RPAREN LLAVEIZ rust LLAVEDER
+    return_function : FUNCTION VARIABLE LPAREN arguments RPAREN ARROW tipos LLAVEIZ rust return LLAVEDER
+                    | FUNCTION VARIABLE LPAREN RPAREN ARROW tipos LLAVEIZ rust return LLAVEDER
+                    | FUNCTION VARIABLE LPAREN RPAREN ARROW tipos LLAVEIZ return LLAVEDER
+    '''
+
+
+def p_noreturn_function(p):
+    '''
+    no_return_function : FUNCTION VARIABLE LPAREN arguments RPAREN LLAVEIZ rust LLAVEDER
+                | FUNCTION VARIABLE LPAREN RPAREN LLAVEIZ rust LLAVEDER
     '''
 
 
@@ -351,52 +366,63 @@ def p_arguments(p):
     '''
 
 
+def p_return(p):
+    '''
+    return : RETURN expresion ENDLINE
+            | expresion
+    '''
+
+# closure
+
+
 # vector
+
+
 def p_empty_vector(p):
     '''
-    empty_vector : declare_vector VECT types_vector empty_vec
+    empty_vector : declare_vector types_vector empty_vec
 
     '''
 
 
 def p_data_vector(p):
     '''
-    data_vector : declare_vector VECT types_vector vector_content
-                | declare_vector vector_content
-                | declare_vector ASIGNAR VECTMACRO LLAVEIZ element_type COMMA vector_elements LLAVEDER ENDLINE
+    data_vector : declare_vector types_vector vector_content
+                | declare_vector ASIGNAR VECTMACRO BRACKETL element_type COMMA vector_elements BRACKETR ENDLINE
+
     '''
 
 
 def p_vector_content(p):
     '''
-    vector_content :  VECTMACRO LLAVEIZ vector_elements LLAVEDER ENDLINE
-                    | VECT empty PATHSEP empty FROM LPAREN LLAVEIZ vector_elements LLAVEDER RPAREN ENDLINE
+    vector_content : ASIGNAR VECTMACRO vect_list ENDLINE
+                    | ASIGNAR VECT PATHSEP FROM LPAREN vect_list RPAREN ENDLINE
+    '''
+
+
+def p_vector_list(p):
+    '''
+    vect_list : BRACKETL vector_elements BRACKETR
     '''
 
 
 def p_vector_elements(p):
     '''
-    vector_elements : element
-                    | element COMMA vector_elements
-    '''
-
-
-def p_element(p):
-    '''
-    element : expresion
+    vector_elements : expresion
+                    | expresion COMMA vector_elements
     '''
 
 
 def p_element_type(p):
     '''
-    element_type : U8 NUMDATATYPES
+    element_type : U8 empty NUMDATATYPES
     '''
 
 
 def p_types_vector(p):
     '''
-    types_vector : LESST DATATYPES GREATER
-                | LESST NUMDATATYPES GREATER
+    types_vector : VECT empty LESST DATATYPES GREATER
+                | VECT empty LESST NUMDATATYPES GREATER
     '''
 
 
@@ -440,6 +466,7 @@ def p_expresion(p):
                 | VARIABLE
     '''
 
+
 def p_expresion_sintipo(p):
     '''
     expresion_sintipo : hashset
@@ -448,12 +475,42 @@ def p_expresion_sintipo(p):
                         | expresion
     '''
 
+
 # all
 parser = yacc.yacc(start='rust')
 
+code = '''
+fn main() {
+let mut counter = 0;
+let mut counter_2 = 20;
+let mut a: Vec<i32> = vec![1,2,3,4];
+let mut v: Vec<i32> = Vec::from([1,2,3,4]);
+
+let mut set = HashSet::new();
+set.insert("a");
+set.insert("b");
+let x = &mut [1, 2, 3];
+for n in numbers {
+    println!("hola");
+}
+
+while counter<10 && counter_2 > 0{
+    counter+=1;
+    counter_2-=1;
+    v.push(counter_2);
+    println!("hola");
+}
+
+v.pop();
+
+}
+'''
+
+yacc.parse(code)
+
 while True:
     try:
-        s = input('calc > ')
+        s = input('code > ')
     except EOFError:
         break
     if not s:
