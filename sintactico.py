@@ -38,6 +38,7 @@ def p_asignacion(p):
     '''
     asignacion : declarador ASIGNAR expresion ENDLINE
                 | other_operators ENDLINE
+                | op_mat ENDLINE
     '''
 
 def p_asignacion_sintipo(p):
@@ -47,7 +48,7 @@ def p_asignacion_sintipo(p):
 
 def p_other_operators(p):
     '''
-    other_operators : VARIABLE oper_asig expresion
+    other_operators : VARIABLE oper_asig expresion_sintipo
     '''
 
 
