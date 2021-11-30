@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from lexer import *
+from sintactico import *
 
 
 class RustEditor(QPlainTextEdit):
@@ -141,41 +143,84 @@ class LabelCode(QWidget):
 
 
 class LabelExecution(QWidget):
+    vb = QVBoxLayout()
+    hb_layout = QHBoxLayout()
+    label_text = None
+    plain_text = None
     def __init__(self):
         super(LabelExecution, self).__init__()
-        layout = QHBoxLayout()
-        label_text = QLabel()
-        label_text.setText("<h4>Execution</h4>")
-        label_text.setStyleSheet("color: #2D2D2D;")
-        label_code = QLabel()
+        self.label_text = QLabel()
+        self.label_text.setText("<h4>Execution</h4>")
+        self.label_text.setStyleSheet("color: #2D2D2D;")
+        self.label_code = QLabel()
         pixmap_code = QPixmap("./images/GUI/rs-exec.png")
         pixmap_code = pixmap_code.scaled(50, 100, Qt.KeepAspectRatio)
-        label_code.setPixmap(pixmap_code)
+        self.label_code.setPixmap(pixmap_code)
 
-        layout.addWidget(label_code)
-        layout.addWidget(label_text)
-        layout.addStretch(1)
-        self.setLayout(layout)
+        self.plain_text = QPlainTextEdit()
+        self.plain_text.setReadOnly(True)
+        self.plain_text.setStyleSheet("background-color: #E5E8ED;")
+        
+        self.hb_layout.addWidget(self.label_code)
+        self.hb_layout.addWidget(self.label_text)
+        self.hb_layout.addStretch(1)
+
+        self.vb.addLayout(self.hb_layout)
+        self.vb.addWidget(self.plain_text)
+        self.setLayout(self.vb)
 
 
 class Buttons(QWidget):
-    def __init__(self):
+    def __init__(self, editor, execution_label):
         super(Buttons, self).__init__()
         layout = QVBoxLayout()
-        button_run = QPushButton("Run")
-        button_run.setIcon(QIcon("./images/GUI/play.png"))
-        button_run.setFixedSize(100, 50)
-        button_run.setCursor(QCursor(Qt.PointingHandCursor))
+        button_lexer = QPushButton("Run Lexer")
+        button_lexer.setIcon(QIcon("./images/GUI/play.png"))
+        button_lexer.setFixedSize(100, 40)
+        button_lexer.setCursor(QCursor(Qt.PointingHandCursor))
+        button_lexer.clicked.connect(lambda: self.onClickedLexer(editor, execution_label))
+
+        layout = QVBoxLayout()
+        button_parser = QPushButton("Run Parser")
+        button_parser.setIcon(QIcon("./images/GUI/play.png"))
+        button_parser.setFixedSize(100, 40)
+        button_parser.setCursor(QCursor(Qt.PointingHandCursor))
+        button_parser.clicked.connect(lambda: self.onClickedParser(editor, execution_label))
 
         button_open = QPushButton("Open File")
         button_open.setIcon(QIcon("./images/GUI/open.png"))
-        button_open.setFixedSize(100, 50)
+        button_open.setFixedSize(100, 40)
         button_open.setCursor(QCursor(Qt.PointingHandCursor))
 
-        layout.addWidget(button_run)
+        layout.addWidget(button_lexer)
+        layout.addWidget(button_parser)
         layout.addWidget(button_open)
         self.setLayout(layout)
 
+    def onClickedLexer(self,editor,execution_label):
+        print("Clicked")
+        print(editor.toPlainText())
+        tp = execution_label.plain_text
+        tp.insertPlainText("")
+        l_token = run_lexer(editor.toPlainText())
+        for tok in l_token:
+            tp.insertPlainText("{:5} : {:5}".format(tok.value,tok.type))
+            tp.insertPlainText("\n")
+        tp.insertPlainText("\n")
+        tp.insertPlainText("\n")
+
+    def onClickedParser(self,editor,execution_label):
+        tp = execution_label.plain_text
+        try:
+            p_tree = run_parser(editor.toPlainText())
+            print(f'Este es el ptree: {p_tree}')
+            tp.insertPlainText(str(p_tree))
+            tp.insertPlainText("\n")
+        except Exception as e:
+            tp.insertPlainText(str(e))
+            tp.insertPlainText("\n")
+            tp.insertPlainText("\n")
+        
 
 class SyntaxHighlighter(QSyntaxHighlighter):
     def __init__(self, parent):
@@ -231,7 +276,7 @@ class MainApp(QMainWindow):
         editor = RustEditor(DISPLAY_LINE_NUMBERS=True,
                             HIGHLIGHT_CURRENT_LINE=True)
 
-        buttons = Buttons()
+        buttons = Buttons(editor,label_exec)
 
         splitter = QFrame()
         splitter.setObjectName("splitter")

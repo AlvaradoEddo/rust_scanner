@@ -295,6 +295,16 @@ v.pop();
 '''
 
 
+def run_lexer(data):
+    l_token = []
+    lexer.input(data)
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        l_token.append(tok)
+    return l_token
+
 def opciones(opc):
     if(opc == 1):
         data = '''

@@ -461,7 +461,6 @@ def p_expresion_sintipo(p):
 
 
 # all
-parser = yacc.yacc(start='rust')
 
 code = '''
 fn main() {
@@ -492,12 +491,24 @@ v.pop();
 
 #yacc.parse(code)
 
-while True:
-    try:
-        s = input('code > ')
-    except EOFError:
-        break
-    if not s:
-        continue
-    result = parser.parse(s)
-    print(result)
+    
+#parser = yacc.yacc(start='rust')
+
+# while True:
+#     try:
+#         s = input('code > ')
+#     except EOFError:
+#         break
+#     if not s:
+#         continue
+#     result = parser.parse(s)
+#     print(result)
+
+def p_error(p):
+    raise SyntaxError 
+
+def run_parser(code):
+    parser = yacc.yacc(start='rust')
+    result = parser.parse(code)
+    
+    return result
