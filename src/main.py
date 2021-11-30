@@ -3,6 +3,75 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from lexer import *
 from sintactico import *
+from lexer import reserved
+
+
+class RustHighlighter(QSyntaxHighlighter):
+    '''
+    Class for highlighting tokens
+    '''
+
+    def __init__(self, parent=None):
+        super(RustHighlighter, self).__init__(parent)
+        # keywords c:
+        keywords = reserved.keys()
+        keywordFormat = QTextCharFormat()
+        keywordFormat.setForeground(QColor("#103B58"))
+        keywordFormat.setFontWeight(QFont.Bold)
+        keywordPatterns = ["\\b" + r + "\\b" for r in keywords]
+        self.highlightingRules = [(QRegExp(pattern), keywordFormat)
+                                  for pattern in keywordPatterns]
+
+        # types
+        types = ["bool", "char", "f32", "f64",
+                 "i32", "u8", "u16"]
+        print(types)
+        typeFormat = QTextCharFormat()
+        typeFormat.setForeground(QColor("#EE7867"))
+        typePatterns = ["\\b" + r + "\\b" for r in types]
+        self.highlightingRules += [(QRegExp(pattern), typeFormat)
+                                   for pattern in typePatterns]
+
+        # line comment
+        commentFormat = QTextCharFormat()
+        commentFormat.setForeground(QColor("#8B8B8B"))
+        self.highlightingRules.append((QRegExp("//[^\n]*"), commentFormat))
+
+        # multiline comment
+        multilineCommentFormat = QTextCharFormat()
+        multilineCommentFormat.setForeground(QColor("#8B8B8B"))
+        self.highlightingRules.append(
+            (QRegExp("/\\*.*"), multilineCommentFormat))
+        self.highlightingRules.append(
+            (QRegExp("\\*/"), multilineCommentFormat))
+
+        self.commentStartExpression = QRegExp("/\\*")
+        self.commentEndExpression = QRegExp("\\*/")
+        self.multiLineCommentFormat = multilineCommentFormat
+
+        # for strings
+        self.quotationFormat = QTextCharFormat()
+        self.quotationFormat.setForeground(QColor("#5C1009"))
+        self.highlightingRules.append(
+            (QRegExp("\".*\""), self.quotationFormat))
+
+        # functions
+        self.functionFormat = QTextCharFormat()
+        self.functionFormat.setFontItalic(True)
+        self.functionFormat.setForeground(QColor("#FE9B13"))
+        self.highlightingRules.append(
+            (QRegExp("\\b[A-Za-z0-9_]+(?=\\()"), self.functionFormat))
+
+    def highlightBlock(self, text):
+        for pattern, format in self.highlightingRules:
+            expression = QRegExp(pattern)
+            index = expression.indexIn(text)
+            while index >= 0:
+                length = expression.matchedLength()
+                self.setFormat(index, length, format)
+                index = expression.indexIn(text, index + length)
+
+        self.setCurrentBlockState(0)
 
 
 class RustEditor(QPlainTextEdit):
@@ -101,6 +170,9 @@ class RustEditor(QPlainTextEdit):
             self.currentLineColor = QColor("#FFE2B6")
             self.cursorPositionChanged.connect(self.highligtCurrentLine)
 
+        if SyntaxHighlighter is not None:  # add highlighter to textdocument
+            self.highlighter = SyntaxHighlighter(self.document())
+
     def resizeEvent(self, *e):
 
         if self.DISPLAY_LINE_NUMBERS:
@@ -147,6 +219,7 @@ class LabelExecution(QWidget):
     hb_layout = QHBoxLayout()
     label_text = None
     plain_text = None
+
     def __init__(self):
         super(LabelExecution, self).__init__()
         self.label_text = QLabel()
@@ -160,7 +233,7 @@ class LabelExecution(QWidget):
         self.plain_text = QPlainTextEdit()
         self.plain_text.setReadOnly(True)
         self.plain_text.setStyleSheet("background-color: #E5E8ED;")
-        
+
         self.hb_layout.addWidget(self.label_code)
         self.hb_layout.addWidget(self.label_text)
         self.hb_layout.addStretch(1)
@@ -178,14 +251,16 @@ class Buttons(QWidget):
         button_lexer.setIcon(QIcon("./images/GUI/play.png"))
         button_lexer.setFixedSize(100, 40)
         button_lexer.setCursor(QCursor(Qt.PointingHandCursor))
-        button_lexer.clicked.connect(lambda: self.onClickedLexer(editor, execution_label))
+        button_lexer.clicked.connect(
+            lambda: self.onClickedLexer(editor, execution_label))
 
         layout = QVBoxLayout()
         button_parser = QPushButton("Run Parser")
         button_parser.setIcon(QIcon("./images/GUI/play.png"))
         button_parser.setFixedSize(100, 40)
         button_parser.setCursor(QCursor(Qt.PointingHandCursor))
-        button_parser.clicked.connect(lambda: self.onClickedParser(editor, execution_label))
+        button_parser.clicked.connect(
+            lambda: self.onClickedParser(editor, execution_label))
 
         button_open = QPushButton("Open File")
         button_open.setIcon(QIcon("./images/GUI/open.png"))
@@ -197,19 +272,19 @@ class Buttons(QWidget):
         layout.addWidget(button_open)
         self.setLayout(layout)
 
-    def onClickedLexer(self,editor,execution_label):
+    def onClickedLexer(self, editor, execution_label):
         print("Clicked")
         print(editor.toPlainText())
         tp = execution_label.plain_text
         tp.insertPlainText("")
         l_token = run_lexer(editor.toPlainText())
         for tok in l_token:
-            tp.insertPlainText("{:5} : {:5}".format(tok.value,tok.type))
+            tp.insertPlainText("{:5} : {:5}".format(tok.value, tok.type))
             tp.insertPlainText("\n")
         tp.insertPlainText("\n")
         tp.insertPlainText("\n")
 
-    def onClickedParser(self,editor,execution_label):
+    def onClickedParser(self, editor, execution_label):
         tp = execution_label.plain_text
         try:
             p_tree = run_parser(editor.toPlainText())
@@ -220,12 +295,6 @@ class Buttons(QWidget):
             tp.insertPlainText(str(e))
             tp.insertPlainText("\n")
             tp.insertPlainText("\n")
-        
-
-class SyntaxHighlighter(QSyntaxHighlighter):
-    def __init__(self, parent):
-        super(SyntaxHighlighter, self).__init__(parent)
-        self._lines = {}
 
 
 class MainApp(QMainWindow):
@@ -274,9 +343,10 @@ class MainApp(QMainWindow):
         label_exec = LabelExecution()
 
         editor = RustEditor(DISPLAY_LINE_NUMBERS=True,
-                            HIGHLIGHT_CURRENT_LINE=True)
+                            HIGHLIGHT_CURRENT_LINE=True,
+                            SyntaxHighlighter=RustHighlighter)
 
-        buttons = Buttons(editor,label_exec)
+        buttons = Buttons(editor, label_exec)
 
         splitter = QFrame()
         splitter.setObjectName("splitter")
