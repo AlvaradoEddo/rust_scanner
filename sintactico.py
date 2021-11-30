@@ -1,5 +1,7 @@
 from lexer import tokens
 import ply.yacc as yacc
+import ply.lex as lex
+from operac_mat import *
 
 
 '''
@@ -15,7 +17,7 @@ start = 'rust'
 def p_rust(p):
     '''
     rust : asignacion
-         | asignacion_sintipo 
+         | asignacion_sintipo
          | prints
          | hashfunc
          | conditional
@@ -239,24 +241,6 @@ def p_sentenciaStruct(p):
                 | VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
     '''
 
-
-def p_operacion_matematica(p):
-    '''
-    op_mat : art_exp
-            | VARIABLE signo_arit art_exp
-            | U8 signo_arit art_exp
-    '''
-
-
-def p_aritmetic_expresion(p):
-    '''
-    art_exp : VARIABLE signo_arit VARIABLE
-            | U8 signo_arit VARIABLE
-            | VARIABLE signo_arit U8
-            | U8 signo_arit U8
-    '''
-
-
 def p_signos_aritmeticos(p):
     '''
     signo_arit : MAS
@@ -464,13 +448,13 @@ def p_expresion(p):
                 | U8
                 | F32
                 | VARIABLE
+                | op_mat
     '''
 
 
 def p_expresion_sintipo(p):
     '''
     expresion_sintipo : hashset
-                        | op_mat
                         | slice_exp
                         | expresion
     '''
@@ -506,7 +490,7 @@ v.pop();
 }
 '''
 
-yacc.parse(code)
+#yacc.parse(code)
 
 while True:
     try:

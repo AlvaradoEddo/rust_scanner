@@ -49,7 +49,6 @@ reserved = {
     'pop': 'POP_VEC',
     'contains': 'CONTAINS_SLICE',
     'get': 'GET_SLICE',
-    'println': 'PRINT',
     'vec!': 'VECTMACRO',
     'Vec': 'VECT',
     'from': 'FROM',
@@ -91,6 +90,7 @@ tokens = (
     'NUMDATATYPES',
     'U8',
     'F32',
+    'I8',
     'ASIGNATION_TYPE',
     'ARROW',
     'COMMA',
@@ -136,6 +136,7 @@ t_LPAREN = r'\('
 t_RPAREN = r'\)'
 t_STRING = r'\"[a-zA-Z0-9_{}]*\"'
 t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]'
+t_I8 = r'-?(12[0-7]|1[0-1][0-9]|[1-9]?[0-9])|128'
 t_ENDLINE = r';'
 t_ASIGNATION_TYPE = r':'
 t_ARROW = r'->'
