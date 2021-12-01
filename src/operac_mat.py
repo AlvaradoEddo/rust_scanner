@@ -12,7 +12,15 @@ def p_operacion_matematica(p):
     op_mat : ope_u8
             | ope_f32
             | ope_i8
+            | ope_variable
     '''
+
+def p_ope_variable(p):
+    '''
+    ope_variable : VARIABLE signo_arit VARIABLE
+                 | VARIABLE signo_arit ope_variable
+    '''
+
 
 def p_ope_u8(p):
     '''

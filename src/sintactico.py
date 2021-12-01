@@ -1,8 +1,8 @@
-from lexer import tokens
 import ply.yacc as yacc
 import ply.lex as lex
 from operac_mat import *
 from error_manager import *
+from lexer import *
 
 
 '''
@@ -17,7 +17,19 @@ start = 'rust'
 
 def p_rust(p):
     '''
-    rust : asignacion
+    rust : sentencias
+    '''
+
+def p_sentencias(p):
+    '''
+    sentencias : sentencia 
+               | sentencia sentencias
+               | empty
+    '''
+
+def p_sentencia(p):
+    '''
+    sentencia : asignacion
          | asignacion_sintipo
          | prints
          | hashfunc
@@ -33,6 +45,7 @@ def p_rust(p):
          | slice_contains
          | read_data
         | function
+        | empty
     '''
 
 
@@ -41,6 +54,7 @@ def p_asignacion(p):
     asignacion : declarador ASIGNAR expresion ENDLINE
                 | other_operators ENDLINE
                 | op_mat ENDLINE
+                | bool_operation ENDLINE
     '''
 
 
@@ -173,6 +187,20 @@ def p_if_type(p):
             | ELSE
     '''
 
+def p_bool_operation(p):
+    '''
+    bool_operation : boolean
+                    | boolean AND bool_operation
+                    | boolean OR bool_operation
+                    | boolean ANDAND bool_operation
+                    | boolean OROR bool_operation
+    '''
+
+def p_boolean(p):
+    '''
+    boolean : B_TRUE
+            | B_FALSE
+    '''
 
 def p_validations(p):
     '''
@@ -358,15 +386,17 @@ def p_return(p):
             | expresion
     '''
 
-# closure
+# # closure
+# def p_closure(p):
+#     '''
+#     closure :  let_asig_sintipo ASIGNAR orclosure ARROW tipos LLAVEIZ expresion LLAVEDER ENDLINE
+#     '''
 
 
-def p_closure(p):
-    '''
-    closure :  let_asig_sintipo 
-
-    '''
-
+# def p_orclosure(p):
+#     '''
+#     orclosure : OR var_tipo OR
+#     '''
 
 # vector
 
@@ -437,8 +467,8 @@ def p_assign_empty(p):
 
 def p_vector_methods(p):
     '''
-    vector_methods : VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN
-                    | VARIABLE empty DOT empty POP_VEC LPAREN RPAREN
+    vector_methods : VARIABLE empty DOT empty PUSH_VEC LPAREN expresion RPAREN ENDLINE
+                    | VARIABLE empty DOT empty POP_VEC LPAREN RPAREN ENDLINE
     '''
 
 
@@ -455,9 +485,12 @@ def p_expresion(p):
     '''
     expresion : STRING
                 | U8
+                | I8
                 | F32
                 | VARIABLE
                 | op_mat
+                | bool_operation
+                | hashset
     '''
 
 
@@ -481,7 +514,7 @@ let mut v: Vec<i32> = Vec::from([1,2,3,4]);
 let mut set = HashSet::new();
 set.insert("a");
 set.insert("b");
-let x = &[1, 2, 3];
+let x = &mut [1, 2, 3];
 for n in numbers {
     println!("hola");
 }
@@ -521,12 +554,11 @@ def p_error(p):
     else:
         print("Syntax error at EOF\n")
         error_manager.syntax_err += 1
-        error_manager.syntax_err_descript += f"Syntax error at EOF\n"
+        error_manager.syntax_err_descript += f"Syntax error at EOF.\n"
 
 
 def run_parser(code):
+    run_lexer(code)
     parser = yacc.yacc(start='rust')
-    code_analysis = code.strip().split('\n')
-    for line in code_analysis:
-        result = parser.parse(line)
+    result = parser.parse(code)
     return result

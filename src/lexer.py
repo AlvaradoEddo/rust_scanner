@@ -111,7 +111,7 @@ tokens = (
     'PRINTS',
     'NEWFUNC',
     'HASHSET',
-    'STRUCT'
+    'STRUCT',
 
 ) + tuple(reserved.values())
 
@@ -134,7 +134,7 @@ t_DIFFERENT = r'!='
 t_ASIGNAR = r'='
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_STRING = r'\"[a-zA-Z0-9_{}]*\"'
+t_STRING = r'\"[\wA-Z_{}@\s]*\"'
 t_U8 = r'25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9]'
 t_I8 = r'-?(12[0-7]|1[0-1][0-9]|[1-9]?[0-9])|128'
 t_ENDLINE = r';'
@@ -164,14 +164,13 @@ t_ERRORPROP = r'\?'
 
 # These are not tokens but they need to be ignored by the lexer
 
-
 def t_F32(t):
     r'[0-9]+\.[0-9]+'
     return t
 
 
 def t_COMMENT_SIMPLE(t):
-    r'//(.*?)\n'
+    r'//.*'
     pass
 
 
@@ -249,7 +248,7 @@ def t_VARIABLE(t):
 
 
 def t_error(t):
-    error = f"Componente léxico no reconocido {t.value[0]}"
+    error = f"Componente léxico no reconocido {t.value[0]}\n"
     print(error)
     error_manager.lexer_err += 1
     error_manager.lexer_err_descript += error
