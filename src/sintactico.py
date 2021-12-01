@@ -242,6 +242,7 @@ def p_sentenciaStruct(p):
                 | VARIABLE LLAVEIZ argumentos_juntos LLAVEDER
     '''
 
+
 def p_signos_aritmeticos(p):
     '''
     signo_arit : MAS
@@ -490,9 +491,9 @@ v.pop();
 }
 '''
 
-#yacc.parse(code)
+# yacc.parse(code)
 
-    
+
 #parser = yacc.yacc(start='rust')
 
 # while True:
@@ -506,12 +507,19 @@ v.pop();
 #     print(result)
 
 def p_error(p):
-    print("Syntax error in line {} \n".format(p.lineno))
-    error_manager.syntax_err+=1
-    error_manager.syntax_err_descript += "Syntax error in line {} \n".format(p.lineno)
+    if p is not None:
+        print(f"Syntax error in line {p.lineno} at {p.value}\n")
+        error_manager.syntax_err += 1
+        error_manager.syntax_err_descript += f"Syntax error in line {p.lineno} at {p.value}\n"
+    else:
+        print("Syntax error at EOF\n")
+        error_manager.syntax_err += 1
+        error_manager.syntax_err_descript += f"Syntax error at EOF in line {p.lineo}\n"
+
 
 def run_parser(code):
     parser = yacc.yacc(start='rust')
-    result = parser.parse(code)
-    
+    code_analysis = code.strip().split('\n')
+    for line in code_analysis:
+        result = parser.parse(line)
     return result

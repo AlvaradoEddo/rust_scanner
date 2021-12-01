@@ -26,12 +26,16 @@ class RustHighlighter(QSyntaxHighlighter):
         # types
         types = ["bool", "char", "f32", "f64",
                  "i32", "u8", "u16"]
-        print(types)
         typeFormat = QTextCharFormat()
         typeFormat.setForeground(QColor("#EE7867"))
         typePatterns = ["\\b" + r + "\\b" for r in types]
         self.highlightingRules += [(QRegExp(pattern), typeFormat)
                                    for pattern in typePatterns]
+
+        # numbers
+        numberFormat = QTextCharFormat()
+        numberFormat.setForeground(QColor("#2a9d8f"))
+        self.highlightingRules += [(QRegExp("\\b[0-9]+\\b"), numberFormat)]
 
         # line comment
         commentFormat = QTextCharFormat()
@@ -274,10 +278,10 @@ class Buttons(QWidget):
         self.setLayout(layout)
 
     def onClickedLexer(self, editor, execution_label):
-        print("Clicked")
-        print(editor.toPlainText())
+        something = editor.toPlainText().strip().split('\n')
         tp = execution_label.plain_text
-        tp.insertPlainText("")
+        tp.setPlainText("")
+        tp.insertPlainText("Lexical Analysis Output\n")
         error_manager()
         l_token = run_lexer(editor.toPlainText())
         if error_manager.lexer_err:
@@ -291,6 +295,8 @@ class Buttons(QWidget):
 
     def onClickedParser(self, editor, execution_label):
         tp = execution_label.plain_text
+        tp.setPlainText("")
+        tp.insertPlainText("Syntactic Analysis Output\n")
         error_manager()
         p_tree = run_parser(editor.toPlainText())
         if error_manager.syntax_err:
@@ -298,7 +304,6 @@ class Buttons(QWidget):
         else:
             tp.insertPlainText("Tudu bonitus")
             tp.insertPlainText("\n")
-        
 
 
 class MainApp(QMainWindow):
