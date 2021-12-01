@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from lexer import *
 from sintactico import *
 from lexer import reserved
+from error_manager import *
 
 
 class RustHighlighter(QSyntaxHighlighter):
@@ -277,24 +278,27 @@ class Buttons(QWidget):
         print(editor.toPlainText())
         tp = execution_label.plain_text
         tp.insertPlainText("")
+        error_manager()
         l_token = run_lexer(editor.toPlainText())
-        for tok in l_token:
-            tp.insertPlainText("{:5} : {:5}".format(tok.value, tok.type))
-            tp.insertPlainText("\n")
+        if error_manager.lexer_err:
+            tp.insertPlainText(error_manager.lexer_err_descript)
+        else:
+            for tok in l_token:
+                tp.insertPlainText("{:5} : {:5}".format(tok.value, tok.type))
+                tp.insertPlainText("\n")
         tp.insertPlainText("\n")
         tp.insertPlainText("\n")
 
     def onClickedParser(self, editor, execution_label):
         tp = execution_label.plain_text
-        try:
-            p_tree = run_parser(editor.toPlainText())
-            print(f'Este es el ptree: {p_tree}')
-            tp.insertPlainText(str(p_tree))
+        error_manager()
+        p_tree = run_parser(editor.toPlainText())
+        if error_manager.syntax_err:
+            tp.insertPlainText(error_manager.syntax_err_descript)
+        else:
+            tp.insertPlainText("Tudu bonitus")
             tp.insertPlainText("\n")
-        except Exception as e:
-            tp.insertPlainText(str(e))
-            tp.insertPlainText("\n")
-            tp.insertPlainText("\n")
+        
 
 
 class MainApp(QMainWindow):

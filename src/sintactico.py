@@ -2,6 +2,7 @@ from lexer import tokens
 import ply.yacc as yacc
 import ply.lex as lex
 from operac_mat import *
+from error_manager import *
 
 
 '''
@@ -505,7 +506,9 @@ v.pop();
 #     print(result)
 
 def p_error(p):
-    raise SyntaxError 
+    print("Syntax error in line {} \n".format(p.lineno))
+    error_manager.syntax_err+=1
+    error_manager.syntax_err_descript += "Syntax error in line {} \n".format(p.lineno)
 
 def run_parser(code):
     parser = yacc.yacc(start='rust')

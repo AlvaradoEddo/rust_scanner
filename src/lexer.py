@@ -1,6 +1,6 @@
 import ply.lex as lex
 from colorama import Fore, Style
-
+from error_manager import *
 
 # APORTE EDDO
 reserved = {
@@ -249,7 +249,10 @@ def t_VARIABLE(t):
 
 
 def t_error(t):
-    print("Componente léxico no reconocido '%s'" % t.value[0])
+    error = f"Componente léxico no reconocido {t.value[0]}"
+    print(error)
+    error_manager.lexer_err += 1
+    error_manager.lexer_err_descript += error
     t.lexer.skip(1)
 
 
