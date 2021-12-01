@@ -23,9 +23,10 @@ Lexers are the ones that turn normal strings (something a human can read) into t
 
 ## Screenshots of our program
 
-![prueba-lexer](https://user-images.githubusercontent.com/59121896/141684590-3ff86fc0-5d37-4f66-9c10-eb18eabc297e.gif)
+![prueba_gui](https://user-images.githubusercontent.com/59121896/144311324-23506b49-e8b2-485f-a4a1-27ed54ed6d14.gif)
 
 ## Rust Parser
-### What is a parser? 
-The parser is the one that is going to obtain the tokens from the lexer and verify that the string follows our language's grammar. 
 
+### What is a parser?
+
+The parser is the one that is going to obtain the tokens from the lexer and verify that the string follows our language's grammar.
