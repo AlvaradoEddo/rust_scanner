@@ -361,6 +361,13 @@ def p_return(p):
 # closure
 
 
+def p_closure(p):
+    '''
+    closure :  let_asig_sintipo 
+
+    '''
+
+
 # vector
 
 
@@ -474,7 +481,7 @@ let mut v: Vec<i32> = Vec::from([1,2,3,4]);
 let mut set = HashSet::new();
 set.insert("a");
 set.insert("b");
-let x = &mut [1, 2, 3];
+let x = &[1, 2, 3];
 for n in numbers {
     println!("hola");
 }
@@ -514,7 +521,7 @@ def p_error(p):
     else:
         print("Syntax error at EOF\n")
         error_manager.syntax_err += 1
-        error_manager.syntax_err_descript += f"Syntax error at EOF in line {p.lineo}\n"
+        error_manager.syntax_err_descript += f"Syntax error at EOF\n"
 
 
 def run_parser(code):
