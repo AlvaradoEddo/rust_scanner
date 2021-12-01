@@ -159,6 +159,8 @@ def p_conditional_asigned(p):
     conditional_asigned : declarador ASIGNAR conditional ENDLINE
     '''
 
+# boolean semantic if (Validate that if is followed by a boolean expression)
+
 
 def p_conditional(p):
     '''
@@ -173,6 +175,8 @@ def p_if_type(p):
             | ELSE
     '''
 
+# boolean semantic
+
 
 def p_validations(p):
     '''
@@ -180,6 +184,7 @@ def p_validations(p):
                 | comparison ANDAND validations
                 | comparison OROR validations
     '''
+
 # Aporte Eddo
 
 
@@ -300,6 +305,8 @@ Joangie's contribution 21/11/2021
 
 # while loop
 
+# boolean semantic while (Validate that while is followed by a boolean expression)
+
 
 def p_while(p):
     '''
@@ -363,7 +370,7 @@ def p_return(p):
 
 def p_closure(p):
     '''
-    closure :  let_asig_sintipo 
+    closure :  let_asig_sintipo ASIGNAR OR empty VARIABLE ASSIGNATION_TYPE tipos OR ARROW tipos LLAVEIZ rust LLAVEDER
 
     '''
 
