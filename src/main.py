@@ -271,7 +271,7 @@ class Buttons(QWidget):
         button_open.setIcon(QIcon("./images/GUI/open.png"))
         button_open.setFixedSize(100, 40)
         button_open.setCursor(QCursor(Qt.PointingHandCursor))
-        button_open.clicked.connect(lambda:self.openFile(editor))
+        button_open.clicked.connect(lambda: self.openFile(editor))
 
         layout.addWidget(button_lexer)
         layout.addWidget(button_parser)
@@ -286,7 +286,8 @@ class Buttons(QWidget):
         error_manager()
         l_token = run_lexer(editor.toPlainText())
         if error_manager.lexer_err:
-            tp.insertPlainText(f"Number of lexer errors: {error_manager.lexer_err}\n")
+            tp.insertPlainText(
+                f"Number of lexer errors: {error_manager.lexer_err}\n")
             tp.insertPlainText(error_manager.lexer_err_descript)
         else:
             for tok in l_token:
@@ -302,15 +303,21 @@ class Buttons(QWidget):
         error_manager()
         p_tree = run_parser(editor.toPlainText())
         if error_manager.syntax_err:
-            tp.insertPlainText(f"Number of syntax errors: {error_manager.syntax_err}\n")
+            tp.insertPlainText(
+                f"Number of syntax errors: {error_manager.syntax_err}\n")
             tp.insertPlainText(error_manager.syntax_err_descript)
         if error_manager.struc_err:
-            tp.insertPlainText(f"Number of errors in structures: {error_manager.struc_err}\n")
+            tp.insertPlainText(
+                f"Number of errors in structures: {error_manager.struc_err}\n")
             tp.insertPlainText(error_manager.systax_err_struc)
-        if not error_manager.struc_err and not error_manager.syntax_err:
+        if error_manager.arithmetic_op_error:
+            tp.insertPlainText(
+                f"Number of arithmetic errors: {error_manager.arithmetic_op_error}\n")
+            tp.insertPlainText(error_manager.arithmetic_op_error_descript)
+        if not error_manager.struc_err and not error_manager.syntax_err and not error_manager.arithmetic_op_error:
             tp.insertPlainText("Tudu bonitus")
             tp.insertPlainText("\n")
-    
+
     def openFile(self, editor):
         file = QFileDialog.getOpenFileName()
         path = file[0]

@@ -20,12 +20,14 @@ def p_rust(p):
     rust : sentencias
     '''
 
+
 def p_sentencias(p):
     '''
     sentencias : sentencia 
                | sentencia sentencias
                | empty
     '''
+
 
 def p_sentencia(p):
     '''
@@ -190,6 +192,7 @@ def p_if_type(p):
             | ELSE
     '''
 
+
 def p_bool_operation(p):
     '''
     bool_operation : boolean
@@ -199,11 +202,13 @@ def p_bool_operation(p):
                     | boolean OROR bool_operation
     '''
 
+
 def p_boolean(p):
     '''
     boolean : B_TRUE
             | B_FALSE
     '''
+
 
 def p_validations(p):
     '''
@@ -338,6 +343,8 @@ Joangie's contribution 21/11/2021
 def p_while(p):
     '''
     while_loop : WHILE validations LLAVEIZ rust LLAVEDER
+                | WHILE B_TRUE LLAVEIZ rust LLAVEDER
+
     '''
 # read data with std:io
 
@@ -391,18 +398,21 @@ def p_return(p):
     return : RETURN expresion ENDLINE
             | expresion
     '''
+
+
 def p_boolean_error(p):
     '''
         boolean_error : estructura_error other_option LLAVEIZ rust LLAVEDER
     '''
     error_manager.struc_err += 1
-   
+
 
 def p_type_operation(p):
     '''
         estructura_error : WHILE 
                         | if_type
     '''
+
 
 def p_error_argum(p):
     '''
@@ -420,7 +430,14 @@ def p_error_argum(p):
 #     '''
 #     orclosure : OR var_tipo OR
 #     '''
-
+def p_error_arithm(p):
+    '''
+    error_arithm : U8 signo_arit F32
+            | F32 signo_arit U8
+            | F32 signo_arit I8
+            | I8 signo_arit F32
+    '''
+    error_manager.arithmetic_op_error += 1
 # vector
 
 

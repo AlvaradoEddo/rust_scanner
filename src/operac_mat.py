@@ -7,13 +7,17 @@ def p_signos_aritmeticos(p):
                 | MODULO
     '''
 
+
 def p_operacion_matematica(p):
     '''
     op_mat : ope_u8
             | ope_f32
             | ope_i8
             | ope_variable
+            | error_arithm
+
     '''
+
 
 def p_ope_variable(p):
     '''
@@ -31,6 +35,7 @@ def p_ope_u8(p):
             | VARIABLE signo_arit ope_u8
     '''
 
+
 def p_ope_f32(p):
     '''
     ope_f32 : F32 signo_arit F32
@@ -40,6 +45,7 @@ def p_ope_f32(p):
             | VARIABLE signo_arit ope_f32
     '''
 
+
 def p_ope_i8(p):
     '''
     ope_i8 : I8 signo_arit I8
@@ -48,6 +54,3 @@ def p_ope_i8(p):
             | I8 signo_arit ope_i8
             | VARIABLE signo_arit ope_i8
     '''
-
-
-
