@@ -304,7 +304,10 @@ class Buttons(QWidget):
         if error_manager.syntax_err:
             tp.insertPlainText(f"Number of syntax errors: {error_manager.syntax_err}\n")
             tp.insertPlainText(error_manager.syntax_err_descript)
-        else:
+        if error_manager.struc_err:
+            tp.insertPlainText(f"Number of errors in structures: {error_manager.struc_err}\n")
+            tp.insertPlainText(error_manager.systax_err_struc)
+        if not error_manager.struc_err and not error_manager.syntax_err:
             tp.insertPlainText("Tudu bonitus")
             tp.insertPlainText("\n")
     

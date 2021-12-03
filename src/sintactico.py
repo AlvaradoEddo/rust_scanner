@@ -46,6 +46,7 @@ def p_sentencia(p):
          | read_data
         | function
         | empty
+        | boolean_error
     '''
 
 
@@ -390,7 +391,24 @@ def p_return(p):
     return : RETURN expresion ENDLINE
             | expresion
     '''
+def p_boolean_error(p):
+    '''
+        boolean_error : estructura_error other_option LLAVEIZ rust LLAVEDER
+    '''
+    error_manager.struc_err += 1
+   
 
+def p_type_operation(p):
+    '''
+        estructura_error : WHILE 
+                        | if_type
+    '''
+
+def p_error_argum(p):
+    '''
+        other_option : STRING 
+                    | U8
+    '''
 # # closure
 # def p_closure(p):
 #     '''
